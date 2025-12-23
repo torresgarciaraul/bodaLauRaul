@@ -7,113 +7,144 @@
 <meta name="description" content="Invitación de boda de Laura y Raúl" />
 
 <style>
-:root { --verde: #5c7d62; --crema: #f6f2ec; --dorado: #cfa670; --texto: #2f2f2f; }
-* { box-sizing: border-box; margin:0; padding:0; }
-body { font-family: system-ui, -apple-system, Segoe UI, sans-serif; background:var(--crema); color:var(--texto); }
+:root {
+  --verde:#5c7d62;
+  --crema:#f6f2ec;
+  --dorado:#cfa670;
+  --texto:#2f2f2f;
+}
 
-.pantalla{
-  min-height:100vh; display:none; padding:2rem 1.2rem 4rem;
-  text-align:center; flex-direction:column; justify-content:center; align-items:center;
-  position:absolute; top:0; left:0; width:100%;
-  transition: transform 0.5s ease, opacity 0.5s ease;
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:system-ui,-apple-system,Segoe UI,sans-serif;
   background:var(--crema);
+  color:var(--texto);
+  overflow:hidden; /* evita scroll global en PC */
 }
-.pantalla.activa{display:flex; transform:translateX(0); opacity:1;}
-.pantalla.salida{transform:translateX(-100%); opacity:0;}
 
-h1,h2{color:var(--verde);}
-h1{font-size:2.4rem;}
-h2{font-size:1.6rem;}
-p{max-width:560px; line-height:1.6; margin-top:1rem;}
+/* Pantallas */
+.pantalla{
+  min-height:100vh;
+  display:none;
+  padding:1.5rem 1.2rem;
+  text-align:center;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  position:absolute;
+  inset:0;
+  background:var(--crema);
+  transition:transform .5s ease,opacity .5s ease;
+}
 
+.pantalla.activa{display:flex}
+.pantalla.salida{transform:translateX(-100%);opacity:0}
+
+h1,h2{color:var(--verde)}
+h1{font-size:2.2rem}
+h2{font-size:1.5rem}
+p{max-width:560px;line-height:1.5;margin-top:.8rem}
+
+/* BOTONES */
 button{
-  margin-top:1.2rem; padding:.8rem 1.6rem;
-  border-radius:999px; border:none;
-  background:var(--verde); color:#fff;
-  font-size:1rem; cursor:pointer
-}
-.secundario{background:transparent; color:var(--verde); border:2px solid var(--verde)}
-
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible{
-  outline:3px solid var(--dorado); outline-offset:2px
+  margin-top:1rem;
+  padding:.7rem 1.4rem;
+  border-radius:999px;
+  border:none;
+  background:var(--verde);
+  color:#fff;
+  font-size:1rem;
+  cursor:pointer
 }
 
-img{border-radius:1rem; margin:1.2rem 0}
+.secundario{
+  background:transparent;
+  color:var(--verde);
+  border:2px solid var(--verde)
+}
 
-/* 👉 IMAGEN PRINCIPAL RESPONSIVE */
+/* IMÁGENES PRINCIPALES — AJUSTE CLAVE */
 .imagen-principal{
   width:100%;
-  max-width:420px;
-  max-height:55vh;
+  max-width:380px;
+  max-height:45vh;
   object-fit:contain;
-  box-shadow:0 10px 30px rgba(0,0,0,0.15);
+  margin:1rem 0;
 }
 
-@media (min-width:900px){
+/* En PC reducimos aún más */
+@media (min-width: 900px){
   .imagen-principal{
-    max-width:360px;
-    max-height:45vh;
+    max-width:320px;
+    max-height:30vh;
   }
 }
 
-.contador{font-size:1.4rem; font-weight:700; margin-top:.8rem}
-form{width:100%; max-width:440px; text-align:left; margin-top:1rem}
-label{display:block; margin-top:.9rem; font-weight:600}
-input,textarea,select{
-  width:100%; padding:.6rem; margin-top:.3rem;
-  border-radius:.5rem; border:1px solid #ccc; font-size:1rem
-}
-footer{margin-top:2rem; font-size:.85rem; opacity:.8}
+/* RESTO */
+.contador{font-size:1.3rem;font-weight:700;margin-top:.6rem}
 iframe.mapa{
-  width:100%; max-width:640px; height:320px;
-  border:0; border-radius:1rem; margin-top:1rem
+  width:100%;
+  max-width:640px;
+  height:300px;
+  border:0;
+  border-radius:1rem;
+  margin-top:1rem
 }
 
-/* Timeline gráfico */
-.timeline{position:relative; max-width:520px; margin:2rem auto; padding-left:20px;}
-.timeline::before{content:""; position:absolute; left:12px; top:0; width:4px; height:100%; background:var(--verde);}
-.timeline div{position:relative; margin-bottom:2rem; padding-left:20px;}
-.timeline div::before{content:""; position:absolute; left:-12px; top:0; width:20px; height:20px; border-radius:50%; background:var(--verde);}
-.timeline div span{font-weight:700; margin-right:0.3rem;}
+/* Timeline */
+.timeline{max-width:520px;margin:1.5rem auto;text-align:left}
+.timeline div{margin-bottom:.8rem}
+.timeline span{font-weight:700}
 
-/* Menú */
+/* MENÚ */
 #menuBtn{
   position:fixed;top:1rem;right:1rem;
-  padding:.8rem 1.2rem;border-radius:999px;
-  background:var(--verde);color:#fff;border:none;
-  cursor:pointer;z-index:999;
+  padding:.7rem 1.2rem;
+  border-radius:999px;
+  background:var(--verde);
+  color:#fff;
+  border:none;
+  z-index:999
 }
+
 #menuOpciones{
   position:fixed;top:3.5rem;right:1rem;
-  background:#fff;border-radius:.8rem;
+  background:#fff;
+  border-radius:.8rem;
   box-shadow:0 2px 10px rgba(0,0,0,.2);
-  display:none;flex-direction:column;
-  min-width:180px;z-index:999;
+  display:none;
+  flex-direction:column;
+  min-width:180px;
+  z-index:999
 }
+
 #menuOpciones button{
-  background:transparent;color:var(--verde);
-  border:none;text-align:left;
-  padding:.8rem 1rem;margin:0;
-  cursor:pointer;font-weight:600;
+  background:none;
+  color:var(--verde);
+  border:none;
+  padding:.8rem 1rem;
+  text-align:left;
+  cursor:pointer
 }
-#menuOpciones button:hover{background:var(--crema);}
 
 /* Música */
 #btnMusica{
-  position:fixed;bottom:2rem;right:2rem;
-  padding:1rem 2rem;font-size:1rem;
-  border-radius:999px;background:var(--verde);
-  color:white;border:none;cursor:pointer;z-index:999;
+  position:fixed;
+  bottom:1.5rem;
+  right:1.5rem;
+  padding:.8rem 1.4rem;
+  border-radius:999px;
+  background:var(--verde);
+  color:#fff;
+  border:none;
+  z-index:999
 }
 </style>
 </head>
 
 <body>
 
-<!-- Menú -->
 <button id="menuBtn">☰ Menú</button>
 <div id="menuOpciones">
   <button data-target="p1">Inicio</button>
@@ -122,12 +153,10 @@ iframe.mapa{
   <button data-target="p4">Mapa</button>
   <button data-target="p5">Timeline</button>
   <button data-target="p6">Confirmación</button>
-  <button data-target="p8">Fin de encuesta</button>
 </div>
 
-<!-- Pantallas -->
 <section class="pantalla activa" id="p1">
-  <img src="imagenes/raul_laura_acu.png" alt="Laura & Raúl" class="imagen-principal">
+  <img src="imagenes/raul_laura_acu.png" class="imagen-principal" alt="Laura y Raúl">
   <h1>Laura & Raúl</h1>
   <p>27 de junio de 2026 · ¡Nos casamos!</p>
   <button onclick="irA('p2')">Empezar</button>
@@ -135,74 +164,72 @@ iframe.mapa{
 
 <section class="pantalla" id="p2">
   <h2>📅 27 de junio de 2026</h2>
-  <p>Cuenta atrás para el gran día:</p>
-  <div class="contador" id="contador" aria-live="polite"></div>
+  <div class="contador" id="contador"></div>
   <button onclick="irA('p3')">Lugar</button>
 </section>
 
 <section class="pantalla" id="p3">
   <h2>🏛️ Palacete de la Ochava</h2>
-  <p>Valdilecha · Un lugar precioso para celebrar el amor</p>
-  <img src="imagenes/fachada.jpg" alt="Fachada del Palacete de la Ochava">
-  <button onclick="irA('p4')">Mapa & cómo llegar</button>
+  <img src="imagenes/fachada.jpg" class="imagen-principal" alt="Palacete">
+  <button onclick="irA('p4')">Mapa</button>
 </section>
 
 <section class="pantalla" id="p4">
   <h2>🗺️ Cómo llegar</h2>
-  <iframe class="mapa" loading="lazy"
+  <iframe class="mapa"
     src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&output=embed">
   </iframe>
-  <button class="secundario" onclick="irA('p5')">Timeline</button>
+  <button onclick="irA('p5')">Timeline</button>
 </section>
 
 <section class="pantalla" id="p5">
-  <h2>📌 Timeline del Día</h2>
+  <h2>📌 Timeline</h2>
   <div class="timeline">
-    <div><span>16:00</span> Llegada y habitaciones</div>
-    <div><span>17:30</span> Iglesia</div>
+    <div><span>16:00</span> Llegada</div>
     <div><span>18:00</span> Ceremonia</div>
     <div><span>19:30</span> Cóctel</div>
     <div><span>21:30</span> Banquete</div>
-    <div><span>00:30</span> Celebración</div>
-    <div><span>10:00</span> Desayuno</div>
-    <div><span>12:00</span> Salida</div>
   </div>
-  <button onclick="irA('p6')">Confirmación</button>
+  <button onclick="irA('p6')">Confirmar</button>
 </section>
 
 <section class="pantalla" id="p6">
-  <h2>💌 Confirmación de asistencia</h2>
-  <form onsubmit="enviarFormulario(event)">
-    <label>Nombre<input name="nombre" required></label>
-    <label>Apellidos<input name="apellidos" required></label>
-    <label>¿Podrás acompañarnos?
-      <select name="asistencia" required>
-        <option value="">Selecciona</option>
-        <option>Si, y me quedaré a dormir</option>
-        <option>Si, pero me marcharé</option>
-        <option>No</option>
-      </select>
-    </label>
-    <label>Alergias<textarea name="alergias"></textarea></label>
-    <button type="submit">Enviar</button>
-    <p id="mensaje"></p>
-  </form>
-</section>
-
-<section class="pantalla" id="p8">
-  <img src="imagenes/raul_laura_acu.png" alt="Laura & Raúl" class="imagen-principal">
-  <h2>¡Gracias por tu confirmación!</h2>
-  <p>27 de junio de 2026</p>
-  <button id="copiarCuenta">EXXX XXXX XXXX XXXX</button>
-  <p id="mensajeCuenta"></p>
-  <button class="secundario" onclick="irA('p1')">Volver al inicio</button>
+  <h2>💌 Confirmación</h2>
+  <p>Formulario de asistencia</p>
 </section>
 
 <audio id="musica" src="musica/bso.mp3" loop></audio>
-<button id="btnMusica">🎵 Activar música</button>
+<button id="btnMusica">🎵 Música</button>
 
 <script>
-/* JS sin cambios funcionales */
+let actual=document.querySelector('.pantalla.activa')
+function irA(id){
+  const sig=document.getElementById(id)
+  if(actual===sig)return
+  actual.classList.add('salida')
+  setTimeout(()=>{
+    actual.classList.remove('activa','salida')
+    sig.classList.add('activa')
+    actual=sig
+  },500)
+}
+
+/* contador */
+const fecha=new Date('2026-06-27T12:00:00')
+setInterval(()=>{
+  const d=fecha-new Date()
+  document.getElementById('contador').textContent =
+    d<=0 ? '¡Hoy!' :
+    Math.floor(d/86400000)+' días'
+},1000)
+
+/* menú */
+menuBtn.onclick=()=>menuOpciones.style.display=
+menuOpciones.style.display==='flex'?'none':'flex'
+
+menuOpciones.querySelectorAll('button').forEach(b=>{
+  b.onclick=()=>{irA(b.dataset.target);menuOpciones.style.display='none'}
+})
 </script>
 
 </body>
