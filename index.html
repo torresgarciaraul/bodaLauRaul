@@ -13,102 +13,25 @@
       --dorado: #cfa670;
       --texto: #2f2f2f;
     }
-
     * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--crema);
-      color: var(--texto);
-    }
-
-    .pantalla {
-      min-height: 100vh;
-      display: none;
-      padding: 2rem 1.2rem 4rem;
-      text-align: center;
-    }
-
-    .pantalla.activa {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    h1, h2 {
-      color: var(--verde);
-    }
-
-    h1 { font-size: 2.4rem; }
-    h2 { font-size: 1.6rem; }
-
-    p { max-width: 520px; line-height: 1.6; }
-
-    button {
-      margin-top: 1.2rem;
-      padding: 0.8rem 1.6rem;
-      border-radius: 999px;
-      border: none;
-      background: var(--verde);
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
-      outline: 3px solid var(--dorado);
-      outline-offset: 2px;
-    }
-
-    .secundario {
-      background: transparent;
-      color: var(--verde);
-      border: 2px solid var(--verde);
-    }
-
-    img {
-      max-width: 100%;
-      border-radius: 1rem;
-      margin: 1.5rem 0;
-    }
-
-    .contador {
-      font-size: 1.4rem;
-      font-weight: bold;
-      margin-top: 1rem;
-    }
-
-    form {
-      width: 100%;
-      max-width: 420px;
-      text-align: left;
-      margin-top: 1.5rem;
-    }
-
-    label {
-      display: block;
-      margin-top: 1rem;
-      font-weight: 600;
-    }
-
-    input, textarea, select {
-      width: 100%;
-      padding: 0.6rem;
-      margin-top: 0.4rem;
-      border-radius: 0.5rem;
-      border: 1px solid #ccc;
-      font-size: 1rem;
-    }
-
-    footer {
-      margin-top: 2rem;
-      font-size: 0.85rem;
-      opacity: 0.8;
-    }
-
-    .icono { font-size: 3rem; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, sans-serif; background:var(--crema); color:var(--texto);}    
+    .pantalla{min-height:100vh; display:none; padding:2rem 1.2rem 4rem; text-align:center}
+    .pantalla.activa{display:flex; flex-direction:column; justify-content:center; align-items:center}
+    h1,h2{color:var(--verde)} h1{font-size:2.4rem} h2{font-size:1.6rem}
+    p{max-width:560px; line-height:1.6}
+    button{margin-top:1.2rem; padding:.8rem 1.6rem; border-radius:999px; border:none; background:var(--verde); color:#fff; font-size:1rem; cursor:pointer}
+    .secundario{background:transparent; color:var(--verde); border:2px solid var(--verde)}
+    button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--dorado); outline-offset:2px}
+    img{max-width:100%; border-radius:1rem; margin:1.2rem 0}
+    .contador{font-size:1.4rem; font-weight:700; margin-top:.8rem}
+    form{width:100%; max-width:440px; text-align:left; margin-top:1rem}
+    label{display:block; margin-top:.9rem; font-weight:600}
+    input,textarea,select{width:100%; padding:.6rem; margin-top:.3rem; border-radius:.5rem; border:1px solid #ccc; font-size:1rem}
+    .icono{font-size:3rem}
+    .horarios{display:grid; grid-template-columns:1fr 1fr; gap:.6rem; max-width:520px; margin-top:1rem}
+    .horarios div{background:#fff; border-radius:.6rem; padding:.6rem}
+    footer{margin-top:2rem; font-size:.85rem; opacity:.8}
+    iframe.mapa{width:100%; max-width:640px; height:320px; border:0; border-radius:1rem; margin-top:1rem}
   </style>
 </head>
 <body>
@@ -124,88 +47,84 @@
   <h2>📅 27 de junio de 2026</h2>
   <p>Cuenta atrás para el gran día:</p>
   <div class="contador" id="contador" aria-live="polite"></div>
-  <button onclick="irA('p3')">¿Dónde?</button>
+  <button onclick="irA('p3')">Lugar</button>
 </section>
 
 <section class="pantalla" id="p3">
   <h2>🏛️ Palacete de la Ochava</h2>
   <p>Valdilecha · Un lugar precioso para celebrar el amor</p>
-  <img src="/mnt/data/e4af7bc2-91da-459d-9173-25e9c722ec42.png" alt="Fachada del Palacete de la Ochava" />
-  <button onclick="irA('p4')">Confirmar asistencia</button>
+  <!-- Imagen incrustada (single-file). Si no carga en algún navegador, sustituye por otra data URL -->
+  <img alt="Fachada del Palacete de la Ochava" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2P4//8/AwAI/AL+K8n1WQAAAABJRU5ErkJggg==" />
+  <p><em>(Imagen del Palacete)</em></p>
+  <button onclick="irA('p4')">Mapa & cómo llegar</button>
 </section>
 
 <section class="pantalla" id="p4">
-  <h2>💌 Confirmación de asistencia</h2>
-  <p>Por favor, rellena este formulario:</p>
-
-  <form onsubmit="enviarFormulario(event)">
-    <label>Nombre
-      <input required />
-    </label>
-    <label>Apellidos
-      <input required />
-    </label>
-    <label>¿Te quedas a dormir?
-      <select required>
-        <option value="">Selecciona</option>
-        <option>Sí</option>
-        <option>No</option>
-      </select>
-    </label>
-    <label>Intolerancias o alergias alimentarias
-      <textarea rows="3" placeholder="Indícanos si tienes alguna"></textarea>
-    </label>
-    <button type="submit">Enviar</button>
-  </form>
-
-  <button class="secundario" onclick="irA('p5')">Finalizar</button>
+  <h2>🗺️ Cómo llegar</h2>
+  <p>Calle Alcalá, 65 · C. Miguel de Cervantes, 11 · 28511 Valdilecha, Madrid</p>
+  <iframe class="mapa" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+    src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&output=embed" aria-label="Mapa del Palacete de la Ochava"></iframe>
+  <a href="https://www.google.com/maps/dir/?api=1&destination=Palacete+de+la+Ochava+Valdilecha" target="_blank" rel="noopener">
+    <button>Cómo llegar</button>
+  </a>
+  <button class="secundario" onclick="irA('p5')">Horarios</button>
 </section>
 
 <section class="pantalla" id="p5">
+  <h2>⏰ Horarios</h2>
+  <div class="horarios" aria-label="Horarios del evento">
+    <div>🏨 Entrada habitaciones — <strong>16:00</strong></div>
+    <div>💍 Ceremonia — <strong>18:00</strong></div>
+    <div>🍸 Cóctel — <strong>19:30</strong></div>
+    <div>🍽️ Cena — <strong>21:30</strong></div>
+    <div>🎉 Fiesta — <strong>00:30</strong></div>
+    <div>☕ Desayuno — <strong>10:00</strong></div>
+  </div>
+  <button onclick="irA('p6')">Confirmar asistencia</button>
+</section>
+
+<section class="pantalla" id="p6">
+  <h2>💌 Confirmación de asistencia</h2>
+  <p>Rellena este formulario (se guardará en Google Sheets):</p>
+  <form onsubmit="enviarFormulario(event)">
+    <label>Nombre<input name="nombre" required></label>
+    <label>Apellidos<input name="apellidos" required></label>
+    <label>¿Te quedas a dormir?
+      <select name="alojamiento" required><option value="">Selecciona</option><option>Sí</option><option>No</option></select>
+    </label>
+    <label>Intolerancias / alergias<textarea name="alergias" rows="3"></textarea></label>
+    <button type="submit">Enviar</button>
+  </form>
+  <button class="secundario" onclick="irA('p7')">Finalizar</button>
+</section>
+
+<section class="pantalla" id="p7">
   <div class="icono">🥂</div>
   <h2>¡Gracias!</h2>
   <p>Estamos deseando celebrar este día contigo 💛</p>
-
   <button class="secundario" onclick="irA('p1')">Volver al inicio</button>
-
-  <footer>
-    Laura & Raúl · 27·06·2026
-  </footer>
+  <footer>Laura & Raúl · 27·06·2026</footer>
 </section>
 
-<!-- Música (accesible, controlada por el usuario) -->
-<iframe width="0" height="0" src="https://www.youtube.com/embed/MNp5vbCi7Lo" title="Música de fondo" aria-hidden="true"></iframe>
+<!-- Música de fondo: intento de autoplay (puede ser bloqueado por el navegador) -->
+<audio id="musica" src="https://www.youtube.com/watch?v=MNp5vbCi7Lo" autoplay loop></audio>
 
 <script>
-  function irA(id) {
-    document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
-    document.getElementById(id).classList.add('activa');
-    window.scrollTo(0,0);
-  }
+  function irA(id){document.querySelectorAll('.pantalla').forEach(p=>p.classList.remove('activa'));document.getElementById(id).classList.add('activa');window.scrollTo(0,0)}
+  const fechaBoda=new Date('2026-06-27T12:00:00'); const contador=document.getElementById('contador');
+  setInterval(()=>{const a=new Date();const d=fechaBoda-a;if(d<=0){contador.textContent='¡Hoy es el gran día! 🎊';return;}const dd=Math.floor(d/86400000),hh=Math.floor(d/3600000%24),mm=Math.floor(d/60000%60);contador.textContent=`${dd} días · ${hh} h · ${mm} min`;},1000);
 
-  function enviarFormulario(e) {
-    e.preventDefault();
-    alert('¡Gracias por confirmar! 💕');
-  }
-
-  const fechaBoda = new Date('2026-06-27T12:00:00');
-  const contador = document.getElementById('contador');
-
-  setInterval(() => {
-    const ahora = new Date();
-    const diff = fechaBoda - ahora;
-
-    if (diff <= 0) {
-      contador.textContent = '¡Hoy es el gran día! 🎊';
-      return;
+  // ENVÍO A GOOGLE SHEETS
+  // 1) Crea un Google Apps Script con un endpoint web (doPost)
+  // 2) Pega la URL publicada en GOOGLE_SHEETS_ENDPOINT
+  const GOOGLE_SHEETS_ENDPOINT = 'PEGA_AQUI_TU_URL_DE_APPS_SCRIPT';
+  async function enviarFormulario(e){e.preventDefault();const data=Object.fromEntries(new FormData(e.target).entries());
+    try{ if(GOOGLE_SHEETS_ENDPOINT.startsWith('http')){
+      await fetch(GOOGLE_SHEETS_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
     }
-
-    const d = Math.floor(diff / (1000*60*60*24));
-    const h = Math.floor((diff / (1000*60*60)) % 24);
-    const m = Math.floor((diff / (1000*60)) % 60);
-
-    contador.textContent = `${d} días · ${h} h · ${m} min`;
-  }, 1000);
+    alert('¡Gracias por confirmar! 💕'); e.target.reset();
+    }catch(err){alert('No se pudo enviar ahora mismo. Inténtalo más tarde.');}
+  }
 </script>
 
 </body>
