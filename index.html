@@ -32,6 +32,7 @@
     .horarios div{background:#fff; border-radius:.6rem; padding:.6rem}
     footer{margin-top:2rem; font-size:.85rem; opacity:.8}
     iframe.mapa{width:100%; max-width:640px; height:320px; border:0; border-radius:1rem; margin-top:1rem}
+    #btnMusica{position:fixed;bottom:2rem;right:2rem;padding:1rem 2rem;font-size:1rem;border-radius:999px;background:var(--verde);color:white;border:none;cursor:pointer;z-index:999;}
   </style>
 </head>
 <body>
@@ -53,8 +54,8 @@
 <section class="pantalla" id="p3">
   <h2>🏛️ Palacete de la Ochava</h2>
   <p>Valdilecha · Un lugar precioso para celebrar el amor</p>
-  <!-- Imagen incrustada (single-file). Si no carga en algún navegador, sustituye por otra data URL -->
-  <img alt="Fachada del Palacete de la Ochava" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2P4//8/AwAI/AL+K8n1WQAAAABJRU5ErkJggg==" />
+  <!-- Imagen externa -->
+  <img alt="Fachada del Palacete de la Ochava" src="palacete.jpg" />
   <p><em>(Imagen del Palacete)</em></p>
   <button onclick="irA('p4')">Mapa & cómo llegar</button>
 </section>
@@ -106,25 +107,59 @@
   <footer>Laura & Raúl · 27·06·2026</footer>
 </section>
 
-<!-- Música de fondo: intento de autoplay (puede ser bloqueado por el navegador) -->
-<audio id="musica" src="https://www.youtube.com/watch?v=MNp5vbCi7Lo" autoplay loop></audio>
+<!-- Música de fondo -->
+<audio id="musica" src="https://www.youtube.com/your-audio.mp3" loop autoplay muted></audio>
+<button id="btnMusica">🎵 Activar música</button>
 
 <script>
-  function irA(id){document.querySelectorAll('.pantalla').forEach(p=>p.classList.remove('activa'));document.getElementById(id).classList.add('activa');window.scrollTo(0,0)}
-  const fechaBoda=new Date('2026-06-27T12:00:00'); const contador=document.getElementById('contador');
-  setInterval(()=>{const a=new Date();const d=fechaBoda-a;if(d<=0){contador.textContent='¡Hoy es el gran día! 🎊';return;}const dd=Math.floor(d/86400000),hh=Math.floor(d/3600000%24),mm=Math.floor(d/60000%60);contador.textContent=`${dd} días · ${hh} h · ${mm} min`;},1000);
-
-  // ENVÍO A GOOGLE SHEETS
-  // 1) Crea un Google Apps Script con un endpoint web (doPost)
-  // 2) Pega la URL publicada en GOOGLE_SHEETS_ENDPOINT
-  const GOOGLE_SHEETS_ENDPOINT = 'https://docs.google.com/spreadsheets/d/1NENmQcYhiifnnexG9ja5IuCghGDdECZKO7I82q8Uc08/edit?usp=sharing';
-  async function enviarFormulario(e){e.preventDefault();const data=Object.fromEntries(new FormData(e.target).entries());
-    try{ if(GOOGLE_SHEETS_ENDPOINT.startsWith('http')){
-      await fetch(GOOGLE_SHEETS_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-    }
-    alert('¡Gracias por confirmar! 💕'); e.target.reset();
-    }catch(err){alert('No se pudo enviar ahora mismo. Inténtalo más tarde.');}
+  // Navegación entre pantallas
+  function irA(id){
+    document.querySelectorAll('.pantalla').forEach(p=>p.classList.remove('activa'));
+    document.getElementById(id).classList.add('activa');
+    window.scrollTo(0,0);
   }
+
+  // Cuenta atrás
+  const fechaBoda = new Date('2026-06-27T12:00:00'); 
+  const contador = document.getElementById('contador');
+  setInterval(()=>{
+    const ahora = new Date();
+    const diff = fechaBoda - ahora;
+    if(diff <= 0){contador.textContent='¡Hoy es el gran día! 🎊'; return;}
+    const dd = Math.floor(diff/86400000);
+    const hh = Math.floor(diff/3600000 % 24);
+    const mm = Math.floor(diff/60000 % 60);
+    contador.textContent = `${dd} días · ${hh} h · ${mm} min`;
+  },1000);
+
+  // GOOGLE SHEETS: pega tu URL del Web App aquí
+  const GOOGLE_SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyydRZ4DHUXDZSVFOVggMddNf_3xhCbAFA0pRXPlbq2kkm-guADLmpqFIpR2uRexTX6Pg/exec';
+  async function enviarFormulario(e){
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.target).entries());
+    try{
+      if(GOOGLE_SHEETS_ENDPOINT.startsWith('http')){
+        await fetch(GOOGLE_SHEETS_ENDPOINT,{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify(data)
+        });
+      }
+      alert('¡Gracias por confirmar! 💕');
+      e.target.reset();
+    }catch(err){
+      alert('No se pudo enviar ahora mismo. Inténtalo más tarde.');
+    }
+  }
+
+  // Botón de música
+  const musica = document.getElementById('musica');
+  const btnMusica = document.getElementById('btnMusica');
+  btnMusica.addEventListener('click', () => {
+      musica.muted = false;
+      musica.play().catch(()=>{});
+      btnMusica.style.display = 'none';
+  });
 </script>
 
 </body>
