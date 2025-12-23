@@ -8,12 +8,13 @@
 
 <style>
 :root { --verde: #5c7d62; --crema: #f6f2ec; --dorado: #cfa670; --texto: #2f2f2f; }
-* { box-sizing: border-box; }
-body { margin:0; font-family: system-ui, -apple-system, Segoe UI, sans-serif; background:var(--crema); color:var(--texto);}
-.pantalla{min-height:100vh; display:none; padding:2rem 1.2rem 4rem; text-align:center}
-.pantalla.activa{display:flex; flex-direction:column; justify-content:center; align-items:center}
+* { box-sizing: border-box; margin:0; padding:0; }
+body { font-family: system-ui, -apple-system, Segoe UI, sans-serif; background:var(--crema); color:var(--texto);}
+.pantalla{min-height:100vh; display:none; padding:2rem 1.2rem 4rem; text-align:center; flex-direction:column; justify-content:center; align-items:center;}
+.pantalla.activa{display:flex; animation:fadeIn 0.5s ease-in;}
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
 h1,h2{color:var(--verde)} h1{font-size:2.4rem} h2{font-size:1.6rem}
-p{max-width:560px; line-height:1.6}
+p{max-width:560px; line-height:1.6; margin-top:1rem;}
 button{margin-top:1.2rem; padding:.8rem 1.6rem; border-radius:999px; border:none; background:var(--verde); color:#fff; font-size:1rem; cursor:pointer}
 .secundario{background:transparent; color:var(--verde); border:2px solid var(--verde)}
 button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--dorado); outline-offset:2px}
@@ -27,15 +28,36 @@ input,textarea,select{width:100%; padding:.6rem; margin-top:.3rem; border-radius
 .horarios div{background:#fff; border-radius:.6rem; padding:.6rem}
 footer{margin-top:2rem; font-size:.85rem; opacity:.8}
 iframe.mapa{width:100%; max-width:640px; height:320px; border:0; border-radius:1rem; margin-top:1rem}
+
+/* Menú flotante */
+#menuBtn{position:fixed;top:1rem;right:1rem;padding:.8rem 1.2rem;border-radius:999px;background:var(--verde);color:#fff;border:none;cursor:pointer;z-index:999;}
+#menuOpciones{position:fixed;top:3.5rem;right:1rem;background:#fff;border-radius:.8rem;box-shadow:0 2px 10px rgba(0,0,0,.2);display:none;flex-direction:column;min-width:160px;z-index:999;}
+#menuOpciones button{background:transparent;color:var(--verde);border:none;text-align:left;padding:.8rem 1rem;margin:0;cursor:pointer;font-weight:600;}
+#menuOpciones button:hover{background:var(--crema);}
+
+/* Botón música */
 #btnMusica{position:fixed;bottom:2rem;right:2rem;padding:1rem 2rem;font-size:1rem;border-radius:999px;background:var(--verde);color:white;border:none;cursor:pointer;z-index:999;}
 </style>
 </head>
 <body>
 
+<!-- Menú -->
+<button id="menuBtn">☰ Menú</button>
+<div id="menuOpciones">
+<button onclick="irA('p1')">Inicio</button>
+<button onclick="irA('p2')">Fecha</button>
+<button onclick="irA('p3')">Lugar</button>
+<button onclick="irA('p4')">Mapa</button>
+<button onclick="irA('p5')">Horarios</button>
+<button onclick="irA('p6')">Confirmación</button>
+<button onclick="irA('p7')">Finalizar</button>
+</div>
+
+<!-- Pantallas -->
 <section class="pantalla activa" id="p1">
-<div class="icono">🎉</div>
+<img src="imagenes/raul_laura_acu.png" alt="Laura & Raúl">
 <h1>Laura & Raúl</h1>
-<p>Nos casamos y queremos que lo descubras poco a poco…</p>
+<p>27 de junio de 2026 · ¡Nos casamos!</p>
 <button onclick="irA('p2')">Empezar</button>
 </section>
 
@@ -46,11 +68,10 @@ iframe.mapa{width:100%; max-width:640px; height:320px; border:0; border-radius:1
 <button onclick="irA('p3')">Lugar</button>
 </section>
 
-
 <section class="pantalla" id="p3">
 <h2>🏛️ Palacete de la Ochava</h2>
 <p>Valdilecha · Un lugar precioso para celebrar el amor</p>
-<img alt="Fachada del Palacete de la Ochava" src="https://www.hotelpalaceteochava.com/wp-content/uploads/2023/07/fachada-palacete-scaled.jpg" />
+<img src="imagenes/palacete.jpg" alt="Fachada del Palacete de la Ochava" />
 <p><em>(Imagen del Palacete)</em></p>
 <button onclick="irA('p4')">Mapa & cómo llegar</button>
 </section>
@@ -88,6 +109,7 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 </label>
 <label>Intolerancias / alergias<textarea name="alergias" rows="3"></textarea></label>
 <button type="submit">Enviar</button>
+<p id="mensaje" style="margin-top:0.5rem; color:var(--verde); font-weight:600;"></p>
 </form>
 <button class="secundario" onclick="irA('p7')">Finalizar</button>
 </section>
@@ -100,46 +122,66 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 <footer>Laura & Raúl · 27·06·2026</footer>
 </section>
 
-<!-- Música de fondo -->
-<audio id="musica" src="https://youtu.be/MNp5vbCi7Lo?si=uX0tdeKTO_qaCMLI" loop autoplay muted></audio>
+<!-- Música de fondo local -->
+<audio id="musica" src="musica/bso.mp3" loop></audio>
 <button id="btnMusica">🎵 Activar música</button>
 
 <script>
-function irA(id){document.querySelectorAll('.pantalla').forEach(p=>p.classList.remove('activa'));document.getElementById(id).classList.add('activa');window.scrollTo(0,0);}
+// Navegación
+function irA(id){
+  document.querySelectorAll('.pantalla').forEach(p=>p.classList.remove('activa'));
+  document.getElementById(id).classList.add('activa');
+  window.scrollTo(0,0);
+}
+
+// Menú desplegable
+const menuBtn = document.getElementById('menuBtn');
+const menuOpciones = document.getElementById('menuOpciones');
+menuBtn.addEventListener('click',()=>menuOpciones.style.display = menuOpciones.style.display==='flex'?'none':'flex');
+
+// Contador
 const fechaBoda = new Date('2026-06-27T12:00:00'); 
 const contador = document.getElementById('contador');
 setInterval(()=>{
-const ahora = new Date();
-const diff = fechaBoda - ahora;
-if(diff <= 0){contador.textContent='¡Hoy es el gran día! 🎊'; return;}
-const dd = Math.floor(diff/86400000);
-const hh = Math.floor(diff/3600000 % 24);
-const mm = Math.floor(diff/60000 % 60);
-contador.textContent = `${dd} días · ${hh} h · ${mm} min`;
+  const ahora = new Date();
+  const diff = fechaBoda - ahora;
+  if(diff <= 0){contador.textContent='¡Hoy es el gran día! 🎊'; return;}
+  const dd = Math.floor(diff/86400000);
+  const hh = Math.floor(diff/3600000 % 24);
+  const mm = Math.floor(diff/60000 % 60);
+  const ss = Math.floor(diff/1000 % 60);
+  contador.textContent = `${dd} días · ${hh} h · ${mm} min · ${ss} s`;
 },1000);
 
 // Google Sheets
 const GOOGLE_SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwCVyYOvKVLfD54pu1nBL_lU452bwFBI-DicrLmVR6HuTgaqqhKx6SM0C4o81u2LneGcQ/exec';
 async function enviarFormulario(e){
-e.preventDefault();
-const data = Object.fromEntries(new FormData(e.target).entries());
-try{
-if(GOOGLE_SHEETS_ENDPOINT.startsWith('http')){
-await fetch(GOOGLE_SHEETS_ENDPOINT,{
-method:'POST',
-mode: 'no-cors', // evita CORS
-headers:{'Content-Type':'application/json'},
-body:JSON.stringify(data)
-});
-}
-alert('¡Gracias por confirmar! 💕'); e.target.reset();
-}catch(err){alert('No se pudo enviar ahora mismo. Inténtalo más tarde.');}
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(e.target).entries());
+  const mensaje = document.getElementById('mensaje');
+  try{
+    if(GOOGLE_SHEETS_ENDPOINT.startsWith('http')){
+      await fetch(GOOGLE_SHEETS_ENDPOINT,{
+        method:'POST',
+        mode:'no-cors',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(data)
+      });
+    }
+    mensaje.textContent = '¡Gracias por confirmar! 💕';
+    e.target.reset();
+  }catch(err){
+    mensaje.textContent = 'No se pudo enviar ahora mismo. Inténtalo más tarde.';
+  }
 }
 
 // Música
 const musica = document.getElementById('musica');
 const btnMusica = document.getElementById('btnMusica');
-btnMusica.addEventListener('click', () => {musica.muted=false; musica.play().catch(()=>{}); btnMusica.style.display='none';});
+btnMusica.addEventListener('click', () => {
+  musica.muted=false; musica.play().catch(()=>{});
+  btnMusica.style.display='none';
+});
 </script>
 
 </body>
