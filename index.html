@@ -9,11 +9,17 @@
 <style>
 :root { --verde: #5c7d62; --crema: #f6f2ec; --dorado: #cfa670; --texto: #2f2f2f; }
 * { box-sizing: border-box; margin:0; padding:0; }
-body { font-family: system-ui, -apple-system, Segoe UI, sans-serif; background:var(--crema); color:var(--texto);}
-.pantalla{min-height:100vh; display:none; padding:2rem 1.2rem 4rem; text-align:center; flex-direction:column; justify-content:center; align-items:center;}
-.pantalla.activa{display:flex; animation:fadeIn 0.5s ease-in;}
-@keyframes fadeIn { from{opacity:0} to{opacity:1} }
-h1,h2{color:var(--verde)} h1{font-size:2.4rem} h2{font-size:1.6rem}
+body { font-family: system-ui, -apple-system, Segoe UI, sans-serif; background:var(--crema); color:var(--texto); }
+.pantalla{
+  min-height:100vh; display:none; padding:2rem 1.2rem 4rem;
+  text-align:center; flex-direction:column; justify-content:center; align-items:center;
+  position:absolute; top:0; left:0; width:100%; transition: transform 0.5s ease, opacity 0.5s ease;
+  background:var(--crema);
+}
+.pantalla.activa{display:flex; transform:translateX(0); opacity:1;}
+.pantalla.salida{transform:translateX(-100%); opacity:0;}
+
+h1,h2{color:var(--verde);} h1{font-size:2.4rem;} h2{font-size:1.6rem;}
 p{max-width:560px; line-height:1.6; margin-top:1rem;}
 button{margin-top:1.2rem; padding:.8rem 1.6rem; border-radius:999px; border:none; background:var(--verde); color:#fff; font-size:1rem; cursor:pointer}
 .secundario{background:transparent; color:var(--verde); border:2px solid var(--verde)}
@@ -24,14 +30,19 @@ form{width:100%; max-width:440px; text-align:left; margin-top:1rem}
 label{display:block; margin-top:.9rem; font-weight:600}
 input,textarea,select{width:100%; padding:.6rem; margin-top:.3rem; border-radius:.5rem; border:1px solid #ccc; font-size:1rem}
 .icono{font-size:3rem}
-.horarios{display:grid; grid-template-columns:1fr 1fr; gap:.6rem; max-width:520px; margin-top:1rem}
-.horarios div{background:#fff; border-radius:.6rem; padding:.6rem}
 footer{margin-top:2rem; font-size:.85rem; opacity:.8}
 iframe.mapa{width:100%; max-width:640px; height:320px; border:0; border-radius:1rem; margin-top:1rem}
 
+/* Timeline gráfico */
+.timeline{position:relative; max-width:520px; margin:2rem auto; padding-left:20px;}
+.timeline::before{content:""; position:absolute; left:12px; top:0; width:4px; height:100%; background:var(--verde);}
+.timeline div{position:relative; margin-bottom:2rem; padding-left:20px;}
+.timeline div::before{content:""; position:absolute; left:-12px; top:0; width:20px; height:20px; border-radius:50%; background:var(--verde);}
+.timeline div span{font-weight:700; margin-right:0.3rem;}
+
 /* Menú flotante */
 #menuBtn{position:fixed;top:1rem;right:1rem;padding:.8rem 1.2rem;border-radius:999px;background:var(--verde);color:#fff;border:none;cursor:pointer;z-index:999;}
-#menuOpciones{position:fixed;top:3.5rem;right:1rem;background:#fff;border-radius:.8rem;box-shadow:0 2px 10px rgba(0,0,0,.2);display:none;flex-direction:column;min-width:160px;z-index:999;}
+#menuOpciones{position:fixed;top:3.5rem;right:1rem;background:#fff;border-radius:.8rem;box-shadow:0 2px 10px rgba(0,0,0,.2);display:none;flex-direction:column;min-width:180px;z-index:999;}
 #menuOpciones button{background:transparent;color:var(--verde);border:none;text-align:left;padding:.8rem 1rem;margin:0;cursor:pointer;font-weight:600;}
 #menuOpciones button:hover{background:var(--crema);}
 
@@ -44,13 +55,13 @@ iframe.mapa{width:100%; max-width:640px; height:320px; border:0; border-radius:1
 <!-- Menú -->
 <button id="menuBtn">☰ Menú</button>
 <div id="menuOpciones">
-<button onclick="irA('p1')">Inicio</button>
-<button onclick="irA('p2')">Fecha</button>
-<button onclick="irA('p3')">Lugar</button>
-<button onclick="irA('p4')">Mapa</button>
-<button onclick="irA('p5')">Horarios</button>
-<button onclick="irA('p6')">Confirmación</button>
-<button onclick="irA('p7')">Finalizar</button>
+  <button data-target="p1">Inicio</button>
+  <button data-target="p2">Fecha</button>
+  <button data-target="p3">Lugar</button>
+  <button data-target="p4">Mapa</button>
+  <button data-target="p5">Timeline</button>
+  <button data-target="p6">Confirmación</button>
+  <button data-target="p8">Fin de encuesta</button>
 </div>
 
 <!-- Pantallas -->
@@ -71,7 +82,7 @@ iframe.mapa{width:100%; max-width:640px; height:320px; border:0; border-radius:1
 <section class="pantalla" id="p3">
 <h2>🏛️ Palacete de la Ochava</h2>
 <p>Valdilecha · Un lugar precioso para celebrar el amor</p>
-<img src="imagenes/palacete.jpg" alt="Fachada del Palacete de la Ochava" />
+<img src="imagenes/fachada.jpg" alt="Fachada del Palacete de la Ochava" />
 <p><em>(Imagen del Palacete)</em></p>
 <button onclick="irA('p4')">Mapa & cómo llegar</button>
 </section>
@@ -82,20 +93,22 @@ iframe.mapa{width:100%; max-width:640px; height:320px; border:0; border-radius:1
 <iframe class="mapa" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
 src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&output=embed" aria-label="Mapa del Palacete de la Ochava"></iframe>
 <a href="https://www.google.com/maps/dir/?api=1&destination=Palacete+de+la+Ochava+Valdilecha" target="_blank" rel="noopener"><button>Cómo llegar</button></a>
-<button class="secundario" onclick="irA('p5')">Horarios</button>
+<button class="secundario" onclick="irA('p5')">Timeline</button>
 </section>
 
 <section class="pantalla" id="p5">
-<h2>⏰ Horarios</h2>
-<div class="horarios" aria-label="Horarios del evento">
-<div>🏨 Entrada habitaciones — <strong>16:00</strong></div>
-<div>💍 Ceremonia — <strong>18:00</strong></div>
-<div>🍸 Cóctel — <strong>19:30</strong></div>
-<div>🍽️ Cena — <strong>21:30</strong></div>
-<div>🎉 Fiesta — <strong>00:30</strong></div>
-<div>☕ Desayuno — <strong>10:00</strong></div>
+<h2>📌 Timeline del Día</h2>
+<div class="timeline">
+<div><span>16:00</span> Llegada de los invitados al Palacete y entrega de habitaciones</div>
+<div><span>17:30</span> Desplazamiento a la Iglesia de San Martín Obispo de Valdilecha</div>
+<div><span>18:00</span> Ceremonia del enlace matrimonial</div>
+<div><span>19:30</span> Cóctel</div>
+<div><span>21:30</span> Banquete</div>
+<div><span>00:30</span> Celebración</div>
+<div><span>10:00</span> Desayuno</div>
+<div><span>12:00</span> Salida de las habitaciones</div>
 </div>
-<button onclick="irA('p6')">Confirmar asistencia</button>
+<button onclick="irA('p6')">Confirmación de asistencia</button>
 </section>
 
 <section class="pantalla" id="p6">
@@ -104,22 +117,30 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 <form onsubmit="enviarFormulario(event)">
 <label>Nombre<input name="nombre" required></label>
 <label>Apellidos<input name="apellidos" required></label>
-<label>¿Te quedas a dormir?
-<select name="alojamiento" required><option value="">Selecciona</option><option>Sí</option><option>No</option></select>
+<label>¿Podrás acompañarnos en este día tan especial?
+<select name="asistencia" required>
+<option value="">Selecciona</option>
+<option>Si, y me quedaré a dormir</option>
+<option>Si, pero me marcharé a casa al final de la noche</option>
+<option>No</option>
+</select>
 </label>
 <label>Intolerancias / alergias<textarea name="alergias" rows="3"></textarea></label>
 <button type="submit">Enviar</button>
 <p id="mensaje" style="margin-top:0.5rem; color:var(--verde); font-weight:600;"></p>
 </form>
-<button class="secundario" onclick="irA('p7')">Finalizar</button>
 </section>
 
-<section class="pantalla" id="p7">
-<div class="icono">🥂</div>
-<h2>¡Gracias!</h2>
-<p>Estamos deseando celebrar este día contigo 💛</p>
+<section class="pantalla" id="p8">
+<img src="imagenes/raul_laura_acu.png" alt="Laura & Raúl">
+<h2>¡Gracias por tu confirmación!</h2>
+<p>27 de junio de 2026</p>
+<p>Nuestro mejor regalo es que nos acompañéis en este día tan especial,<br>
+pero si deseáis ayudarnos a iniciar esta nueva aventura juntos,<br>
+podéis hacerlo aquí:</p>
+<button id="copiarCuenta" style="background:var(--verde);color:#fff;border:none;border-radius:.5rem;padding:.5rem 1rem;margin-top:0.5rem;font-weight:600;cursor:pointer;">EXXX XXXX XXXX XXXX</button>
+<p id="mensajeCuenta" style="margin-top:0.5rem; color:var(--verde); font-weight:600;"></p>
 <button class="secundario" onclick="irA('p1')">Volver al inicio</button>
-<footer>Laura & Raúl · 27·06·2026</footer>
 </section>
 
 <!-- Música de fondo local -->
@@ -127,17 +148,30 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 <button id="btnMusica">🎵 Activar música</button>
 
 <script>
-// Navegación
+// Navegación con transición slide
+let pantallaActual = document.querySelector('.pantalla.activa');
 function irA(id){
-  document.querySelectorAll('.pantalla').forEach(p=>p.classList.remove('activa'));
-  document.getElementById(id).classList.add('activa');
-  window.scrollTo(0,0);
+  const siguiente = document.getElementById(id);
+  if(pantallaActual === siguiente) return;
+  pantallaActual.classList.add('salida');
+  setTimeout(()=>{
+    pantallaActual.classList.remove('activa','salida');
+    siguiente.classList.add('activa');
+    pantallaActual = siguiente;
+    window.scrollTo(0,0);
+  }, 500);
 }
 
 // Menú desplegable
 const menuBtn = document.getElementById('menuBtn');
 const menuOpciones = document.getElementById('menuOpciones');
 menuBtn.addEventListener('click',()=>menuOpciones.style.display = menuOpciones.style.display==='flex'?'none':'flex');
+menuOpciones.querySelectorAll('button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    irA(b.dataset.target);
+    menuOpciones.style.display='none';
+  });
+});
 
 // Contador
 const fechaBoda = new Date('2026-06-27T12:00:00'); 
@@ -170,10 +204,24 @@ async function enviarFormulario(e){
     }
     mensaje.textContent = '¡Gracias por confirmar! 💕';
     e.target.reset();
+    setTimeout(()=>irA('p8'),1500); // ir a pantalla de fin de encuesta
   }catch(err){
     mensaje.textContent = 'No se pudo enviar ahora mismo. Inténtalo más tarde.';
   }
 }
+
+// Copiar número de cuenta
+const btnCopiar = document.getElementById('copiarCuenta');
+const mensajeCuenta = document.getElementById('mensajeCuenta');
+btnCopiar.addEventListener('click', ()=>{
+  const numero = btnCopiar.textContent.trim();
+  navigator.clipboard.writeText(numero).then(()=>{
+    mensajeCuenta.textContent = '¡Número copiado al portapapeles! 💛';
+    setTimeout(()=>mensajeCuenta.textContent='',2000);
+  }).catch(()=>{
+    mensajeCuenta.textContent = 'No se pudo copiar. Copia manualmente.';
+  });
+});
 
 // Música
 const musica = document.getElementById('musica');
