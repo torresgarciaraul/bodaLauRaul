@@ -117,7 +117,7 @@
   // ENVÍO A GOOGLE SHEETS
   // 1) Crea un Google Apps Script con un endpoint web (doPost)
   // 2) Pega la URL publicada en GOOGLE_SHEETS_ENDPOINT
-  const GOOGLE_SHEETS_ENDPOINT = 'PEGA_AQUI_TU_URL_DE_APPS_SCRIPT';
+  const GOOGLE_SHEETS_ENDPOINT = 'https://docs.google.com/spreadsheets/d/1NENmQcYhiifnnexG9ja5IuCghGDdECZKO7I82q8Uc08/edit?usp=sharing';
   async function enviarFormulario(e){e.preventDefault();const data=Object.fromEntries(new FormData(e.target).entries());
     try{ if(GOOGLE_SHEETS_ENDPOINT.startsWith('http')){
       await fetch(GOOGLE_SHEETS_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
