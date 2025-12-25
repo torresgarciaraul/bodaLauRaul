@@ -247,7 +247,7 @@ setInterval(()=>{
 },1000);
 
 // Google Sheets
-const GOOGLE_SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxadganZQoxWHRtkCTS3X6Hosj4IVYMPvQtPm-YKS7w4BKMvwqDSfyWSpZMcy3nMSs/exec';
+const GOOGLE_SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwJI9sDUrmDy-9deVa9uG-6o93nAC2klBFUc0t0cMRpHX0MCt69AXz3LCVlQFS-N9D3/exec';
 async function enviarFormulario(e){
   e.preventDefault();
   const data = Object.fromEntries(new FormData(e.target).entries());
@@ -256,20 +256,30 @@ async function enviarFormulario(e){
   try{
     await fetch(GOOGLE_SHEETS_ENDPOINT, {
       method: 'POST',
-      mode:'no-cors',
+      //mode:'no-cors',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(data)
     });
+    if (!response.ok) {
+      throw new Error(`Error en la petición: ${response.status}`);
+    }
 
-    mensaje.textContent = '¡Gracias por confirmar! 💕';
-    e.target.reset();
-    setTimeout(() => irA('p8'), 1500);
-  } catch(err){
+    const result = await response.json();
+
+    if (result.result === 'ok') {
+      mensaje.textContent = '¡Gracias por confirmar! 💕';
+      form.reset();
+      setTimeout(() => irA('p8'), 1500);
+    } else {
+      mensaje.textContent = 'Hubo un problema al enviar tus datos. Inténtalo más tarde.';
+      console.error(result);
+    }
+
+  } catch (err) {
     mensaje.textContent = 'No se pudo enviar ahora mismo. Inténtalo más tarde.';
-    console.error(err);
+    console.error('Error enviando formulario:', err);
   }
 }
-
 
 
 // Copiar número de cuenta
