@@ -190,7 +190,6 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 
 
 
-
 <section class="pantalla" id="p8">
 <img src="imagenes/raul_laura_acu.png" alt="Laura & Raúl">
 <h2>¡Gracias por tu confirmación!</h2>
@@ -251,14 +250,15 @@ setInterval(()=>{
 const GOOGLE_SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxadganZQoxWHRtkCTS3X6Hosj4IVYMPvQtPm-YKS7w4BKMvwqDSfyWSpZMcy3nMSs/exec';
 async function enviarFormulario(e){
   e.preventDefault();
-  const formData = new FormData(e.target);
+  const data = Object.fromEntries(new FormData(e.target).entries());
   const mensaje = document.getElementById('mensaje');
 
   try{
     await fetch(GOOGLE_SHEETS_ENDPOINT, {
       mode: 'no-cors',
       method: 'POST',
-      body: formData
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(data)
     });
 
     mensaje.textContent = '¡Gracias por confirmar! 💕';
