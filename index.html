@@ -95,7 +95,7 @@ Nos hace muchísima ilusión que nos acompañes en un día tan especial
 <p>Cuenta atrás para el gran día:</p>
 <div class="contador" id="contador" aria-live="polite"></div>
 <button onclick="irA('p3')">Lugar</button>
-<button class="secundario" onclick="irA('p2')">Volver</button>
+<button class="secundario" onclick="irA('p1')">Volver</button>
 </section>
 
 <section class="pantalla" id="p3">
@@ -113,7 +113,7 @@ Nos hace muchísima ilusión que nos acompañes en un día tan especial
 src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&output=embed" aria-label="Mapa del Palacete de la Ochava"></iframe>
 <button onclick="irA('p5')">Timeline</button>
 <a href="https://www.google.com/maps/dir/?api=1&destination=Palacete+de+la+Ochava+Valdilecha" target="_blank" rel="noopener"><button class="secundario">Cómo llegar</button></a>
-<button class="secundario" onclick="irA('p2')">Volver</button>
+<button class="secundario" onclick="irA('p3')">Volver</button>
 </section>
 
 <section class="pantalla" id="pInfo">
@@ -144,7 +144,7 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
      class="timeline-img">
 </div>
 <button onclick="irA('p6')">Confirmación de asistencia</button>
-<button class="secundario" onclick="irA('p2')">Volver</button>
+<button class="secundario" onclick="irA('pInfo')">Volver</button>
 </section>
 
 <section class="pantalla" id="p6">
@@ -173,7 +173,7 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 
   <button type="submit">Enviar</button>
   <p id="mensaje" style="margin-top:.5rem;color:var(--verde);font-weight:600;"></p>
-  <button class="secundario" onclick="irA('p2')">Volver</button>
+  <button class="secundario" onclick="irA('p5')">Volver</button>
 </form>
 </section>
 
@@ -189,7 +189,7 @@ pero si deseáis ayudarnos a iniciar esta nueva aventura juntos,<br>
 podéis hacerlo aquí:</p>
 <button id="copiarCuenta" style="background:var(--verde);color:#fff;border:none;border-radius:.5rem;padding:.5rem 1rem;margin-top:0.5rem;font-weight:600;cursor:pointer;">EXXX XXXX XXXX XXXX</button>
 <p id="mensajeCuenta" style="margin-top:0.5rem; color:var(--verde); font-weight:600;"></p>
-<button class="secundario" onclick="irA('p1')">Volver al inicio</button>
+<button class="secundario" onclick="irA('p6')">Volver al inicio</button>
 </section>
 
 <!-- Música de fondo local -->
@@ -245,6 +245,7 @@ async function enviarFormulario(e) {
   try {
     const res = await fetch(GOOGLE_SHEETS_ENDPOINT, {
       method: 'POST',
+      mode:'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
