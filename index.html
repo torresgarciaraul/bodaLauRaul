@@ -251,24 +251,24 @@ setInterval(()=>{
 const GOOGLE_SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwCVyYOvKVLfD54pu1nBL_lU452bwFBI-DicrLmVR6HuTgaqqhKx6SM0C4o81u2LneGcQ/exec';
 async function enviarFormulario(e){
   e.preventDefault();
-  const data = Object.fromEntries(new FormData(e.target).entries());
+  const formData = new FormData(e.target);
   const mensaje = document.getElementById('mensaje');
-  
+
   try{
     await fetch(GOOGLE_SHEETS_ENDPOINT, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+      body: formData
     });
 
     mensaje.textContent = '¡Gracias por confirmar! 💕';
     e.target.reset();
-    setTimeout(() => irA('p8'), 1500); // ir a pantalla de fin de encuesta
+    setTimeout(() => irA('p8'), 1500);
   } catch(err){
     mensaje.textContent = 'No se pudo enviar ahora mismo. Inténtalo más tarde.';
     console.error(err);
   }
 }
+
 
 
 // Copiar número de cuenta
