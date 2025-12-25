@@ -254,11 +254,10 @@ async function enviarFormulario(e){
   const mensaje = document.getElementById('mensaje');
 
   try{
+    const params = new URLSearchParams(data); // Convertir a formato querystring
     await fetch(GOOGLE_SHEETS_ENDPOINT, {
-      mode: 'no-cors',
       method: 'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(data)
+      body: params
     });
 
     mensaje.textContent = '¡Gracias por confirmar! 💕';
@@ -269,7 +268,6 @@ async function enviarFormulario(e){
     console.error(err);
   }
 }
-
 
 
 // Copiar número de cuenta
