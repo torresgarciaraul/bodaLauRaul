@@ -249,36 +249,24 @@ setInterval(()=>{
 
 // Google Sheets
 const GOOGLE_SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwCVyYOvKVLfD54pu1nBL_lU452bwFBI-DicrLmVR6HuTgaqqhKx6SM0C4o81u2LneGcQ/exec';
-async function enviarFormulario(e) {
+async function enviarFormulario(e){
   e.preventDefault();
   const data = Object.fromEntries(new FormData(e.target).entries());
-
+  const mensaje = document.getElementById('mensaje');
   try{
     if(GOOGLE_SHEETS_ENDPOINT.startsWith('http')){
-      const res  = await fetch(GOOGLE_SHEETS_ENDPOINT,{
+      await fetch(GOOGLE_SHEETS_ENDPOINT,{
         method:'POST',
         mode:'no-cors',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify(data)
       });
     }
-
-    const result = await res.json();
-
-    if (result.status === 'ok') {
-      alert('¡Gracias por confirmar! 💕');
-      e.target.reset();
-      irA('p8'); // o p7 según tu flujo
-    } 
-    else if (result.status === 'duplicado') {
-      alert('Ya tenemos registrada tu confirmación 😊');
-    } 
-    else {
-      alert('Ha ocurrido un error. Inténtalo más tarde.');
-    }
-
-  } catch (err) {
-    alert('No se pudo enviar. Revisa tu conexión.');
+    mensaje.textContent = '¡Gracias por confirmar! 💕';
+    e.target.reset();
+    setTimeout(()=>irA('p8'),1500); // ir a pantalla de fin de encuesta
+  }catch(err){
+    mensaje.textContent = 'No se pudo enviar ahora mismo. Inténtalo más tarde.';
   }
 }
 
