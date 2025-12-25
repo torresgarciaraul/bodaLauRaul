@@ -256,6 +256,7 @@ async function enviarFormulario(e){
 
   try{
     await fetch(GOOGLE_SHEETS_ENDPOINT, {
+      mode: 'no-cors',
       method: 'POST',
       body: formData
     });
