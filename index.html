@@ -181,11 +181,10 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
   </label>
 
   <div class="nav">
-  <button type="submit">Enviar</button>
+    <button type="submit">Enviar</button>
     <p id="mensaje" style="margin-top:.5rem;color:var(--verde);font-weight:600;"></p>
-  <button class="secundario" onclick="irA('p5')">⬅ Volver</button>
+    <button class="secundario" type="button" onclick="irA('p5')">⬅ Volver</button>
   </div>
-
 </form>
 </section>
 
@@ -254,20 +253,20 @@ async function enviarFormulario(e){
   e.preventDefault();
   const data = Object.fromEntries(new FormData(e.target).entries());
   const mensaje = document.getElementById('mensaje');
+  
   try{
-    if(GOOGLE_SHEETS_ENDPOINT.startsWith('http')){
-      await fetch(GOOGLE_SHEETS_ENDPOINT,{
-        method:'POST',
-        mode:'no-cors',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify(data)
-      });
-    }
+    await fetch(GOOGLE_SHEETS_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
     mensaje.textContent = '¡Gracias por confirmar! 💕';
     e.target.reset();
-    setTimeout(()=>irA('p8'),1500); // ir a pantalla de fin de encuesta
-  }catch(err){
+    setTimeout(() => irA('p8'), 1500); // ir a pantalla de fin de encuesta
+  } catch(err){
     mensaje.textContent = 'No se pudo enviar ahora mismo. Inténtalo más tarde.';
+    console.error(err);
   }
 }
 
