@@ -242,13 +242,15 @@ async function enviarFormulario(e) {
   e.preventDefault();
   const data = Object.fromEntries(new FormData(e.target).entries());
 
-  try {
-    const res = await fetch(GOOGLE_SHEETS_ENDPOINT, {
-      method: 'POST',
-      mode:'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
+  try{
+    if(GOOGLE_SHEETS_ENDPOINT.startsWith('http')){
+      const res  = await fetch(GOOGLE_SHEETS_ENDPOINT,{
+        method:'POST',
+        mode:'no-cors',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(data)
+      });
+    }
 
     const result = await res.json();
 
