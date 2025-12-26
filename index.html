@@ -316,6 +316,8 @@ async function enviarFormulario(e){
       localStorage.setItem('nombreInvitado', nombre);
     }
     form.reset();
+    submitBtn.disabled = false;
+    message.textContent = "";
       // Ir automáticamente a la pantalla de gracias
     setTimeout(() => irA('p8'), 1200);
 
