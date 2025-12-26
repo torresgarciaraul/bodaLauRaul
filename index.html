@@ -238,6 +238,13 @@ function irA(id){
       heading.focus();
     }
 
+    if (id=='p6'){
+      const message = document.getElementById("mensaje");
+      const submitBtn = form.querySelector('[type="submit"]');
+      submitBtn.disabled = false;
+      message.textContent = "";
+    }
+
     if (id === 'p8') {
       personalizarGracias();
     }
@@ -316,8 +323,6 @@ async function enviarFormulario(e){
       localStorage.setItem('nombreInvitado', nombre);
     }
     form.reset();
-    submitBtn.disabled = false;
-    message.textContent = "";
       // Ir automáticamente a la pantalla de gracias
     setTimeout(() => irA('p8'), 1200);
 
