@@ -157,35 +157,33 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 </section>
 
 <section class="pantalla" id="p6">
-<h2>💌 Confirmación de asistencia</h2>
-<form onsubmit="enviarFormulario(event)">
-  <label>Nombre y Apellidos
-    <input name="nombre_apellidos" required>
+<h2>💌 Confirma tu asistencia</h2>
+
+<form id="weddingForm" onsubmit="enviarFormulario(event)">
+  <label>Nombre y Apellidos *
+    <input type="text" name="nombre" required minlength="3">
   </label>
 
-  <label>Teléfono de contacto
-    <input name="telefono" type="tel" required>
+  <label>Teléfono de contacto *
+    <input type="tel" name="telefono" required pattern="[0-9+ ]{6,}">
   </label>
 
-  <label>¿Podrás acompañarnos en este día tan especial?
-    <select name="asistencia" required>
-      <option value="">Selecciona</option>
-      <option>No</option>
-      <option>Sí, me quedaré a dormir</option>
-      <option>Sí, pero me volveré a casa</option>
-    </select>
-  </label>
+  <label>¿Podrás acompañarnos en este día tan especial?</label>
+        <div class="radio-group">
+            <label><input type="radio" name="asistencia" value="No" required> No</label>
+            <label><input type="radio" name="asistencia" value="Sí, me quedaré a dormir"> Sí, me quedaré a dormir</label>
+            <label><input type="radio" name="asistencia" value="Sí, pero me volveré a casa"> Sí, pero me volveré a casa</label>
+        </div>
 
-  <label>Intolerancias / Alergias
-    <textarea name="alergias" rows="3"></textarea>
-  </label>
+  <label>Intolerancias / Alergias</label>
+        <textarea name="alergias" rows="3"></textarea>
 
   <div class="nav">
-    <button type="submit">Enviar</button>
-    <p id="mensaje" style="margin-top:.5rem;color:var(--verde);font-weight:600;"></p>
+    <button type="submit">Enviar Confirmación</button>
     <button class="secundario" type="button" onclick="irA('p5')">⬅ Volver</button>
+    </form>
+    <div id="mensaje" class="message" style="margin-top:.5rem;color:var(--verde);font-weight:600;"></div>
   </div>
-</form>
 </section>
 
 
@@ -247,39 +245,45 @@ setInterval(()=>{
 },1000);
 
 // Google Sheets
-const GOOGLE_SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwJI9sDUrmDy-9deVa9uG-6o93nAC2klBFUc0t0cMRpHX0MCt69AXz3LCVlQFS-N9D3/exec';
+const GOOGLE_SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbwy1m1KZDIGz1WQkSeVT1CHRznU53SoW--k3jZ_nmwL29YE0rSt4TrVGHvuqEaozC2b/exec";
+const form = document.getElementById("weddingForm");
+const message = document.getElementById("mensaje");
+
 async function enviarFormulario(e){
   e.preventDefault();
-  const data = Object.fromEntries(new FormData(e.target).entries());
-  const mensaje = document.getElementById('mensaje');
 
-  try{
-    await fetch(GOOGLE_SHEETS_ENDPOINT, {
-      method: 'POST',
-      //mode:'no-cors',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(data)
+  message.textContent = "Enviando respuesta...";
+  message.style.color = "var(--verde)";
+
+  const data = Object.fromEntries(new FormData(form).entries());
+
+  try {
+    const response = await fetch(GOOGLE_SHEETS_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
     });
-    if (!response.ok) {
-      throw new Error(`Error en la petición: ${response.status}`);
-    }
 
     const result = await response.json();
 
-    if (result.result === 'ok') {
-      mensaje.textContent = '¡Gracias por confirmar! 💕';
+    if (result.status === "success") {
+      message.textContent = "💖 ¡Gracias! Hemos recibido tu confirmación.";
       form.reset();
-      setTimeout(() => irA('p8'), 1500);
+
+      // Ir automáticamente a la pantalla de gracias
+      setTimeout(() => irA('p8'), 1200);
     } else {
-      mensaje.textContent = 'Hubo un problema al enviar tus datos. Inténtalo más tarde.';
-      console.error(result);
+      throw new Error();
     }
 
-  } catch (err) {
-    mensaje.textContent = 'No se pudo enviar ahora mismo. Inténtalo más tarde.';
-    console.error('Error enviando formulario:', err);
+  } catch (error) {
+    message.textContent = "❌ Error al enviar. Inténtalo más tarde.";
+    message.style.color = "#c62828";
   }
 }
+
 
 
 // Copiar número de cuenta
