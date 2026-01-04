@@ -133,6 +133,7 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 <ul style="text-align:left;max-width:640px;line-height:1.6;margin-top:1rem;">
   <li>🏨 Todos los invitados tienen incluido el alojamiento en el Palacete. Confírmanos en la encuesta si te quedas.</li>
   <li>🕓 Acceso a habitaciones el 27/06 a partir de las 16:00. Es necesario llevar DNI.</li>
+  <li>💈 Se ofrece servicio de peluquería en el Palacete. Si se desea utilizar, contactad con los novios.</li>
   <li>🚗 Parking privado disponible en el Palacete.</li>
   <li>🚌 Antes de las 18:00 se trasladará a todos los invitados a la Iglesia. No será necesario usar el coche.</li>
   <li>⛪ Tras la ceremonia, regreso al Palacete para comenzar el cóctel.</li>
@@ -187,8 +188,11 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
   <label><input type="radio" name="asistencia" value="Sí, pero me volveré a casa"> Sí, pero me volveré a casa</label>
 </fieldset>
 
-  <label>Intolerancias / Alergias</label>
+  <label>El banquete incluye un plato principal de carne. Si tienes alguna alergia, intolerancia o restricción alimentaria (incluso si prefieres pescado), por favor háznoslo saber</label>
         <textarea name="alergias" rows="3"></textarea>
+
+    <label>Elige una canción que no pueda faltar</label>
+        <textarea name="cancion" rows="3"></textarea>
 
   <div class="nav">
     <button type="submit">Enviar Confirmación</button>
@@ -290,7 +294,7 @@ const intervaloContador = setInterval(() => {
 }, 1000);
 
 // Google Sheets
-const GOOGLE_SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbwy1m1KZDIGz1WQkSeVT1CHRznU53SoW--k3jZ_nmwL29YE0rSt4TrVGHvuqEaozC2b/exec";
+const GOOGLE_SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbw6EHGG1htZkSJodEyXEGb0IXKXvpyGmsYqRNPSwqolnhBPG4cT3QfDXWAuqEpAXJzR/exec";
 const form = document.getElementById("weddingForm");
 const message = document.getElementById("mensaje");
 
