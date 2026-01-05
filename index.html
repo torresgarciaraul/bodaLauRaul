@@ -85,12 +85,533 @@ h2{font-size:1.5rem}
 .music-text{display:none}
 }
 
+/* Añadir al <style> */
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.floating-hearts {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.floating-hearts {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.heart-particle {
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  animation: floatParticle 12s infinite ease-in-out;
+}
+
+.heart-particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+.heart-particle:nth-child(2) { left: 80%; top: 40%; animation-delay: 3s; }
+.heart-particle:nth-child(3) { left: 30%; top: 70%; animation-delay: 6s; }
+.heart-particle:nth-child(4) { right: 20%; top: 15%; animation-delay: 9s; }
+
+@keyframes floatParticle {
+  0%, 100% { 
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 0;
+  }
+  10% { opacity: 0.15; }
+  50% { 
+    transform: translate(20px, -40px) rotate(15deg) scale(1.3);
+    opacity: 0.2;
+  }
+  90% { opacity: 0.15; }
+}
+
+.floating-hearts::before {
+  left: 10%;
+  top: 20%;
+  animation-delay: 0s;
+}
+
+.floating-hearts::after {
+  right: 15%;
+  top: 60%;
+  animation-delay: 7s;
+}
+
+@keyframes floatHeart {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-30px) rotate(10deg); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-img {
+  margin-bottom: 2rem;
+  animation: scaleIn 1s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.hero-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.hero-name {
+  animation: slideInLeft 0.8s ease-out;
+  display: inline-block;
+}
+
+.hero-name:last-of-type {
+  animation: slideInRight 0.8s ease-out;
+}
+
+.hero-ampersand {
+  font-size: 2rem;
+  color: var(--dorado);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.hero-date {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: var(--dorado);
+  letter-spacing: 3px;
+  margin-bottom: 1rem;
+  animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--verde);
+  margin-bottom: 1rem;
+  animation: fadeInUp 1s ease-out 0.5s both;
+}
+
+.hero-message {
+  animation: fadeInUp 1s ease-out 0.7s both;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  margin-top: 2rem;
+  animation: fadeInUp 1s ease-out 0.9s both;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.cta-button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.arrow-icon {
+  transition: transform 0.3s ease;
+}
+
+.cta-button:hover .arrow-icon {
+  transform: translateX(5px);
+}
+
+.countdown-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.countdown-box {
+  background: white;
+  padding: 1.5rem 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px var(--sombra);
+  min-width: 80px;
+  transition: transform 0.3s ease;
+}
+
+.countdown-box:hover {
+  transform: translateY(-5px);
+}
+
+.countdown-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--verde);
+  line-height: 1;
+}
+
+.countdown-label {
+  font-size: 0.85rem;
+  color: var(--dorado);
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.countdown-separator {
+  font-size: 2rem;
+  color: var(--dorado);
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .countdown-box {
+    min-width: 65px;
+    padding: 1rem 0.5rem;
+  }
+  
+  .countdown-number {
+    font-size: 2rem;
+  }
+  
+  .countdown-separator {
+    display: none;
+  }
+}
+
+.timeline-interactive {
+  position: relative;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem 0;
+}
+
+.timeline-interactive::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--verde), var(--dorado));
+  border-radius: 2px;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+  position: relative;
+  opacity: 0;
+  animation: slideInTimeline 0.6s ease-out forwards;
+}
+
+.timeline-item:nth-child(odd) {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.timeline-item:nth-child(1) { animation-delay: 0.1s; }
+.timeline-item:nth-child(2) { animation-delay: 0.2s; }
+.timeline-item:nth-child(3) { animation-delay: 0.3s; }
+.timeline-item:nth-child(4) { animation-delay: 0.4s; }
+.timeline-item:nth-child(5) { animation-delay: 0.5s; }
+.timeline-item:nth-child(6) { animation-delay: 0.6s; }
+.timeline-item:nth-child(7) { animation-delay: 0.7s; }
+
+@keyframes slideInTimeline {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.timeline-icon {
+  font-size: 2.5rem;
+  width: 80px;
+  height: 80px;
+  background: white;
+  border: 4px solid var(--verde);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px var(--sombra);
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.timeline-item:hover .timeline-icon {
+  transform: scale(1.15) rotate(10deg);
+  border-color: var(--dorado);
+}
+
+.timeline-content {
+  flex: 1;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px var(--sombra);
+  margin: 0 2rem;
+  transition: all 0.3s ease;
+  max-width: 300px;
+}
+
+.timeline-item:hover .timeline-content {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px var(--sombra);
+}
+
+.timeline-time {
+  display: inline-block;
+  background: var(--verde);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-content h3 {
+  font-size: 1.3rem;
+  margin: 0.5rem 0;
+  color: var(--verde);
+}
+
+.timeline-content p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--texto);
+}
+
+@media (max-width: 640px) {
+  .timeline-interactive::before {
+    left: 40px;
+  }
+  
+  .timeline-item {
+    flex-direction: row !important;
+    text-align: left !important;
+  }
+  
+  .timeline-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+    margin-left: 10px;
+  }
+  
+  .timeline-content {
+    margin-left: 1rem;
+    margin-right: 0;
+  }
+}
+
+.cuenta-container {
+  margin: 2rem 0;
+}
+
+.btn-cuenta {
+  background: white;
+  color: var(--verde);
+  border: 2px solid var(--verde);
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  font-family: 'Courier New', monospace;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.btn-cuenta:hover {
+  background: var(--verde);
+  color: white;
+}
+
+#iconoCuenta {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.btn-cuenta:hover #iconoCuenta {
+  transform: scale(1.2);
+}
+.countdown-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--verde);
+  line-height: 1;
+  position: relative;
+  display: inline-block;
+  transition: none;
+}
+
+.countdown-number.flip {
+  animation: flipNumber 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+@keyframes flipNumber {
+  0% { transform: rotateX(0deg); }
+  50% { transform: rotateX(90deg); opacity: 0.3; }
+  100% { transform: rotateX(0deg); opacity: 1; }
+}
+
+
+
+
+body.dark-mode {
+  --verde: #7fa88a;
+  --crema: #1a1a1a;
+  --dorado: #d4b785;
+  --texto: #e0e0e0;
+  --sombra: rgba(255,255,255,0.1);
+}
+
+body.dark-mode .pantalla {
+  background: #1a1a1a;
+}
+
+body.dark-mode .countdown-box,
+body.dark-mode .timeline-content,
+body.dark-mode form,
+body.dark-mode .toast {
+  background: #2a2a2a;
+  color: #e0e0e0;
+}
+
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+  background: #333;
+  color: #e0e0e0;
+  border-color: #555;
+}
+
+#themeToggle {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  padding: 0.8rem 1.2rem;
+  border-radius: 999px;
+  background: var(--verde);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  z-index: 999;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(92,125,98,.4);
+}
+
+#themeToggle:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 640px) {
+  #themeToggle {
+    bottom: 5rem;
+    left: 1rem;
+  }
+}
+
+.btn-loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.btn-loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin-left: -8px;
+  margin-top: -8px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 </style>
 </head>
 <body>
 
 <a href="#contenido" class="skip-link">Saltar al contenido principal</a>
 <div id="progressBar"></div>
+<button id="themeToggle" aria-label="Cambiar tema" title="Cambiar tema">🌙</button>
 
 <nav aria-label="Navegación principal">
 <button id="menuBtn" aria-haspopup="true" aria-expanded="false" aria-label="Abrir menú">☰ Menú</button>
@@ -108,20 +629,61 @@ h2{font-size:1.5rem}
 
 <main id="contenido">
 
+<!-- Reemplazar la sección p1 -->
 <section class="pantalla activa" id="p1">
-<div class="img-container">
-<img src="imagenes/raul_laura_acu.png" alt="Laura & Raúl" class="fullscreen">
+  <div class="hero-background">
+<div class="floating-hearts">
+  <span class="heart-particle">💚</span>
+  <span class="heart-particle">🌿</span>
+  <span class="heart-particle">✨</span>
+  <span class="heart-particle">💛</span>
 </div>
-<h1>Laura & Raúl</h1>
-<p>27 de junio de 2026 · ¡Nos casamos!</p>
-<p><strong>Nos hace muchísima ilusión que nos acompañes en un día tan especial</strong></p>
-<button onclick="irA('p2')">Empezar</button>
+  </div>
+  <div class="hero-content">
+    <div class="img-container hero-img">
+      <img src="imagenes/raul_laura_acu.png" alt="Laura & Raúl" class="fullscreen">
+    </div>
+    <h1 class="hero-title">
+      <span class="hero-name">Laura</span>
+      <span class="hero-ampersand">&</span>
+      <span class="hero-name">Raúl</span>
+    </h1>
+    <div class="hero-date">27 · 06 · 2026</div>
+    <p class="hero-subtitle">¡Nos casamos!</p>
+    <p class="hero-message">Nos hace muchísima ilusión que nos acompañes en un día tan especial</p>
+    <button onclick="irA('p2')" class="cta-button">
+      <span>Comenzar</span>
+      <svg class="arrow-icon" viewBox="0 0 24 24" width="20" height="20">
+        <path fill="currentColor" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+      </svg>
+    </button>
+  </div>
 </section>
 
 <section class="pantalla" id="p2">
 <h2>📅 27 de junio de 2026</h2>
 <p>Cuenta atrás para el gran día:</p>
-<div class="contador" id="contador" aria-live="polite"></div>
+<div class="countdown-container" id="countdownContainer">
+  <div class="countdown-box">
+    <div class="countdown-number" id="countDays">0</div>
+    <div class="countdown-label">Días</div>
+  </div>
+  <div class="countdown-separator">:</div>
+  <div class="countdown-box">
+    <div class="countdown-number" id="countHours">0</div>
+    <div class="countdown-label">Horas</div>
+  </div>
+  <div class="countdown-separator">:</div>
+  <div class="countdown-box">
+    <div class="countdown-number" id="countMinutes">0</div>
+    <div class="countdown-label">Minutos</div>
+  </div>
+  <div class="countdown-separator">:</div>
+  <div class="countdown-box">
+    <div class="countdown-number" id="countSeconds">0</div>
+    <div class="countdown-label">Segundos</div>
+  </div>
+</div>
 <button onclick="agregarAlCalendario()" class="secundario" style="margin-top:1.5rem">📆 Añadir al calendario</button>
 <div class="nav">
 <button onclick="irA('p3')">Lugar</button>
@@ -171,6 +733,7 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 </div>
 </section>
 
+<!--
 <section class="pantalla" id="p5">
 <h2>📌 Timeline</h2>
 <div class="timeline">
@@ -181,6 +744,80 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 <button class="secundario" onclick="irA('pInfo')">⬅ Volver</button>
 </div>
 </section>
+-->
+
+<section class="pantalla" id="p5">
+  <h2>📌 Timeline </h2>
+  <div class="timeline-interactive">
+    <div class="timeline-item" data-time="16:00">
+      <div class="timeline-icon">🏨</div>
+      <div class="timeline-content">
+        <div class="timeline-time">16:00</div>
+        <h3>Check-in</h3>
+        <p>Acceso a habitaciones del Palacete</p>
+      </div>
+    </div>
+    
+    <div class="timeline-item" data-time="18:00">
+      <div class="timeline-icon">⛪</div>
+      <div class="timeline-content">
+        <div class="timeline-time">18:00</div>
+        <h3>Ceremonia</h3>
+        <p>Iglesia de Valdilecha</p>
+      </div>
+    </div>
+    
+    <div class="timeline-item" data-time="19:30">
+      <div class="timeline-icon">🥂</div>
+      <div class="timeline-content">
+        <div class="timeline-time">19:30</div>
+        <h3>Cóctel</h3>
+        <p>Jardines del Palacete</p>
+      </div>
+    </div>
+    
+    <div class="timeline-item" data-time="21:30">
+      <div class="timeline-icon">🍽️</div>
+      <div class="timeline-content">
+        <div class="timeline-time">21:30</div>
+        <h3>Banquete</h3>
+        <p>Salón principal</p>
+      </div>
+    </div>
+    
+    <div class="timeline-item" data-time="00:00">
+      <div class="timeline-icon">💃</div>
+      <div class="timeline-content">
+        <div class="timeline-time">00:00</div>
+        <h3>Fiesta</h3>
+        <p>¡A bailar hasta el amanecer!</p>
+      </div>
+    </div>
+    
+    <div class="timeline-item" data-time="09:00">
+      <div class="timeline-icon">☕</div>
+      <div class="timeline-content">
+        <div class="timeline-time">10:00 (Dom)</div>
+        <h3>Desayuno y Piscina</h3>
+        <p>Recarga energías</p>
+      </div>
+    </div>
+    
+    <div class="timeline-item" data-time="12:30">
+      <div class="timeline-icon">👋</div>
+      <div class="timeline-content">
+        <div class="timeline-time">12:30 (Dom)</div>
+        <h3>Check-out</h3>
+        <p>Hasta pronto</p>
+      </div>
+    </div>
+  </div>
+  <div class="nav">
+    <button onclick="irA('p6')">Confirmación de asistencia</button>
+    <button class="secundario" onclick="irA('pInfo')">⬅ Volver</button>
+  </div>
+</section>
+
 
 <section class="pantalla" id="p6">
 <h2>💌 Confirma tu asistencia</h2>
@@ -219,8 +856,14 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 <h2 id="tituloGracias">¡Gracias por tu confirmación!</h2>
 <p>27 de junio de 2026</p>
 <p>Nuestro mejor regalo es que nos acompañéis en este día tan especial,<br>pero si deseáis ayudarnos a iniciar esta nueva aventura juntos,<br>podéis hacerlo aquí:</p>
-<button id="copiarCuenta" style="background:var(--verde);color:#fff;border:none;border-radius:.5rem;padding:.5rem 1rem;margin-top:.5rem;font-weight:600;cursor:pointer">ESXX XXXX XXXX XXXX</button>
-<p id="mensajeCuenta" style="margin-top:.5rem;color:var(--verde);font-weight:600"></p>
+<!-- Reemplazar el botón de cuenta en p8 -->
+<div class="cuenta-container">
+  <button id="copiarCuenta" class="btn-cuenta" onclick="revelarYCopiar()">
+    <span id="numeroCuenta">●●●● ●●●● ●●●● ●●●●</span>
+    <span id="iconoCuenta">👁️</span>
+  </button>
+  <p id="mensajeCuenta" style="margin-top:.5rem;color:var(--verde);font-weight:600"></p>
+</div>
 <button class="secundario" onclick="irA('p1')">Volver al inicio</button>
 </section>
 
@@ -312,33 +955,46 @@ menuBtn.focus();
 
 const fechaBoda=new Date('2026-06-27T18:00:00');
 const contador=document.getElementById('contador');
-function actualizarContador(){
-const ahora=new Date();
-const diff=fechaBoda-ahora;
-if(diff<=0){
-contador.innerHTML='¡Hoy es el gran día! 🎊';
-clearInterval(intervaloContador);
-lanzarConfetti();
-return;
+// Reemplazar la función actualizarContador
+function actualizarContador() {
+  const ahora = new Date();
+  const diff = fechaBoda - ahora;
+  
+  if (diff <= 0) {
+    document.getElementById('countdownContainer').innerHTML = 
+      '<div style="font-size:2rem;color:var(--dorado)">¡Hoy es el gran día! 🎊</div>';
+    clearInterval(intervaloContador);
+    lanzarConfetti();
+    return;
+  }
+  
+  const days = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const minutes = Math.floor((diff % 3600000) / 60000);
+  const seconds = Math.floor((diff % 60000) / 1000);
+  
+  animateNumber('countDays', days);
+  animateNumber('countHours', hours);
+  animateNumber('countMinutes', minutes);
+  animateNumber('countSeconds', seconds);
 }
-const dd=Math.floor(diff/86400000);
-const hh=Math.floor(diff/3600000%24);
-const mm=Math.floor(diff/60000%60);
-const ss=Math.floor(diff/1000%60);
-if(dd===0){
-contador.innerHTML='<span style="color:var(--dorado);font-size:1.6rem">¡ES HOY!</span><br>'+hh+'h '+mm+'min '+ss+'s';
-}else if(dd===1){
-contador.innerHTML='<span style="color:var(--dorado)">¡MAÑANA!</span><br>'+hh+'h '+mm+'min '+ss+'s';
-}else if(dd<=7){
-contador.innerHTML='<span style="color:var(--dorado)">¡Esta semana!</span><br>'+dd+' días · '+hh+'h · '+mm+'min';
-}else if(dd<=30){
-contador.innerHTML='<span style="color:var(--dorado)">¡Este mes!</span><br>'+dd+' días · '+hh+'h · '+mm+'min';
-}else{
-contador.textContent=dd+' días · '+hh+'h · '+mm+'min · '+ss+'s';
-}
+
+function animateNumber(id, newValue) {
+  const element = document.getElementById(id);
+  if (!element) return;
+  
+  const oldValue = parseInt(element.textContent) || 0;
+  if (oldValue !== newValue) {
+    element.classList.add('flip');
+    setTimeout(() => {
+      element.textContent = newValue;
+      setTimeout(() => element.classList.remove('flip'), 600);
+    }, 300);
+  }
 }
 const intervaloContador=setInterval(actualizarContador,1000);
 actualizarContador();
+lanzarConfetti();
 
 function lanzarConfetti(){
 const colors=['#5c7d62','#cfa670','#f6f2ec'];
@@ -424,33 +1080,31 @@ localStorage.removeItem('form_asistencia');
 }
 
 async function enviarFormulario(e){
-e.preventDefault();
-const submitBtn=form.querySelector('[type="submit"]');
-submitBtn.disabled=true;
-message.textContent="Enviando respuesta...";
-message.style.color="var(--verde)";
-const data=Object.fromEntries(new FormData(form).entries());
-try{
-await fetch(GOOGLE_SHEETS_ENDPOINT,{
-method:"POST",
-mode:'no-cors',
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify(data)
-});
-message.innerHTML='<div class="checkmark">✓</div><p>💖 ¡Gracias! Hemos recibido tu confirmación.</p>';
-message.style.color="var(--verde)";
-if(navigator.vibrate)navigator.vibrate([100,50,100]);
-const nombreCompleto=data.nombre||'';
-const nombre=nombreCompleto.trim().split(' ')[0];
-if(nombre)localStorage.setItem('nombreInvitado',nombre);
-limpiarDatosGuardados();
-form.reset();
-setTimeout(()=>irA('p8'),2000);
-}catch(error){
-message.textContent="❌ Error al enviar. Inténtalo más tarde.";
-message.style.color="#c62828";
-submitBtn.disabled=false;
-}
+  e.preventDefault();
+  const submitBtn=form.querySelector('[type="submit"]');
+  submitBtn.disabled=true;
+  submitBtn.classList.add('btn-loading');
+  submitBtn.textContent = 'Enviando...';
+  
+  const data=Object.fromEntries(new FormData(form).entries());
+  try{
+    await fetch(GOOGLE_SHEETS_ENDPOINT,{
+      method:"POST",
+      mode:'no-cors',
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(data)
+    });
+    
+    mostrarToast('¡Gracias! Hemos recibido tu confirmación 💖', 'success');
+    
+    // ... resto del código
+  } catch(error) {
+    mostrarToast('Error al enviar. Inténtalo más tarde', 'error');
+    submitBtn.disabled=false;
+  } finally {
+    submitBtn.classList.remove('btn-loading');
+    submitBtn.textContent = 'Enviar Confirmación';
+  }
 }
 
 const btnCopiar=document.getElementById('copiarCuenta');
@@ -504,8 +1158,8 @@ function agregarAlCalendario(){
 const titulo="Boda de Laura y Raúl";
 const descripcion="¡Nos casamos! Palacete de la Ochava, Valdilecha";
 const ubicacion="Palacete de la Ochava, Calle Alcalá 65, 28511 Valdilecha, Madrid";
-const inicio="20260627T180000";
-const fin="20260628T020000";
+const inicio="20260627T160000";
+const fin="20260628T123000";
 const googleCalUrl='https://www.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(titulo)+'&dates='+inicio+'/'+fin+'&details='+encodeURIComponent(descripcion)+'&location='+encodeURIComponent(ubicacion)+'&sf=true&output=xml';
 const icsContent='BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Laura & Raúl//Boda//ES\nBEGIN:VEVENT\nUID:'+Date.now()+'@bodalauraraul.com\nDTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z\nDTSTART:'+inicio+'\nDTEND:'+fin+'\nSUMMARY:'+titulo+'\nDESCRIPTION:'+descripcion+'\nLOCATION:'+ubicacion+'\nSTATUS:CONFIRMED\nEND:VEVENT\nEND:VCALENDAR';
 const isApple=/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream;
@@ -527,7 +1181,11 @@ function actualizarProgreso(){
 const pantallas=['p1','p2','p3','p4','pInfo','p5','p6','p8'];
 const actual=pantallaActual.id;
 const indice=pantallas.indexOf(actual);
-if(indice!==-1){
+if(indice==0){
+const progreso=0;
+document.getElementById('progressBar').style.width=progreso+'%';
+} 
+else{
 const progreso=((indice+1)/pantallas.length)*100;
 document.getElementById('progressBar').style.width=progreso+'%';
 }
@@ -544,6 +1202,51 @@ console.log('SW error:',error);
 }
 
 actualizarProgreso();
+
+
+const NUMERO_CUENTA_REAL = "ES12 3456 7890 1234 5678"; // Cambiar por el real
+let cuentaRevelada = false;
+
+function revelarYCopiar() {
+  const spanNumero = document.getElementById('numeroCuenta');
+  const icono = document.getElementById('iconoCuenta');
+  const mensaje = document.getElementById('mensajeCuenta');
+  
+  if (!cuentaRevelada) {
+    spanNumero.textContent = NUMERO_CUENTA_REAL;
+    icono.textContent = '';
+    cuentaRevelada = true;
+    mensaje.textContent = 'Haz click de nuevo para copiar';
+    return;
+  }
+  
+  navigator.clipboard.writeText(NUMERO_CUENTA_REAL.replace(/\s/g, '')).then(() => {
+    mensaje.textContent = '¡Número copiado al portapapeles! 💛';
+    icono.textContent = '';
+    setTimeout(() => {
+      mensaje.textContent = '';
+      icono.textContent = '';
+    }, 3000);
+  }).catch(() => {
+    mensaje.textContent = 'Copia manualmente: ' + NUMERO_CUENTA_REAL;
+  });
+}
+
+const themeToggle = document.getElementById('themeToggle');
+const savedTheme = localStorage.getItem('theme') || 'light';
+
+if (savedTheme === 'dark') {
+  document.body.classList.add('dark-mode');
+  themeToggle.textContent = '☀️';
+}
+
+themeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+  const isDark = document.body.classList.contains('dark-mode');
+  themeToggle.textContent = isDark ? '☀️' : '🌙';
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+});
+
 </script>
 </body>
 </html>
