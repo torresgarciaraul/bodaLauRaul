@@ -565,8 +565,11 @@ body.dark-mode select {
   border: none;
   cursor: pointer;
   z-index: 999;
-  font-size: 1.5rem;
+  font-size: 0.9rem;
+  display:flex;
+  align-items:center;
   transition: all 0.3s ease;
+  gap:.5rem;
   box-shadow: 0 4px 12px rgba(92,125,98,.4);
 }
 
@@ -581,30 +584,7 @@ body.dark-mode select {
   }
 }
 
-.btn-loading {
-  position: relative;
-  pointer-events: none;
-  opacity: 0.7;
-}
 
-.btn-loading::after {
-  content: '';
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  top: 50%;
-  left: 50%;
-  margin-left: -8px;
-  margin-top: -8px;
-  border: 2px solid rgba(255,255,255,0.3);
-  border-top-color: white;
-  border-radius: 50%;
-  animation: spin 0.6s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
 </style>
 </head>
 <body>
@@ -721,7 +701,7 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 <li>🏨 Todos los invitados tienen incluido el alojamiento en el Palacete. Confírmanos en la encuesta si te quedas.</li>
 <li>🕓 Acceso a habitaciones el 27/06 a partir de las 16:00. Es necesario llevar DNI.</li>
 <li>💈 Se ofrece servicio de peluquería en el Palacete. Si se desea utilizar, contactad con los novios.</li>
-<li>🚗 Parking privado disponible en el Palacete.</li>
+<li>🚗 Parking disponible en el Palacete.</li>
 <li>🚌 Antes de las 18:00 se trasladará a todos los invitados a la Iglesia. No será necesario usar el coche.</li>
 <li>⛪ Tras la ceremonia, regreso al Palacete para comenzar el cóctel.</li>
 <li>☕ El domingo 28/06 habrá desayuno para todos.</li>
@@ -763,7 +743,7 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
       <div class="timeline-content">
         <div class="timeline-time">18:00</div>
         <h3>Ceremonia</h3>
-        <p>Iglesia de Valdilecha</p>
+        <p>Iglesia de San Martín Obispo (Valdilecha)</p>
       </div>
     </div>
     
@@ -1080,31 +1060,33 @@ localStorage.removeItem('form_asistencia');
 }
 
 async function enviarFormulario(e){
-  e.preventDefault();
-  const submitBtn=form.querySelector('[type="submit"]');
-  submitBtn.disabled=true;
-  submitBtn.classList.add('btn-loading');
-  submitBtn.textContent = 'Enviando...';
-  
-  const data=Object.fromEntries(new FormData(form).entries());
-  try{
-    await fetch(GOOGLE_SHEETS_ENDPOINT,{
-      method:"POST",
-      mode:'no-cors',
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify(data)
-    });
-    
-    mostrarToast('¡Gracias! Hemos recibido tu confirmación 💖', 'success');
-    
-    // ... resto del código
-  } catch(error) {
-    mostrarToast('Error al enviar. Inténtalo más tarde', 'error');
-    submitBtn.disabled=false;
-  } finally {
-    submitBtn.classList.remove('btn-loading');
-    submitBtn.textContent = 'Enviar Confirmación';
-  }
+e.preventDefault();
+const submitBtn=form.querySelector('[type="submit"]');
+submitBtn.disabled=true;
+message.textContent="Enviando respuesta...";
+message.style.color="var(--verde)";
+const data=Object.fromEntries(new FormData(form).entries());
+try{
+await fetch(GOOGLE_SHEETS_ENDPOINT,{
+method:"POST",
+mode:'no-cors',
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify(data)
+});
+message.innerHTML='<div class="checkmark">✓</div><p>💖 ¡Gracias! Hemos recibido tu confirmación.</p>';
+message.style.color="var(--verde)";
+if(navigator.vibrate)navigator.vibrate([100,50,100]);
+const nombreCompleto=data.nombre||'';
+const nombre=nombreCompleto.trim().split(' ')[0];
+if(nombre)localStorage.setItem('nombreInvitado',nombre);
+limpiarDatosGuardados();
+form.reset();
+setTimeout(()=>irA('p8'),2000);
+}catch(error){
+message.textContent="❌ Error al enviar. Inténtalo más tarde.";
+message.style.color="#c62828";
+submitBtn.disabled=false;
+}
 }
 
 const btnCopiar=document.getElementById('copiarCuenta');
