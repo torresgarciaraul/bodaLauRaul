@@ -5,93 +5,116 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Laura & Raúl · 27·06·2026</title>
 <link rel="icon" type="image/png" href="imagenes/raul_laura_acu.png">
-<meta name="description" content="Invitación de boda de Laura y Raúl" />
+<meta name="description" content="Invitación de boda de Laura y Raúl - 27 de junio de 2026" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Boda Laura & Raúl - 27 de Junio 2026">
+<meta property="og:description" content="¡Nos casamos! Palacete de la Ochava, Valdilecha.">
+<meta property="og:image" content="imagenes/raul_laura_acu.png">
+
+<!-- Theme Color -->
+<meta name="theme-color" content="#5c7d62">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-:root { --verde: #5c7d62; --crema: #f6f2ec; --dorado: #cfa670; --texto: #2f2f2f; }
-* { box-sizing: border-box; margin:0; padding:0; }
-body { font-family: system-ui, -apple-system, Segoe UI, sans-serif; background:var(--crema); color:var(--texto); }
-.pantalla{
-  min-height:100vh; display:none; padding:2rem 1.2rem 4rem;
-  text-align:center; flex-direction:column; justify-content:center; align-items:center;
-  position:absolute; top:0; left:0; width:100%; transition: transform 0.5s ease, opacity 0.5s ease;
-  background:var(--crema);
-  overflow: hidden;
+:root{--verde:#5c7d62;--crema:#f6f2ec;--dorado:#cfa670;--texto:#2f2f2f;--sombra:rgba(47,47,47,0.1)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--crema);color:var(--texto)}
+.skip-link{position:absolute;top:-40px;left:0;background:var(--verde);color:#fff;padding:.5rem 1rem;text-decoration:none;z-index:10000}
+.skip-link:focus{top:0}
+#progressBar{position:fixed;top:0;left:0;width:0;height:4px;background:var(--dorado);z-index:10000;transition:width .3s ease}
+.pantalla{min-height:100vh;display:none;padding:2rem 1.2rem 4rem;text-align:center;flex-direction:column;justify-content:center;align-items:center;position:absolute;top:0;left:0;width:100%;transition:transform .5s ease,opacity .5s ease;background:var(--crema);overflow:hidden;box-shadow:0 4px 20px var(--sombra)}
+.pantalla.activa{display:flex;transform:translateX(0);opacity:1}
+.pantalla.salida{transform:translateX(-100%);opacity:0}
+h1,h2{font-family:'Playfair Display',serif;color:var(--verde)}
+h1{font-size:2.8rem;font-weight:700;letter-spacing:.5px}
+h2{font-size:1.8rem;font-weight:600;letter-spacing:.3px}
+h2::after{content:'';display:block;width:60px;height:3px;background:var(--dorado);margin:.8rem auto;border-radius:2px}
+h3{font-family:'Playfair Display',serif;color:var(--dorado)}
+p{max-width:560px;line-height:1.6;margin-top:1rem}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeInUp .6s ease-out}
+@keyframes fall{to{transform:translateY(100vh) rotate(720deg);opacity:0}}
+@keyframes checkmark{0%{transform:scale(0) rotate(0);opacity:0}50%{transform:scale(1.2) rotate(180deg);opacity:1}100%{transform:scale(1) rotate(360deg);opacity:1}}
+.checkmark{width:80px;height:80px;border-radius:50%;background:var(--verde);color:#fff;font-size:3rem;display:flex;align-items:center;justify-content:center;margin:1rem auto;animation:checkmark .6s ease-out}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+button{margin-top:1.2rem;padding:.8rem 1.6rem;border-radius:999px;border:none;background:var(--verde);color:#fff;font-size:1rem;cursor:pointer;transition:all .3s ease;box-shadow:0 2px 8px rgba(92,125,98,.2);min-height:44px}
+button:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(92,125,98,.3)}
+button:active{transform:translateY(0);box-shadow:0 2px 4px rgba(92,125,98,.2)}
+.secundario{background:transparent;color:var(--verde);border:2px solid var(--verde)}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--dorado);outline-offset:3px}
+.img-container{position:relative;display:inline-block;overflow:hidden;border-radius:1rem;margin:1.2rem 0}
+.img-container::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(180deg,rgba(92,125,98,.1) 0%,transparent 100%);pointer-events:none}
+.img-container img{transition:transform .3s ease}
+.img-container:hover img{transform:scale(1.05)}
+img{max-width:100%;border-radius:1rem}
+img.fullscreen{max-height:40vh;max-width:90vw;object-fit:contain}
+.timeline-img{max-height:45vh;max-width:95vw;object-fit:contain}
+.contador{font-size:1.4rem;font-weight:700;margin-top:.8rem}
+.icono{font-size:3rem;color:var(--dorado)}
+form{width:100%;max-width:440px;text-align:left;margin-top:1rem}
+label{display:block;margin-top:.9rem;font-weight:600}
+input,textarea,select{width:100%;padding:.6rem;margin-top:.3rem;border-radius:.5rem;border:1px solid #ccc;font-size:1rem;min-height:44px}
+.error-msg{display:block;color:#c62828;font-size:.85rem;margin-top:.3rem;min-height:1.2rem}
+input.invalid,textarea.invalid,select.invalid{border-color:#c62828;background-color:#ffebee}
+input.valid,textarea.valid,select.valid{border-color:var(--verde);background-color:#f1f8f4}
+iframe.mapa{width:100%;max-width:640px;height:320px;border:0;border-radius:1rem;margin-top:1rem;box-shadow:0 4px 12px var(--sombra)}
+.timeline{position:relative;max-width:520px;margin:2rem auto;padding-left:20px}
+.timeline::before{content:"";position:absolute;left:12px;top:0;width:4px;height:100%;background:var(--verde)}
+.timeline div{position:relative;margin-bottom:2rem;padding-left:20px}
+.timeline div::before{content:"";position:absolute;left:-12px;top:0;width:20px;height:20px;border-radius:50%;background:var(--verde)}
+.timeline div span{font-weight:700;margin-right:.3rem}
+#menuBtn{position:fixed;top:1rem;right:1rem;padding:.8rem 1.2rem;border-radius:999px;background:var(--verde);color:#fff;border:none;cursor:pointer;z-index:999}
+#menuOpciones{position:fixed;top:3.5rem;right:1rem;background:#fff;border-radius:.8rem;box-shadow:0 2px 10px rgba(0,0,0,.2);display:none;flex-direction:column;min-width:200px;z-index:999}
+#menuOpciones button{background:transparent;color:var(--verde);border:none;text-align:left;padding:.8rem 1rem;margin:0;cursor:pointer;font-weight:600;border-radius:0;box-shadow:none}
+#menuOpciones button:hover{background:var(--crema);transform:none}
+#btnMusica{position:fixed;bottom:2rem;right:2rem;padding:.8rem 1.2rem;font-size:.9rem;border-radius:999px;background:var(--verde);color:#fff;border:none;cursor:pointer;z-index:999;display:flex;align-items:center;gap:.5rem;box-shadow:0 4px 12px rgba(92,125,98,.4)}
+#btnMusica:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(92,125,98,.5)}
+#btnMusica.playing .music-icon{animation:pulse 1.5s ease-in-out infinite}
+#btnMusica.stopped{opacity:.7}
+@media (max-width:640px){
+h1{font-size:2.2rem}
+h2{font-size:1.5rem}
+#btnMusica{bottom:1rem;right:1rem;padding:.6rem 1rem;font-size:.85rem}
+.music-text{display:none}
 }
-.pantalla.activa{display:flex; transform:translateX(0); opacity:1;}
-.pantalla.salida{transform:translateX(-100%); opacity:0;}
-
-h1,h2{color:var(--verde);} h1{font-size:2.4rem;} h2{font-size:1.6rem;}
-p{max-width:560px; line-height:1.6; margin-top:1rem;}
-button{margin-top:1.2rem; padding:.8rem 1.6rem; border-radius:999px; border:none; background:var(--verde); color:#fff; font-size:1rem; cursor:pointer}
-.secundario{background:transparent; color:var(--verde); border:2px solid var(--verde)}
-button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--dorado); outline-offset:2px}
-img{max-width:100%; border-radius:1rem; margin:1.2rem 0}
-.contador{font-size:1.4rem; font-weight:700; margin-top:.8rem}
-form{width:100%; max-width:440px; text-align:left; margin-top:1rem}
-label{display:block; margin-top:.9rem; font-weight:600}
-input,textarea,select{width:100%; padding:.6rem; margin-top:.3rem; border-radius:.5rem; border:1px solid #ccc; font-size:1rem}
-.icono{font-size:3rem}
-footer{margin-top:2rem; font-size:.85rem; opacity:.8}
-iframe.mapa{width:100%; max-width:640px; height:320px; border:0; border-radius:1rem; margin-top:1rem}
-
-/* Timeline gráfico */
-.timeline{position:relative; max-width:520px; margin:2rem auto; padding-left:20px;}
-.timeline::before{content:""; position:absolute; left:12px; top:0; width:4px; height:100%; background:var(--verde);}
-.timeline div{position:relative; margin-bottom:2rem; padding-left:20px;}
-.timeline div::before{content:""; position:absolute; left:-12px; top:0; width:20px; height:20px; border-radius:50%; background:var(--verde);}
-.timeline div span{font-weight:700; margin-right:0.3rem;}
-
-/* Menú flotante */
-#menuBtn{position:fixed;top:1rem;right:1rem;padding:.8rem 1.2rem;border-radius:999px;background:var(--verde);color:#fff;border:none;cursor:pointer;z-index:999;}
-#menuOpciones{position:fixed;top:3.5rem;right:1rem;background:#fff;border-radius:.8rem;box-shadow:0 2px 10px rgba(0,0,0,.2);display:none;flex-direction:column;min-width:180px;z-index:999;}
-#menuOpciones button{background:transparent;color:var(--verde);border:none;text-align:left;padding:.8rem 1rem;margin:0;cursor:pointer;font-weight:600;}
-#menuOpciones button:hover{background:var(--crema);}
-
-/* Botón música */
-#btnMusica{position:fixed;bottom:2rem;right:2rem;padding:1rem 2rem;font-size:1rem;border-radius:999px;background:var(--verde);color:white;border:none;cursor:pointer;z-index:999;}
-
-img.fullscreen{
-  max-height: 40vh;
-  max-width: 90vw;
-  object-fit: contain;
-}
-.timeline-img{
-  max-height:45vh;
-  max-width:95vw;
-  object-fit:contain;
-}
-
 
 </style>
 </head>
 <body>
+
+<a href="#contenido" class="skip-link">Saltar al contenido principal</a>
+<div id="progressBar"></div>
+
 <nav aria-label="Navegación principal">
-
-
-<!-- Menú -->
-<button id="menuBtn" aria-haspopup="true" aria-expanded="false">☰ Menú</button>
+<button id="menuBtn" aria-haspopup="true" aria-expanded="false" aria-label="Abrir menú">☰ Menú</button>
 <div id="menuOpciones" role="menu">
-  <button data-target="p1">Inicio</button>
-  <button data-target="p2">Fecha</button>
-  <button data-target="p3">Lugar</button>
-  <button data-target="p4">Mapa</button>
-  <button data-target="pInfo">Información útil</button>
-  <button data-target="p5">Timeline</button>
-  <button data-target="p6">Confirmación</button>
-  <button data-target="p8">Gracias</button>
+<button data-target="p1">Inicio</button>
+<button data-target="p2">Fecha</button>
+<button data-target="p3">Lugar</button>
+<button data-target="p4">Mapa</button>
+<button data-target="pInfo">Información útil</button>
+<button data-target="p5">Timeline</button>
+<button data-target="p6">Confirmación</button>
+<button data-target="p8">Gracias</button>
 </div>
 </nav>
 
 <main id="contenido">
-<!-- Pantallas -->
+
 <section class="pantalla activa" id="p1">
+<div class="img-container">
 <img src="imagenes/raul_laura_acu.png" alt="Laura & Raúl" class="fullscreen">
+</div>
 <h1>Laura & Raúl</h1>
 <p>27 de junio de 2026 · ¡Nos casamos!</p>
-<p><strong>
-Nos hace muchísima ilusión que nos acompañes en un día tan especial
-</strong></p>
+<p><strong>Nos hace muchísima ilusión que nos acompañes en un día tan especial</strong></p>
 <button onclick="irA('p2')">Empezar</button>
 </section>
 
@@ -99,19 +122,22 @@ Nos hace muchísima ilusión que nos acompañes en un día tan especial
 <h2>📅 27 de junio de 2026</h2>
 <p>Cuenta atrás para el gran día:</p>
 <div class="contador" id="contador" aria-live="polite"></div>
+<button onclick="agregarAlCalendario()" class="secundario" style="margin-top:1.5rem">📆 Añadir al calendario</button>
 <div class="nav">
-  <button onclick="irA('p3')">Lugar</button>
-  <button class="secundario" onclick="irA('p1')">⬅ Volver</button>
+<button onclick="irA('p3')">Lugar</button>
+<button class="secundario" onclick="irA('p1')">⬅ Volver</button>
 </div>
 </section>
 
 <section class="pantalla" id="p3">
 <h2>🏛️ Palacete de la Ochava</h2>
 <p>Valdilecha</p>
+<div class="img-container">
 <img src="imagenes/fachada.jpg" alt="Fachada del Palacete de la Ochava" class="fullscreen" loading="lazy"/>
+</div>
 <div class="nav">
-  <button onclick="irA('p4')">Mapa & cómo llegar</button>
-  <button class="secundario" onclick="irA('p2')">⬅ Volver</button>
+<button onclick="irA('p4')">Mapa & cómo llegar</button>
+<button class="secundario" onclick="irA('p2')">⬅ Volver</button>
 </div>
 </section>
 
@@ -121,257 +147,403 @@ Nos hace muchísima ilusión que nos acompañes en un día tan especial
 <iframe class="mapa" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
 src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&output=embed" aria-label="Mapa del Palacete de la Ochava"></iframe>
 <div class="nav">
-  <button onclick="irA('pInfo')">Información Útil</button>
-  <a href="https://www.google.com/maps/dir/?api=1&destination=Palacete+de+la+Ochava+Valdilecha" target="_blank" rel="noopener"><button class="secundario">Cómo llegar</button></a>
-  <button class="secundario" onclick="irA('p3')">⬅ Volver</button>
+<button onclick="irA('pInfo')">Información Útil</button>
+<a href="https://www.google.com/maps/dir/?api=1&destination=Palacete+de+la+Ochava+Valdilecha" target="_blank" rel="noopener"><button class="secundario">Cómo llegar</button></a>
+<button class="secundario" onclick="irA('p3')">⬅ Volver</button>
 </div>
 </section>
 
 <section class="pantalla" id="pInfo">
 <h2>ℹ️ Información útil</h2>
-
-<ul style="text-align:left;max-width:640px;line-height:1.6;margin-top:1rem;">
-  <li>🏨 Todos los invitados tienen incluido el alojamiento en el Palacete. Confírmanos en la encuesta si te quedas.</li>
-  <li>🕓 Acceso a habitaciones el 27/06 a partir de las 16:00. Es necesario llevar DNI.</li>
-  <li>💈 Se ofrece servicio de peluquería en el Palacete. Si se desea utilizar, contactad con los novios.</li>
-  <li>🚗 Parking privado disponible en el Palacete.</li>
-  <li>🚌 Antes de las 18:00 se trasladará a todos los invitados a la Iglesia. No será necesario usar el coche.</li>
-  <li>⛪ Tras la ceremonia, regreso al Palacete para comenzar el cóctel.</li>
-  <li>☕ El domingo 28/06 habrá desayuno para todos.</li>
-  <li>🕛 Habitaciones disponibles hasta el domingo a las 12:30.</li>
+<ul style="text-align:left;max-width:640px;line-height:1.6;margin-top:1rem">
+<li>🏨 Todos los invitados tienen incluido el alojamiento en el Palacete. Confírmanos en la encuesta si te quedas.</li>
+<li>🕓 Acceso a habitaciones el 27/06 a partir de las 16:00. Es necesario llevar DNI.</li>
+<li>💈 Se ofrece servicio de peluquería en el Palacete. Si se desea utilizar, contactad con los novios.</li>
+<li>🚗 Parking privado disponible en el Palacete.</li>
+<li>🚌 Antes de las 18:00 se trasladará a todos los invitados a la Iglesia. No será necesario usar el coche.</li>
+<li>⛪ Tras la ceremonia, regreso al Palacete para comenzar el cóctel.</li>
+<li>☕ El domingo 28/06 habrá desayuno para todos.</li>
+<li>🕛 Habitaciones disponibles hasta el domingo a las 12:30.</li>
 </ul>
-
 <div class="nav">
-  <button onclick="irA('p5')">Timeline</button>
-  <button class="secundario" onclick="irA('p4')">⬅ Volver</button>
+<button onclick="irA('p5')">Timeline</button>
+<button class="secundario" onclick="irA('p4')">⬅ Volver</button>
 </div>
 </section>
-
 
 <section class="pantalla" id="p5">
 <h2>📌 Timeline</h2>
 <div class="timeline">
-<img src="imagenes/timeline.jpeg"
-     alt="Timeline del día de la boda"
-     class="timeline-img"
-     loading="lazy">
+<img src="imagenes/timeline.jpeg" alt="Timeline del día de la boda" class="timeline-img" loading="lazy">
 </div>
 <div class="nav">
-  <button onclick="irA('p6')">Confirmación de asistencia</button>
-  <button class="secundario" onclick="irA('pInfo')">⬅ Volver</button>
+<button onclick="irA('p6')">Confirmación de asistencia</button>
+<button class="secundario" onclick="irA('pInfo')">⬅ Volver</button>
 </div>
 </section>
 
 <section class="pantalla" id="p6">
 <h2>💌 Confirma tu asistencia</h2>
-
 <form id="weddingForm" onsubmit="enviarFormulario(event)">
-  <label>Nombre y Apellidos *
-    <input type="text" name="nombre" required minlength="3">
-  </label>
-
-  <label>Teléfono de contacto *
-    <input type="tel"
-       name="telefono"
-       required
-       pattern="^[0-9+ ]{9,15}$"
-       inputmode="tel">
-  </label>
-
-  <fieldset style="margin-top:1rem;border:none;padding:0">
-  <legend style="font-weight:600">
-    ¿Podrás acompañarnos en este día tan especial?
-  </legend>
-
-  <label><input type="radio" name="asistencia" value="No" required> No</label>
-  <label><input type="radio" name="asistencia" value="Sí, me quedaré a dormir"> Sí, me quedaré a dormir</label>
-  <label><input type="radio" name="asistencia" value="Sí, pero me volveré a casa"> Sí, pero me volveré a casa</label>
+<label>Nombre y Apellidos *
+<input type="text" name="nombre" id="inputNombre" required minlength="3" autocomplete="name">
+<span class="error-msg" id="errorNombre"></span>
+</label>
+<label>Teléfono de contacto *
+<input type="tel" name="telefono" id="inputTelefono" required pattern="^[0-9+]{9,15}$" inputmode="tel" autocomplete="tel">
+<span class="error-msg" id="errorTelefono"></span>
+</label>
+<fieldset style="margin-top:1rem;border:none;padding:0">
+<legend style="font-weight:600">¿Podrás acompañarnos en este día tan especial?</legend>
+<label><input type="radio" name="asistencia" value="No" required> No</label>
+<label><input type="radio" name="asistencia" value="Sí, me quedaré a dormir"> Sí, me quedaré a dormir</label>
+<label><input type="radio" name="asistencia" value="Sí, pero me volveré a casa"> Sí, pero me volveré a casa</label>
+<span class="error-msg" id="errorAsistencia"></span>
 </fieldset>
-
-  <label>El banquete incluye un plato principal de carne. Si tienes alguna alergia, intolerancia o restricción alimentaria (incluso si prefieres pescado), por favor háznoslo saber</label>
-        <textarea name="alergias" rows="3"></textarea>
-
-    <label>Elige una canción que no pueda faltar</label>
-        <textarea name="cancion" rows="3"></textarea>
-
-  <div class="nav">
-    <button type="submit">Enviar Confirmación</button>
-    <button class="secundario" type="button" onclick="irA('p5')">⬅ Volver</button>
-    </form>
-    <div id="mensaje" class="message" style="margin-top:.5rem;color:var(--verde);font-weight:600;"></div>
-  </div>
+<label>El banquete incluye un plato principal de carne. Si tienes alguna alergia, intolerancia o restricción alimentaria (incluso si prefieres pescado), por favor háznoslo saber</label>
+<textarea name="alergias" id="inputAlergias" rows="3"></textarea>
+<label>Elige una canción que no pueda faltar</label>
+<textarea name="cancion" id="inputCancion" rows="1"></textarea>
+<div class="nav">
+<button type="submit">Enviar Confirmación</button>
+<button class="secundario" type="button" onclick="irA('p5')">⬅ Volver</button>
+</div>
+</form>
+<div id="mensaje" class="message" style="margin-top:.5rem;color:var(--verde);font-weight:600"></div>
 </section>
 
-
-
 <section class="pantalla" id="p8">
+<div class="img-container">
 <img src="imagenes/raul_laura_acu.png" alt="Laura & Raúl" class="fullscreen" loading="lazy">
+</div>
 <h2 id="tituloGracias">¡Gracias por tu confirmación!</h2>
 <p>27 de junio de 2026</p>
-<p>Nuestro mejor regalo es que nos acompañéis en este día tan especial,<br>
-pero si deseáis ayudarnos a iniciar esta nueva aventura juntos,<br>
-podéis hacerlo aquí:</p>
-<button id="copiarCuenta" style="background:var(--verde);color:#fff;border:none;border-radius:.5rem;padding:.5rem 1rem;margin-top:0.5rem;font-weight:600;cursor:pointer;">EXXX XXXX XXXX XXXX</button>
-<p id="mensajeCuenta" style="margin-top:0.5rem; color:var(--verde); font-weight:600;"></p>
+<p>Nuestro mejor regalo es que nos acompañéis en este día tan especial,<br>pero si deseáis ayudarnos a iniciar esta nueva aventura juntos,<br>podéis hacerlo aquí:</p>
+<button id="copiarCuenta" style="background:var(--verde);color:#fff;border:none;border-radius:.5rem;padding:.5rem 1rem;margin-top:.5rem;font-weight:600;cursor:pointer">ESXX XXXX XXXX XXXX</button>
+<p id="mensajeCuenta" style="margin-top:.5rem;color:var(--verde);font-weight:600"></p>
 <button class="secundario" onclick="irA('p1')">Volver al inicio</button>
 </section>
 
-<!-- Música de fondo local -->
+</main>
+
 <audio id="musica" src="musica/bso.mp3" loop preload="none" playsinline></audio>
-<button id="btnMusica">🎵 Activar música</button>
+<button id="btnMusica" aria-label="Controlar música de fondo">
+<span class="music-icon">🎵</span>
+<span class="music-text">Música</span>
+</button>
 
 <script>
-// Navegación con transición slide
-let pantallaActual = document.querySelector('.pantalla.activa');
+const GOOGLE_SHEETS_ENDPOINT="https://script.google.com/macros/s/AKfycbw6EHGG1htZkSJodEyXEGb0IXKXvpyGmsYqRNPSwqolnhBPG4cT3QfDXWAuqEpAXJzR/exec";
+const form=document.getElementById("weddingForm");
+const message=document.getElementById("mensaje");
+const formFields=['inputNombre','inputTelefono','inputAlergias','inputCancion'];
+let pantallaActual=document.querySelector('.pantalla.activa');
+
 function irA(id){
-  const siguiente = document.getElementById(id);
-  if(pantallaActual === siguiente) return;
-
-  pantallaActual.classList.add('salida');
-
-  setTimeout(()=>{
-    pantallaActual.classList.remove('activa','salida');
-    siguiente.classList.add('activa');
-    pantallaActual = siguiente;
-
-    window.scrollTo(0,0);
-
-    const heading = siguiente.querySelector('h1, h2');
-    if (heading) {
-      heading.setAttribute('tabindex', '-1');
-      heading.focus();
-    }
-
-    if (id=='p6'){
-      const message = document.getElementById("mensaje");
-      const submitBtn = form.querySelector('[type="submit"]');
-      submitBtn.disabled = false;
-      message.textContent = "";
-    }
-
-    if (id === 'p8') {
-      personalizarGracias();
-    }
-
-  }, 500);
+const siguiente=document.getElementById(id);
+if(pantallaActual===siguiente)return;
+pantallaActual.classList.add('salida');
+setTimeout(()=>{
+pantallaActual.classList.remove('activa','salida');
+siguiente.classList.add('activa');
+pantallaActual=siguiente;
+const elementos=siguiente.querySelectorAll('h1,h2,p,button,img,.timeline');
+elementos.forEach((el,index)=>{
+el.style.opacity='0';
+setTimeout(()=>{
+el.classList.add('fade-in');
+el.style.opacity='1';
+},index*50);
+});
+window.scrollTo(0,0);
+actualizarProgreso();
+const heading=siguiente.querySelector('h1,h2');
+if(heading){
+heading.setAttribute('tabindex','-1');
+heading.focus();
+}
+if(id=='p6'){
+message.textContent="";
+form.querySelector('[type="submit"]').disabled=false;
+setTimeout(()=>cargarDatosGuardados(),100);
+}
+if(id==='p8')personalizarGracias();
+},500);
 }
 
-
-// Menú desplegable
-const menuBtn = document.getElementById('menuBtn');
-const menuOpciones = document.getElementById('menuOpciones');
-menuBtn.addEventListener('click',()=> {
-  const abierto = menuOpciones.style.display === 'flex';
-  menuOpciones.style.display = abierto ? 'none' : 'flex';
-  menuBtn.setAttribute('aria-expanded', !abierto);
+const menuBtn=document.getElementById('menuBtn');
+const menuOpciones=document.getElementById('menuOpciones');
+menuBtn.addEventListener('click',()=>{
+const abierto=menuOpciones.style.display==='flex';
+menuOpciones.style.display=abierto?'none':'flex';
+menuBtn.setAttribute('aria-expanded',!abierto);
 });
 menuOpciones.querySelectorAll('button').forEach(b=>{
-  b.addEventListener('click',()=>{
-    irA(b.dataset.target);
-    menuOpciones.style.display='none';
-  });
+b.addEventListener('click',()=>{
+irA(b.dataset.target);
+menuOpciones.style.display='none';
+});
 });
 
-// Contador
-const fechaBoda = new Date('2026-06-27T12:00:00'); 
-const contador = document.getElementById('contador');
-const intervaloContador = setInterval(() => {
-  const ahora = new Date();
-  const diff = fechaBoda - ahora;
+menuOpciones.addEventListener('keydown',function(e){
+const buttons=Array.from(menuOpciones.querySelectorAll('button'));
+const currentIndex=buttons.indexOf(document.activeElement);
+if(e.key==='ArrowDown'){
+e.preventDefault();
+const nextIndex=(currentIndex+1)%buttons.length;
+buttons[nextIndex].focus();
+}else if(e.key==='ArrowUp'){
+e.preventDefault();
+const prevIndex=(currentIndex-1+buttons.length)%buttons.length;
+buttons[prevIndex].focus();
+}else if(e.key==='Escape'){
+menuOpciones.style.display='none';
+menuBtn.focus();
+}
+});
 
-  if (diff <= 0) {
-    contador.textContent = '¡Hoy es el gran día! 🎊';
-    clearInterval(intervaloContador);
-    return;
-  }
+document.addEventListener('keydown',function(e){
+if(e.key==='Escape'&&menuOpciones.style.display==='flex'){
+menuOpciones.style.display='none';
+menuBtn.setAttribute('aria-expanded','false');
+menuBtn.focus();
+}
+});
 
-  const dd = Math.floor(diff / 86400000);
-  const hh = Math.floor(diff / 3600000 % 24);
-  const mm = Math.floor(diff / 60000 % 60);
-  const ss = Math.floor(diff / 1000 % 60);
+const fechaBoda=new Date('2026-06-27T18:00:00');
+const contador=document.getElementById('contador');
+function actualizarContador(){
+const ahora=new Date();
+const diff=fechaBoda-ahora;
+if(diff<=0){
+contador.innerHTML='¡Hoy es el gran día! 🎊';
+clearInterval(intervaloContador);
+lanzarConfetti();
+return;
+}
+const dd=Math.floor(diff/86400000);
+const hh=Math.floor(diff/3600000%24);
+const mm=Math.floor(diff/60000%60);
+const ss=Math.floor(diff/1000%60);
+if(dd===0){
+contador.innerHTML='<span style="color:var(--dorado);font-size:1.6rem">¡ES HOY!</span><br>'+hh+'h '+mm+'min '+ss+'s';
+}else if(dd===1){
+contador.innerHTML='<span style="color:var(--dorado)">¡MAÑANA!</span><br>'+hh+'h '+mm+'min '+ss+'s';
+}else if(dd<=7){
+contador.innerHTML='<span style="color:var(--dorado)">¡Esta semana!</span><br>'+dd+' días · '+hh+'h · '+mm+'min';
+}else if(dd<=30){
+contador.innerHTML='<span style="color:var(--dorado)">¡Este mes!</span><br>'+dd+' días · '+hh+'h · '+mm+'min';
+}else{
+contador.textContent=dd+' días · '+hh+'h · '+mm+'min · '+ss+'s';
+}
+}
+const intervaloContador=setInterval(actualizarContador,1000);
+actualizarContador();
 
-  contador.textContent = `${dd} días · ${hh} h · ${mm} min · ${ss} s`;
-}, 1000);
+function lanzarConfetti(){
+const colors=['#5c7d62','#cfa670','#f6f2ec'];
+for(let i=0;i<50;i++){
+const confetti=document.createElement('div');
+confetti.style.cssText='position:fixed;width:10px;height:10px;background:'+colors[Math.floor(Math.random()*colors.length)]+';left:'+Math.random()*100+'vw;top:-10px;opacity:'+Math.random()+';transform:rotate('+Math.random()*360+'deg);animation:fall '+(2+Math.random()*3)+'s linear;pointer-events:none;z-index:9999';
+document.body.appendChild(confetti);
+setTimeout(()=>confetti.remove(),5000);
+}
+}
 
-// Google Sheets
-const GOOGLE_SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbw6EHGG1htZkSJodEyXEGb0IXKXvpyGmsYqRNPSwqolnhBPG4cT3QfDXWAuqEpAXJzR/exec";
-const form = document.getElementById("weddingForm");
-const message = document.getElementById("mensaje");
+const inputNombre=document.getElementById('inputNombre');
+const inputTelefono=document.getElementById('inputTelefono');
+const radioAsistencia=document.querySelectorAll('input[name="asistencia"]');
+
+inputNombre.addEventListener('blur',function(){
+const errorMsg=document.getElementById('errorNombre');
+if(this.value.trim().length<3){
+this.classList.add('invalid');
+this.classList.remove('valid');
+errorMsg.textContent='El nombre debe tener al menos 3 caracteres';
+}else{
+this.classList.remove('invalid');
+this.classList.add('valid');
+errorMsg.textContent='';
+}
+});
+
+inputTelefono.addEventListener('blur',function(){
+const errorMsg=document.getElementById('errorTelefono');
+const pattern=/^[0-9+]{9,15}$/;
+if(!pattern.test(this.value.replace(/\s/g,''))){
+this.classList.add('invalid');
+this.classList.remove('valid');
+errorMsg.textContent='Formato: 9-15 dígitos (ejemplo: 612345678)';
+}else{
+this.classList.remove('invalid');
+this.classList.add('valid');
+errorMsg.textContent='';
+}
+});
+
+radioAsistencia.forEach(radio=>{
+radio.addEventListener('change',function(){
+const errorMsg=document.getElementById('errorAsistencia');
+errorMsg.textContent='';
+});
+});
+
+function cargarDatosGuardados(){
+formFields.forEach(fieldId=>{
+const field=document.getElementById(fieldId);
+const savedValue=localStorage.getItem('form_'+fieldId);
+if(savedValue&&field)field.value=savedValue;
+});
+const savedAsistencia=localStorage.getItem('form_asistencia');
+if(savedAsistencia){
+const radio=document.querySelector('input[name="asistencia"][value="'+savedAsistencia+'"]');
+if(radio)radio.checked=true;
+}
+}
+
+formFields.forEach(fieldId=>{
+const field=document.getElementById(fieldId);
+if(field){
+field.addEventListener('input',function(){
+localStorage.setItem('form_'+fieldId,this.value);
+});
+}
+});
+
+radioAsistencia.forEach(radio=>{
+radio.addEventListener('change',function(){
+localStorage.setItem('form_asistencia',this.value);
+});
+});
+
+function limpiarDatosGuardados(){
+formFields.forEach(fieldId=>{
+localStorage.removeItem('form_'+fieldId);
+});
+localStorage.removeItem('form_asistencia');
+}
 
 async function enviarFormulario(e){
-  e.preventDefault();
-
-  const submitBtn = form.querySelector('[type="submit"]');
-  submitBtn.disabled = true;
-  message.textContent = "Enviando respuesta...";
-  message.style.color = "var(--verde)";
-
-  const data = Object.fromEntries(new FormData(form).entries());
-
-  try {
-    const response = await fetch(GOOGLE_SHEETS_ENDPOINT, {
-      method: "POST",
-      mode:'no-cors',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    });
-
-    message.textContent = "💖 ¡Gracias! Hemos recibido tu confirmación.";
-    if (navigator.vibrate) navigator.vibrate(100);
-
-    const nombreCompleto = data.nombre || '';
-    const nombre = nombreCompleto.trim().split(' ')[0];
-    if (nombre) {
-      localStorage.setItem('nombreInvitado', nombre);
-    }
-    form.reset();
-      // Ir automáticamente a la pantalla de gracias
-    setTimeout(() => irA('p8'), 1200);
-
-  } catch (error) {
-    message.textContent = "❌ Error al enviar. Inténtalo más tarde.";
-    message.style.color = "#c62828";
-    submitBtn.disabled = false;
-  }
+e.preventDefault();
+const submitBtn=form.querySelector('[type="submit"]');
+submitBtn.disabled=true;
+message.textContent="Enviando respuesta...";
+message.style.color="var(--verde)";
+const data=Object.fromEntries(new FormData(form).entries());
+try{
+await fetch(GOOGLE_SHEETS_ENDPOINT,{
+method:"POST",
+mode:'no-cors',
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify(data)
+});
+message.innerHTML='<div class="checkmark">✓</div><p>💖 ¡Gracias! Hemos recibido tu confirmación.</p>';
+message.style.color="var(--verde)";
+if(navigator.vibrate)navigator.vibrate([100,50,100]);
+const nombreCompleto=data.nombre||'';
+const nombre=nombreCompleto.trim().split(' ')[0];
+if(nombre)localStorage.setItem('nombreInvitado',nombre);
+limpiarDatosGuardados();
+form.reset();
+setTimeout(()=>irA('p8'),2000);
+}catch(error){
+message.textContent="❌ Error al enviar. Inténtalo más tarde.";
+message.style.color="#c62828";
+submitBtn.disabled=false;
+}
 }
 
-
-// Copiar número de cuenta
-const btnCopiar = document.getElementById('copiarCuenta');
-const mensajeCuenta = document.getElementById('mensajeCuenta');
-btnCopiar.addEventListener('click', ()=>{
-  const numero = btnCopiar.textContent.trim();
-  navigator.clipboard.writeText(numero).then(()=>{
-    mensajeCuenta.textContent = '¡Número copiado al portapapeles! 💛';
-    setTimeout(()=>mensajeCuenta.textContent='',2000);
-  }).catch(()=>{
-    mensajeCuenta.textContent = 'No se pudo copiar. Copia manualmente.';
-  });
+const btnCopiar=document.getElementById('copiarCuenta');
+const mensajeCuenta=document.getElementById('mensajeCuenta');
+btnCopiar.addEventListener('click',()=>{
+const numero=btnCopiar.textContent.trim();
+navigator.clipboard.writeText(numero).then(()=>{
+mensajeCuenta.textContent='¡Número copiado al portapapeles! 💛';
+setTimeout(()=>mensajeCuenta.textContent='',2000);
+}).catch(()=>{
+mensajeCuenta.textContent='No se pudo copiar. Copia manualmente.';
+});
 });
 
-// Música
-const musica = document.getElementById('musica');
-const btnMusica = document.getElementById('btnMusica');
-btnMusica.addEventListener('click', () => {
-  musica.muted=false; musica.play().catch(()=>{});
-  btnMusica.style.display='none';
+const musica=document.getElementById('musica');
+const btnMusica=document.getElementById('btnMusica');
+let musicaActivada=false;
+btnMusica.addEventListener('click',()=>{
+if(!musicaActivada){
+musica.muted=false;
+musica.play().catch(()=>{});
+btnMusica.classList.add('playing');
+btnMusica.classList.remove('stopped');
+btnMusica.querySelector('.music-text').textContent='Pausar';
+musicaActivada=true;
+}else{
+musica.pause();
+btnMusica.classList.remove('playing');
+btnMusica.classList.add('stopped');
+btnMusica.querySelector('.music-text').textContent='Música';
+musicaActivada=false;
+}
 });
 
-function personalizarGracias() {
-  const nombreInvitado = localStorage.getItem('nombreInvitado');
-  if (nombreInvitado) {
-    const titulo = document.getElementById('tituloGracias');
-    if (titulo) {
-      titulo.textContent = `¡Gracias, ${nombreInvitado}!`;
-    }
-  }
+musica.addEventListener('play',()=>{
+btnMusica.classList.add('playing');
+});
+musica.addEventListener('pause',()=>{
+btnMusica.classList.remove('playing');
+});
+
+function personalizarGracias(){
+const nombreInvitado=localStorage.getItem('nombreInvitado');
+if(nombreInvitado){
+const titulo=document.getElementById('tituloGracias');
+if(titulo)titulo.textContent='¡Gracias, '+nombreInvitado+'!';
+}
 }
 
+function agregarAlCalendario(){
+const titulo="Boda de Laura y Raúl";
+const descripcion="¡Nos casamos! Palacete de la Ochava, Valdilecha";
+const ubicacion="Palacete de la Ochava, Calle Alcalá 65, 28511 Valdilecha, Madrid";
+const inicio="20260627T180000";
+const fin="20260628T020000";
+const googleCalUrl='https://www.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(titulo)+'&dates='+inicio+'/'+fin+'&details='+encodeURIComponent(descripcion)+'&location='+encodeURIComponent(ubicacion)+'&sf=true&output=xml';
+const icsContent='BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Laura & Raúl//Boda//ES\nBEGIN:VEVENT\nUID:'+Date.now()+'@bodalauraraul.com\nDTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z\nDTSTART:'+inicio+'\nDTEND:'+fin+'\nSUMMARY:'+titulo+'\nDESCRIPTION:'+descripcion+'\nLOCATION:'+ubicacion+'\nSTATUS:CONFIRMED\nEND:VEVENT\nEND:VCALENDAR';
+const isApple=/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream;
+if(isApple){
+const blob=new Blob([icsContent],{type:'text/calendar;charset=utf-8'});
+const url=window.URL.createObjectURL(blob);
+const link=document.createElement('a');
+link.href=url;
+link.setAttribute('download','boda-laura-raul.ics');
+document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
+}else{
+window.open(googleCalUrl,'_blank');
+}
+}
 
+function actualizarProgreso(){
+const pantallas=['p1','p2','p3','p4','pInfo','p5','p6','p8'];
+const actual=pantallaActual.id;
+const indice=pantallas.indexOf(actual);
+if(indice!==-1){
+const progreso=((indice+1)/pantallas.length)*100;
+document.getElementById('progressBar').style.width=progreso+'%';
+}
+}
+
+if('serviceWorker' in navigator){
+window.addEventListener('load',()=>{
+navigator.serviceWorker.register('/service-worker.js').then(registration=>{
+console.log('SW registrado:',registration.scope);
+}).catch(error=>{
+console.log('SW error:',error);
+});
+});
+}
+
+actualizarProgreso();
 </script>
-
-</main>
 </body>
 </html>
