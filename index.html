@@ -25,16 +25,14 @@
 <style>
 :root{--verde:#5c7d62;--crema:#f6f2ec;--dorado:#cfa670;--texto:#2f2f2f;--sombra:rgba(47,47,47,0.1)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',system-ui,sans-serif;background:var(--crema);color:var(--texto)}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--crema);color:var(--texto);overflow-x:hidden}
 .skip-link{position:absolute;top:-40px;left:0;background:var(--verde);color:#fff;padding:.5rem 1rem;text-decoration:none;z-index:10000}
 .skip-link:focus{top:0}
 #progressBar{position:fixed;top:0;left:0;width:0;height:4px;background:var(--dorado);z-index:10000;transition:width .3s ease}
-.pantalla{min-height:100vh;display:none;padding:2rem 1.2rem 4rem;text-align:center;flex-direction:column;justify-content:center;align-items:center;position:absolute;top:0;left:0;width:100%;transition:transform .5s ease,opacity .5s ease;background:var(--crema);overflow:hidden;box-shadow:0 4px 20px var(--sombra)}
-.pantalla.activa{display:flex;transform:translateX(0);opacity:1}
-.pantalla.salida{transform:translateX(-100%);opacity:0}
-.pantalla {
-  transition: opacity .4s ease, transform .4s ease;
-}
+.pantalla{min-height:100vh;display:none;padding:2rem 1.2rem 4rem;text-align:center;flex-direction:column;justify-content:center;align-items:center;width:100%;background:var(--crema);overflow-y:auto;opacity:0;transform:translateX(100%);transition:opacity .5s ease, transform .5s ease}
+.pantalla.activa{display:flex;opacity:1;transform:translateX(0)}
+.pantalla.preparando{display:flex;opacity:0;transform:translateX(100%)}
+.pantalla.saliendo{opacity:0;transform:translateX(-100%)}
 h1,h2{font-family:'Playfair Display',serif;color:var(--verde)}
 h1{font-size:2.8rem;font-weight:700;letter-spacing:.5px}
 h2{font-size:1.8rem;font-weight:600;letter-spacing:.3px}
@@ -87,7 +85,6 @@ h2{font-size:1.5rem}
 .music-text{display:none}
 }
 
-/* Añadir al <style> */
 .hero-background {
   position: absolute;
   top: 0;
@@ -302,6 +299,19 @@ h2{font-size:1.5rem}
   font-weight: 700;
   color: var(--verde);
   line-height: 1;
+  position: relative;
+  display: inline-block;
+  transition: none;
+}
+
+.countdown-number.flip {
+  animation: flipNumber 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+@keyframes flipNumber {
+  0% { transform: rotateX(0deg); }
+  50% { transform: rotateX(90deg); opacity: 0.3; }
+  100% { transform: rotateX(0deg); opacity: 1; }
 }
 
 .countdown-label {
@@ -364,7 +374,7 @@ h2{font-size:1.5rem}
   flex-direction: row-reverse;
   text-align: right;
 }
-.timeline
+
 .timeline-item:nth-child(1) { animation-delay: 0.1s; }
 .timeline-item:nth-child(2) { animation-delay: 0.2s; }
 .timeline-item:nth-child(3) { animation-delay: 0.3s; }
@@ -498,29 +508,6 @@ h2{font-size:1.5rem}
 .btn-cuenta:hover #iconoCuenta {
   transform: scale(1.2);
 }
-.countdown-number {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--verde);
-  line-height: 1;
-  position: relative;
-  display: inline-block;
-  transition: none;
-}
-
-.countdown-number.flip {
-  animation: flipNumber 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
-}
-
-@keyframes flipNumber {
-  0% { transform: rotateX(0deg); }
-  50% { transform: rotateX(90deg); opacity: 0.3; }
-  100% { transform: rotateX(0deg); opacity: 1; }
-}
-
-
-
 
 body.dark-mode {
   --verde: #7fa88a;
@@ -580,6 +567,36 @@ body.dark-mode select {
   }
 }
 
+.info-cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1.5rem;
+  max-width:900px;
+  margin:2rem auto;
+}
+
+.info-card{
+  background:#fff;
+  border-radius:1.2rem;
+  padding:1.5rem;
+  box-shadow:0 6px 18px var(--sombra);
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+
+.info-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 12px 28px var(--sombra);
+}
+
+.info-icon{
+  font-size:2.2rem;
+  margin-bottom:.5rem;
+}
+
+body.dark-mode .info-card{
+  background:#2a2a2a;
+}
+
 
 </style>
 </head>
@@ -605,7 +622,6 @@ body.dark-mode select {
 
 <main id="contenido">
 
-<!-- Reemplazar la sección p1 -->
 <section class="pantalla activa" id="p1">
   <div class="hero-background">
 <div class="floating-hearts">
@@ -623,7 +639,7 @@ body.dark-mode select {
       <span class="hero-name">Laura</span>
       <span class="hero-ampersand">&</span>
       <span class="hero-name">Raúl</span>
-    </h1>Laura & Raúl
+    </h1>
     <div class="hero-date">27 · 06 · 2026</div>
     <p class="hero-subtitle">¡Nos casamos!</p>
     <p class="hero-message">Nos hace muchísima ilusión que nos acompañes en un día tan especial</p>
@@ -668,7 +684,7 @@ body.dark-mode select {
 </section>
 
 <section class="pantalla" id="p3">
-<h2>🏛️ Palacete de la Ochava</h2>
+<h2>🛖 Palacete de la Ochava</h2>
 <p>Valdilecha</p>
 <div class="img-container">
 <img src="imagenes/fachada.jpg" alt="Fachada del Palacete de la Ochava" class="fullscreen" loading="lazy"/>
@@ -691,36 +707,79 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 </div>
 </section>
 
-<section class="pantalla" id="pInfo">
-<h2>ℹ️ Información útil</h2>
-<ul style="text-align:left;max-width:640px;line-height:1.6;margin-top:1rem">
-<li>🏨 Todos los invitados tienen incluido el alojamiento en el Palacete. Confírmanos en la encuesta si te quedas.</li>
-<li>🕓 Acceso a habitaciones el 27/06 a partir de las 16:00. Es necesario llevar DNI.</li>
-<li>💈 Se ofrece servicio de peluquería en el Palacete. Si se desea utilizar, contactad con los novios.</li>
-<li>🚗 Parking disponible en el Palacete.</li>
-<li>🚌 Antes de las 18:00 se trasladará a todos los invitados a la Iglesia. No será necesario usar el coche.</li>
-<li>⛪ Tras la ceremonia, regreso al Palacete para comenzar el cóctel.</li>
-<li>☕ El domingo 28/06 habrá desayuno para todos.</li>
-<li>🕛 Habitaciones disponibles hasta el domingo a las 12:30.</li>
-</ul>
-<div class="nav">
-<button onclick="irA('p5')">Timeline</button>
-<button class="secundario" onclick="irA('p4')">⬅ Volver</button>
-</div>
-</section>
 
-<!--
-<section class="pantalla" id="p5">
-<h2>📌 Timeline</h2>
-<div class="timeline">
-<img src="imagenes/timeline.jpeg" alt="Timeline del día de la boda" class="timeline-img" loading="lazy">
-</div>
-<div class="nav">
-<button onclick="irA('p6')">Confirmación de asistencia</button>
-<button class="secundario" onclick="irA('pInfo')">⬅ Volver</button>
-</div>
+<!-- ========= SOLO CAMBIA LA SECCIÓN pInfo ========= -->
+<!-- El resto del HTML permanece igual que el tuyo -->
+
+<section class="pantalla" id="pInfo">
+  <h2>ℹ️ Tu fin de semana con nosotros</h2>
+  <p style="max-width:640px">
+    Queremos que solo te preocupes de disfrutar.  
+    Aquí te contamos cómo será todo, paso a paso.
+  </p>
+
+  <div class="info-cards">
+
+    <article class="info-card">
+      <div class="info-icon">🏨</div>
+      <h3>Alojamiento incluido</h3>
+      <p>
+        Todos los invitados tienen incluido el alojamiento en el Palacete.
+        Solo dinos en la confirmación si te quedas a dormir.
+      </p>
+    </article>
+
+    <article class="info-card">
+      <div class="info-icon">🕓</div>
+      <h3>Entrada a habitaciones</h3>
+      <p>
+        El sábado <strong>27/06 desde las 16:00</strong>.  
+        No olvides traer tu DNI.
+      </p>
+    </article>
+
+    <article class="info-card">
+      <div class="info-icon">🚗</div>
+      <h3>Parking</h3>
+      <p>
+        Parking disponible en el Palacete.
+      </p>
+    </article>
+
+    <article class="info-card">
+      <div class="info-icon">🚌</div>
+      <h3>Olvídate del coche</h3>
+      <p>
+        Antes de las 18:00 trasladaremos a todos los invitados
+        a la iglesia y de vuelta al Palacete. No será necesario usar el coche.
+      </p>
+    </article>
+
+    <article class="info-card">
+      <div class="info-icon">💈</div>
+      <h3>Peluquería</h3>
+      <p>
+        Habrá servicio de peluquería en el Palacete.
+        Escríbenos si quieres reservarlo.
+      </p>
+    </article>
+
+    <article class="info-card">
+      <div class="info-icon">☕</div>
+      <h3>Domingo tranquilo</h3>
+      <p>
+        El domingo 28/06 habrá desayuno para todos y
+        podrás quedarte hasta las <strong>12:30</strong>.
+      </p>
+    </article>
+
+  </div>
+
+  <div class="nav">
+    <button onclick="irA('p5')">Timeline</button>
+    <button class="secundario" onclick="irA('p4')">⬅ Volver</button>
+  </div>
 </section>
--->
 
 <section class="pantalla" id="p5">
   <h2>📌 Timeline </h2>
@@ -794,7 +853,6 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
   </div>
 </section>
 
-
 <section class="pantalla" id="p6">
 <h2>💌 Confirma tu asistencia</h2>
 <form id="weddingForm" onsubmit="enviarFormulario(event)">
@@ -832,7 +890,6 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 <h2 id="tituloGracias">¡Gracias por tu confirmación!</h2>
 <p>27 de junio de 2026</p>
 <p>Nuestro mejor regalo es que nos acompañéis en este día tan especial,<br>pero si deseáis ayudarnos a iniciar esta nueva aventura juntos,<br>podéis hacerlo aquí:</p>
-<!-- Reemplazar el botón de cuenta en p8 -->
 <div class="cuenta-container">
   <button id="copiarCuenta" class="btn-cuenta" onclick="revelarYCopiar()">
     <span id="numeroCuenta">●●●● ●●●● ●●●● ●●●●</span>
@@ -857,38 +914,46 @@ const form=document.getElementById("weddingForm");
 const message=document.getElementById("mensaje");
 const formFields=['inputNombre','inputTelefono','inputAlergias','inputCancion'];
 let pantallaActual=document.querySelector('.pantalla.activa');
+let transicionEnProgreso = false;
 
 function irA(id){
+if(transicionEnProgreso) return;
 const siguiente=document.getElementById(id);
-if(pantallaActual===siguiente)return;
-pantallaActual.style.opacity = 0;
-pantallaActual.style.transform = 'translateX(-20px)';
-setTimeout(()=>{
-pantallaActual.classList.remove('activa','salida');
-siguiente.classList.add('activa');
-pantallaActual=siguiente;
-const elementos=siguiente.querySelectorAll('h1,h2,p,button,img,.timeline');
-elementos.forEach((el,index)=>{
-el.style.opacity='0';
-setTimeout(()=>{
-el.classList.add('fade-in');
-el.style.opacity='1';
-},index*50);
-});
-window.scrollTo(0,0);
-actualizarProgreso();
-const heading=siguiente.querySelector('h1,h2');
-if(heading){
-heading.setAttribute('tabindex','-1');
-heading.focus();
-}
-if(id=='p6'){
-message.textContent="";
-form.querySelector('[type="submit"]').disabled=false;
-setTimeout(()=>cargarDatosGuardados(),100);
-}
-if(id==='p8')personalizarGracias();
-},500);
+if(!siguiente || pantallaActual===siguiente) return;
+
+transicionEnProgreso = true;
+
+pantallaActual.classList.add('saliendo');
+siguiente.classList.add('preparando');
+siguiente.style.display = 'flex';
+
+setTimeout(() => {
+  siguiente.classList.remove('preparando');
+  siguiente.classList.add('activa');
+}, 50);
+
+setTimeout(() => {
+  pantallaActual.classList.remove('activa', 'saliendo');
+  pantallaActual.style.display = 'none';
+  pantallaActual = siguiente;
+  transicionEnProgreso = false;
+  
+  window.scrollTo(0, 0);
+  actualizarProgreso();
+  
+  const heading = siguiente.querySelector('h1, h2');
+  if(heading) {
+    heading.setAttribute('tabindex', '-1');
+    heading.focus();
+  }
+  
+  if(id === 'p6') {
+    message.textContent = "";
+    form.querySelector('[type="submit"]').disabled = false;
+    setTimeout(() => cargarDatosGuardados(), 100);
+  }
+  if(id === 'p8') personalizarGracias();
+}, 500);
 }
 
 const menuBtn=document.getElementById('menuBtn');
@@ -968,8 +1033,8 @@ function animateNumber(id, newValue) {
   }
 }
 const intervaloContador=setInterval(actualizarContador,1000);
-actualizarContador();
 lanzarConfetti();
+actualizarContador();
 
 function lanzarConfetti(){
 const colors=['#5c7d62','#cfa670','#f6f2ec'];
@@ -1173,8 +1238,7 @@ console.log('SW error:',error);
 
 actualizarProgreso();
 
-
-const NUMERO_CUENTA_REAL = "ES12 3456 7890 1234 5678"; // Cambiar por el real
+const NUMERO_CUENTA_REAL = "ES12 3456 7890 1234 5678";
 let cuentaRevelada = false;
 
 function revelarYCopiar() {
@@ -1184,7 +1248,7 @@ function revelarYCopiar() {
   
   if (!cuentaRevelada) {
     spanNumero.textContent = NUMERO_CUENTA_REAL;
-    icono.textContent = '';
+    icono.textContent = '📋';
     cuentaRevelada = true;
     mensaje.textContent = 'Haz click de nuevo para copiar';
     return;
@@ -1192,10 +1256,10 @@ function revelarYCopiar() {
   
   navigator.clipboard.writeText(NUMERO_CUENTA_REAL.replace(/\s/g, '')).then(() => {
     mensaje.textContent = '¡Número copiado al portapapeles! 💛';
-    icono.textContent = '';
+    icono.textContent = '✓';
     setTimeout(() => {
       mensaje.textContent = '';
-      icono.textContent = '';
+      icono.textContent = '📋';
     }, 3000);
   }).catch(() => {
     mensaje.textContent = 'Copia manualmente: ' + NUMERO_CUENTA_REAL;
