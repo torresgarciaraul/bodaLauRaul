@@ -25,7 +25,7 @@
 <style>
 :root{--verde:#5c7d62;--crema:#f6f2ec;--dorado:#cfa670;--texto:#2f2f2f;--sombra:rgba(47,47,47,0.1)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',system-ui,sans-serif;background:var(--crema);color:var(--texto);overflow-x:hidden}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--crema);color:var(--texto);overflow-x:hidden;transition:background-color 0.3s ease, color 0.3s ease}
 .skip-link{position:absolute;top:-40px;left:0;background:var(--verde);color:#fff;padding:.5rem 1rem;text-decoration:none;z-index:10000}
 .skip-link:focus{top:0}
 #progressBar{position:fixed;top:0;left:0;width:0;height:4px;background:var(--dorado);z-index:10000;transition:width .3s ease}
@@ -60,7 +60,7 @@ img.fullscreen{max-height:40vh;max-width:90vw;object-fit:contain}
 .icono{font-size:3rem;color:var(--dorado)}
 form{width:100%;max-width:440px;text-align:left;margin-top:1rem}
 label{display:block;margin-top:.9rem;font-weight:600}
-input,textarea,select{width:100%;padding:.6rem;margin-top:.3rem;border-radius:.5rem;border:1px solid #ccc;font-size:1rem;min-height:44px}
+input,textarea,select{width:100%;padding:.6rem;margin-top:.3rem;border-radius:.5rem;border:1px solid #ccc;font-size:1rem;min-height:44px;transition:border-color 0.3s ease, background-color 0.3s ease}
 .error-msg{display:block;color:#c62828;font-size:.85rem;margin-top:.3rem;min-height:1.2rem}
 input.invalid,textarea.invalid,select.invalid{border-color:#c62828;background-color:#ffebee}
 input.valid,textarea.valid,select.valid{border-color:var(--verde);background-color:#f1f8f4}
@@ -70,11 +70,12 @@ iframe.mapa{width:100%;max-width:640px;height:320px;border:0;border-radius:1rem;
 .timeline div{position:relative;margin-bottom:2rem;padding-left:20px}
 .timeline div::before{content:"";position:absolute;left:-12px;top:0;width:20px;height:20px;border-radius:50%;background:var(--verde)}
 .timeline div span{font-weight:700;margin-right:.3rem}
-#menuBtn{position:fixed;top:1rem;right:1rem;padding:.8rem 1.2rem;border-radius:999px;background:var(--verde);color:#fff;border:none;cursor:pointer;z-index:999}
-#menuOpciones{position:fixed;top:3.5rem;right:1rem;background:#fff;border-radius:.8rem;box-shadow:0 2px 10px rgba(0,0,0,.2);display:none;flex-direction:column;min-width:200px;z-index:999}
-#menuOpciones button{background:transparent;color:var(--verde);border:none;text-align:left;padding:.8rem 1rem;margin:0;cursor:pointer;font-weight:600;border-radius:0;box-shadow:none}
+#menuBtn{position:fixed;top:1rem;right:1rem;padding:.8rem 1.2rem;border-radius:999px;background:var(--verde);color:#fff;border:none;cursor:pointer;z-index:999;transition:all 0.3s ease}
+#menuBtn:hover{transform:scale(1.05)}
+#menuOpciones{position:fixed;top:3.5rem;right:1rem;background:#fff;border-radius:.8rem;box-shadow:0 4px 16px rgba(0,0,0,.15);display:none;flex-direction:column;min-width:200px;z-index:999;overflow:hidden}
+#menuOpciones button{background:transparent;color:var(--verde);border:none;text-align:left;padding:.8rem 1rem;margin:0;cursor:pointer;font-weight:600;border-radius:0;box-shadow:none;transition:background-color 0.2s ease}
 #menuOpciones button:hover{background:var(--crema);transform:none}
-#btnMusica{position:fixed;bottom:2rem;right:2rem;padding:.8rem 1.2rem;font-size:.9rem;border-radius:999px;background:var(--verde);color:#fff;border:none;cursor:pointer;z-index:999;display:flex;align-items:center;gap:.5rem;box-shadow:0 4px 12px rgba(92,125,98,.4)}
+#btnMusica{position:fixed;bottom:2rem;right:2rem;padding:.8rem 1.2rem;font-size:.9rem;border-radius:999px;background:var(--verde);color:#fff;border:none;cursor:pointer;z-index:999;display:flex;align-items:center;gap:.5rem;box-shadow:0 4px 12px rgba(92,125,98,.4);transition:all 0.3s ease}
 #btnMusica:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(92,125,98,.5)}
 #btnMusica.playing .music-icon{animation:pulse 1.5s ease-in-out infinite}
 #btnMusica.stopped{opacity:.7}
@@ -126,23 +127,6 @@ h2{font-size:1.5rem}
     opacity: 0.2;
   }
   90% { opacity: 0.15; }
-}
-
-.floating-hearts::before {
-  left: 10%;
-  top: 20%;
-  animation-delay: 0s;
-}
-
-.floating-hearts::after {
-  right: 15%;
-  top: 60%;
-  animation-delay: 7s;
-}
-
-@keyframes floatHeart {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-30px) rotate(10deg); }
 }
 
 .hero-content {
@@ -286,11 +270,12 @@ h2{font-size:1.5rem}
   border-radius: 1rem;
   box-shadow: 0 4px 12px var(--sombra);
   min-width: 80px;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .countdown-box:hover {
   transform: translateY(-5px);
+  box-shadow: 0 6px 20px var(--sombra);
 }
 
 .countdown-number {
@@ -320,6 +305,7 @@ h2{font-size:1.5rem}
   margin-top: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 1px;
+  font-weight: 600;
 }
 
 .countdown-separator {
@@ -413,6 +399,7 @@ h2{font-size:1.5rem}
 .timeline-item:hover .timeline-icon {
   transform: scale(1.15) rotate(10deg);
   border-color: var(--dorado);
+  box-shadow: 0 6px 20px var(--sombra);
 }
 
 .timeline-content {
@@ -498,6 +485,7 @@ h2{font-size:1.5rem}
 .btn-cuenta:hover {
   background: var(--verde);
   color: white;
+  border-color: var(--verde);
 }
 
 #iconoCuenta {
@@ -524,7 +512,8 @@ body.dark-mode .pantalla {
 body.dark-mode .countdown-box,
 body.dark-mode .timeline-content,
 body.dark-mode form,
-body.dark-mode .toast {
+body.dark-mode .toast,
+body.dark-mode #menuOpciones {
   background: #2a2a2a;
   color: #e0e0e0;
 }
@@ -570,52 +559,69 @@ body.dark-mode select {
 .info-cards{
   display:flex;
   flex-direction:column;
-  gap:1rem;
+  gap:1.5rem;
   max-width:600px;
-  margin:1.5rem auto;
+  margin:2rem auto;
   width:100%;
+  padding:0 0.5rem;
 }
 
 .info-card{
   background:#fff;
-  border-radius:1rem;
-  padding:1.2rem;
+  border-radius:1.2rem;
+  padding:1.5rem;
   box-shadow:0 4px 12px var(--sombra);
-  transition:transform .3s ease, box-shadow .3s ease;
+  transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
   display:flex;
   align-items:flex-start;
-  gap:1rem;
+  gap:1.2rem;
   text-align:left;
+  border: 2px solid transparent;
+  animation: fadeInCard 0.6s ease-out;
 }
 
 .info-card:hover{
-  transform:translateY(-3px);
-  box-shadow:0 8px 20px var(--sombra);
+  transform:translateY(-4px);
+  box-shadow:0 8px 24px var(--sombra);
+  border-color: var(--verde);
 }
 
 .info-icon{
-  font-size:2rem;
+  font-size:2.5rem;
   flex-shrink:0;
-  width:50px;
-  height:50px;
+  width:60px;
+  height:60px;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:var(--crema);
+  background: linear-gradient(135deg, var(--verde), var(--dorado));
   border-radius:50%;
+  color:white;
+  transition:transform .3s ease;
+}
+
+.info-card:hover .info-icon{
+  transform:rotate(10deg) scale(1.1);
 }
 
 .info-card h3{
-  font-size:1.1rem;
-  margin:0 0 .4rem 0;
+  font-size:1.2rem;
+  margin:0 0 .5rem 0;
   color:var(--verde);
+  font-weight:600;
 }
 
 .info-card p{
   margin:0;
   font-size:.95rem;
-  line-height:1.5;
+  line-height:1.6;
   max-width:100%;
+  color:var(--texto);
+}
+
+.info-card strong{
+  color:var(--dorado);
+  font-weight:700;
 }
 
 .info-content{
@@ -624,10 +630,50 @@ body.dark-mode select {
 
 body.dark-mode .info-card{
   background:#2a2a2a;
+  border-color:transparent;
+}
+
+body.dark-mode .info-card:hover{
+  border-color:#7fa88a;
 }
 
 body.dark-mode .info-icon{
-  background:#1a1a1a;
+  background: linear-gradient(135deg, #7fa88a, #d4b785);
+}
+
+@keyframes fadeInCard {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.info-card:nth-child(1) { animation-delay: 0.1s; }
+.info-card:nth-child(2) { animation-delay: 0.2s; }
+.info-card:nth-child(3) { animation-delay: 0.3s; }
+.info-card:nth-child(4) { animation-delay: 0.4s; }
+.info-card:nth-child(5) { animation-delay: 0.5s; }
+.info-card:nth-child(6) { animation-delay: 0.6s; }
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+@media (min-width: 640px) {
+  .nav {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }
 
 @media (min-width:768px){
@@ -635,7 +681,7 @@ body.dark-mode .info-icon{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:1.5rem;
-    max-width:800px;
+    max-width:900px;
   }
   
   .info-card{
@@ -645,13 +691,18 @@ body.dark-mode .info-icon{
   }
   
   .info-icon{
-    font-size:2.5rem;
-    width:70px;
-    height:70px;
-    margin-bottom:.5rem;
+    font-size:2.8rem;
+    width:80px;
+    height:80px;
+    margin-bottom:.8rem;
+  }
+  
+  .info-content{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
   }
 }
-
 
 </style>
 </head>
@@ -659,7 +710,7 @@ body.dark-mode .info-icon{
 
 <a href="#contenido" class="skip-link">Saltar al contenido principal</a>
 <div id="progressBar"></div>
-<button id="themeToggle" aria-label="Cambiar tema" title="Cambiar tema">🌙</button>
+<button id="themeToggle" aria-label="Cambiar tema" title="Cambiar entre modo claro y oscuro">🌙</button>
 
 <nav aria-label="Navegación principal">
 <button id="menuBtn" aria-haspopup="true" aria-expanded="false" aria-label="Abrir menú">☰ Menú</button>
@@ -668,7 +719,7 @@ body.dark-mode .info-icon{
 <button data-target="p2">Fecha</button>
 <button data-target="p3">Lugar</button>
 <button data-target="p4">Mapa</button>
-<button data-target="pInfo">Información útil</button>
+<button data-target="pInfo">Información Útil</button>
 <button data-target="p5">Timeline</button>
 <button data-target="p6">Confirmación</button>
 <button data-target="p8">Gracias</button>
@@ -688,7 +739,7 @@ body.dark-mode .info-icon{
   </div>
   <div class="hero-content">
     <div class="img-container hero-img">
-      <img src="imagenes/raul_laura_acu.png" alt="Laura & Raúl" class="fullscreen">
+      <img src="imagenes/raul_laura_acu.png" alt="Fotografía de Laura y Raúl" class="fullscreen">
     </div>
     <h1 class="hero-title">
       <span class="hero-name">Laura</span>
@@ -698,9 +749,9 @@ body.dark-mode .info-icon{
     <div class="hero-date">27 · 06 · 2026</div>
     <p class="hero-subtitle">¡Nos casamos!</p>
     <p class="hero-message">Nos hace muchísima ilusión que nos acompañes en un día tan especial</p>
-    <button onclick="irA('p2')" class="cta-button">
+    <button onclick="irA('p2')" class="cta-button" aria-label="Comenzar a explorar la invitación">
       <span>Comenzar</span>
-      <svg class="arrow-icon" viewBox="0 0 24 24" width="20" height="20">
+      <svg class="arrow-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
         <path fill="currentColor" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
       </svg>
     </button>
@@ -710,28 +761,28 @@ body.dark-mode .info-icon{
 <section class="pantalla" id="p2">
 <h2>📅 27 de junio de 2026</h2>
 <p>Cuenta atrás para el gran día:</p>
-<div class="countdown-container" id="countdownContainer">
+<div class="countdown-container" id="countdownContainer" aria-live="polite">
   <div class="countdown-box">
     <div class="countdown-number" id="countDays">0</div>
     <div class="countdown-label">Días</div>
   </div>
-  <div class="countdown-separator">:</div>
+  <div class="countdown-separator" aria-hidden="true">:</div>
   <div class="countdown-box">
     <div class="countdown-number" id="countHours">0</div>
     <div class="countdown-label">Horas</div>
   </div>
-  <div class="countdown-separator">:</div>
+  <div class="countdown-separator" aria-hidden="true">:</div>
   <div class="countdown-box">
     <div class="countdown-number" id="countMinutes">0</div>
     <div class="countdown-label">Minutos</div>
   </div>
-  <div class="countdown-separator">:</div>
+  <div class="countdown-separator" aria-hidden="true">:</div>
   <div class="countdown-box">
     <div class="countdown-number" id="countSeconds">0</div>
     <div class="countdown-label">Segundos</div>
   </div>
 </div>
-<button onclick="agregarAlCalendario()" class="secundario" style="margin-top:1.5rem">📆 Añadir al calendario</button>
+<button onclick="agregarAlCalendario()" class="secundario" style="margin-top:1.5rem" aria-label="Añadir evento al calendario">📆 Añadir al calendario</button>
 <div class="nav">
 <button onclick="irA('p3')">Lugar</button>
 <button class="secundario" onclick="irA('p1')">⬅ Volver</button>
@@ -739,8 +790,8 @@ body.dark-mode .info-icon{
 </section>
 
 <section class="pantalla" id="p3">
-<h2>🛖 Palacete de la Ochava</h2>
-<p>Valdilecha</p>
+<h2>🏛️ Palacete de la Ochava</h2>
+<p>Valdilecha, Madrid</p>
 <div class="img-container">
 <img src="imagenes/fachada.jpg" alt="Fachada del Palacete de la Ochava" class="fullscreen" loading="lazy"/>
 </div>
@@ -754,17 +805,13 @@ body.dark-mode .info-icon{
 <h2>🗺️ Cómo llegar</h2>
 <p>Calle Alcalá, 65 · C. Miguel de Cervantes, 11 · 28511 Valdilecha, Madrid</p>
 <iframe class="mapa" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&output=embed" aria-label="Mapa del Palacete de la Ochava"></iframe>
+src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&output=embed" aria-label="Mapa de ubicación del Palacete de la Ochava" title="Mapa de Google Maps"></iframe>
 <div class="nav">
 <button onclick="irA('pInfo')">Información Útil</button>
-<a href="https://www.google.com/maps/dir/?api=1&destination=Palacete+de+la+Ochava+Valdilecha" target="_blank" rel="noopener"><button class="secundario">Cómo llegar</button></a>
+<a href="https://www.google.com/maps/dir/?api=1&destination=Palacete+de+la+Ochava+Valdilecha" target="_blank" rel="noopener noreferrer"><button class="secundario">Cómo llegar</button></a>
 <button class="secundario" onclick="irA('p3')">⬅ Volver</button>
 </div>
 </section>
-
-
-<!-- ========= SOLO CAMBIA LA SECCIÓN pInfo ========= -->
-<!-- El resto del HTML permanece igual que el tuyo -->
 
 <section class="pantalla" id="pInfo">
   <h2>ℹ️ Tu fin de semana con nosotros</h2>
@@ -775,57 +822,69 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 
   <div class="info-cards">
 
-    <article class="info-card">
-      <div class="info-icon">🏨</div>
-      <h3>Alojamiento incluido</h3>
-      <p>
-        Todos los invitados tienen incluido el alojamiento en el Palacete.
-        Solo dinos en la confirmación si te quedas a dormir.
-      </p>
+    <article class="info-card" role="article">
+      <div class="info-icon" aria-hidden="true">🏨</div>
+      <div class="info-content">
+        <h3>Alojamiento incluido</h3>
+        <p>
+          Todos los invitados tienen incluido el alojamiento en el Palacete.
+          Confírmanos en la encuesta si te quedas a dormir.
+        </p>
+      </div>
     </article>
 
-    <article class="info-card">
-      <div class="info-icon">🕓</div>
-      <h3>Entrada a habitaciones</h3>
-      <p>
-        El sábado <strong>27/06 desde las 16:00</strong>.  
-        No olvides traer tu DNI.
-      </p>
+    <article class="info-card" role="article">
+      <div class="info-icon" aria-hidden="true">🕓</div>
+      <div class="info-content">
+        <h3>Entrada a habitaciones</h3>
+        <p>
+          El sábado <strong>27/06 desde las 16:00</strong>.  
+          No olvides traer tu DNI.
+        </p>
+      </div>
     </article>
 
-    <article class="info-card">
-      <div class="info-icon">🚗</div>
-      <h3>Parking</h3>
-      <p>
-        Parking disponible en el Palacete.
-      </p>
+    <article class="info-card" role="article">
+      <div class="info-icon" aria-hidden="true">🚗</div>
+      <div class="info-content">
+        <h3>Parking</h3>
+        <p>
+          Parking disponible en el Palacete para todos los invitados.
+        </p>
+      </div>
     </article>
 
-    <article class="info-card">
-      <div class="info-icon">🚌</div>
-      <h3>Olvídate del coche</h3>
-      <p>
-        Antes de las 18:00 trasladaremos a todos los invitados
-        a la iglesia y de vuelta al Palacete. No será necesario usar el coche.
-      </p>
+    <article class="info-card" role="article">
+      <div class="info-icon" aria-hidden="true">🚌</div>
+      <div class="info-content">
+        <h3>Ceremonia</h3>
+        <p>
+          Antes de las 18:00 trasladaremos a todos los invitados
+          a la iglesia y de vuelta al Palacete.
+        </p>
+      </div>
     </article>
 
-    <article class="info-card">
-      <div class="info-icon">💈</div>
-      <h3>Peluquería</h3>
-      <p>
-        Habrá servicio de peluquería en el Palacete.
-        Escríbenos si quieres reservarlo.
-      </p>
+    <article class="info-card" role="article">
+      <div class="info-icon" aria-hidden="true">💈</div>
+      <div class="info-content">
+        <h3>Peluquería</h3>
+        <p>
+          Habrá servicio de peluquería en el Palacete.
+          Escríbenos si quieres reservarlo.
+        </p>
+      </div>
     </article>
 
-    <article class="info-card">
-      <div class="info-icon">☕</div>
-      <h3>Domingo tranquilo</h3>
-      <p>
-        El domingo 28/06 habrá desayuno para todos y
-        podrás quedarte hasta las <strong>12:30</strong>.
-      </p>
+    <article class="info-card" role="article">
+      <div class="info-icon" aria-hidden="true">☕</div>
+      <div class="info-content">
+        <h3>Domingo tranquilo</h3>
+        <p>
+          El domingo 28/06 habrá piscina y desayuno para todos, y
+          podrás quedarte hasta las <strong>12:30</strong>.
+        </p>
+      </div>
     </article>
 
   </div>
@@ -837,10 +896,10 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 </section>
 
 <section class="pantalla" id="p5">
-  <h2>📌 Timeline </h2>
+  <h2>📍 Timeline</h2>
   <div class="timeline-interactive">
     <div class="timeline-item" data-time="16:00">
-      <div class="timeline-icon">🏨</div>
+      <div class="timeline-icon" aria-hidden="true">🏨</div>
       <div class="timeline-content">
         <div class="timeline-time">16:00</div>
         <h3>Check-in</h3>
@@ -849,7 +908,7 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
     </div>
     
     <div class="timeline-item" data-time="18:00">
-      <div class="timeline-icon">⛪</div>
+      <div class="timeline-icon" aria-hidden="true">⛪</div>
       <div class="timeline-content">
         <div class="timeline-time">18:00</div>
         <h3>Ceremonia</h3>
@@ -858,7 +917,7 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
     </div>
     
     <div class="timeline-item" data-time="19:30">
-      <div class="timeline-icon">🥂</div>
+      <div class="timeline-icon" aria-hidden="true">🥂</div>
       <div class="timeline-content">
         <div class="timeline-time">19:30</div>
         <h3>Cóctel</h3>
@@ -867,7 +926,7 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
     </div>
     
     <div class="timeline-item" data-time="21:30">
-      <div class="timeline-icon">🍽️</div>
+      <div class="timeline-icon" aria-hidden="true">🍽️</div>
       <div class="timeline-content">
         <div class="timeline-time">21:30</div>
         <h3>Banquete</h3>
@@ -876,7 +935,7 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
     </div>
     
     <div class="timeline-item" data-time="00:00">
-      <div class="timeline-icon">💃</div>
+      <div class="timeline-icon" aria-hidden="true">💃</div>
       <div class="timeline-content">
         <div class="timeline-time">00:00</div>
         <h3>Fiesta</h3>
@@ -885,7 +944,7 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
     </div>
     
     <div class="timeline-item" data-time="09:00">
-      <div class="timeline-icon">☕</div>
+      <div class="timeline-icon" aria-hidden="true">☕</div>
       <div class="timeline-content">
         <div class="timeline-time">10:00 (Dom)</div>
         <h3>Desayuno y Piscina</h3>
@@ -894,7 +953,7 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
     </div>
     
     <div class="timeline-item" data-time="12:30">
-      <div class="timeline-icon">👋</div>
+      <div class="timeline-icon" aria-hidden="true">👋</div>
       <div class="timeline-content">
         <div class="timeline-time">12:30 (Dom)</div>
         <h3>Check-out</h3>
@@ -911,46 +970,46 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 <section class="pantalla" id="p6">
 <h2>💌 Confirma tu asistencia</h2>
 <form id="weddingForm" onsubmit="enviarFormulario(event)">
-<label>Nombre y Apellidos *
-<input type="text" name="nombre" id="inputNombre" required minlength="3" autocomplete="name">
-<span class="error-msg" id="errorNombre"></span>
+<label for="inputNombre">Nombre y Apellidos *
+<input type="text" name="nombre" id="inputNombre" required minlength="3" autocomplete="name" aria-required="true">
+<span class="error-msg" id="errorNombre" role="alert"></span>
 </label>
-<label>Teléfono de contacto *
-<input type="tel" name="telefono" id="inputTelefono" required pattern="^[0-9+]{9,15}$" inputmode="tel" autocomplete="tel">
-<span class="error-msg" id="errorTelefono"></span>
+<label for="inputTelefono">Teléfono de contacto *
+<input type="tel" name="telefono" id="inputTelefono" required pattern="^[0-9+]{9,15}$" inputmode="tel" autocomplete="tel" aria-required="true">
+<span class="error-msg" id="errorTelefono" role="alert"></span>
 </label>
 <fieldset style="margin-top:1rem;border:none;padding:0">
 <legend style="font-weight:600">¿Podrás acompañarnos en este día tan especial?</legend>
 <label><input type="radio" name="asistencia" value="No" required> No</label>
 <label><input type="radio" name="asistencia" value="Sí, me quedaré a dormir"> Sí, me quedaré a dormir</label>
 <label><input type="radio" name="asistencia" value="Sí, pero me volveré a casa"> Sí, pero me volveré a casa</label>
-<span class="error-msg" id="errorAsistencia"></span>
+<span class="error-msg" id="errorAsistencia" role="alert"></span>
 </fieldset>
-<label>El banquete incluye un plato principal de carne. Si tienes alguna alergia, intolerancia o restricción alimentaria (incluso si prefieres pescado), por favor háznoslo saber</label>
+<label for="inputAlergias">El banquete incluye un plato principal de carne. Si tienes alguna alergia, intolerancia o restricción alimentaria (incluso si prefieres pescado), por favor háznoslo saber</label>
 <textarea name="alergias" id="inputAlergias" rows="3"></textarea>
-<label>Elige una canción que no pueda faltar</label>
+<label for="inputCancion">Elige una canción que no pueda faltar</label>
 <textarea name="cancion" id="inputCancion" rows="1"></textarea>
 <div class="nav">
 <button type="submit">Enviar Confirmación</button>
 <button class="secundario" type="button" onclick="irA('p5')">⬅ Volver</button>
 </div>
 </form>
-<div id="mensaje" class="message" style="margin-top:.5rem;color:var(--verde);font-weight:600"></div>
+<div id="mensaje" class="message" style="margin-top:.5rem;color:var(--verde);font-weight:600" role="status" aria-live="polite"></div>
 </section>
 
 <section class="pantalla" id="p8">
 <div class="img-container">
-<img src="imagenes/raul_laura_acu.png" alt="Laura & Raúl" class="fullscreen" loading="lazy">
+<img src="imagenes/raul_laura_acu.png" alt="Laura y Raúl" class="fullscreen" loading="lazy">
 </div>
 <h2 id="tituloGracias">¡Gracias por tu confirmación!</h2>
 <p>27 de junio de 2026</p>
 <p>Nuestro mejor regalo es que nos acompañéis en este día tan especial,<br>pero si deseáis ayudarnos a iniciar esta nueva aventura juntos,<br>podéis hacerlo aquí:</p>
 <div class="cuenta-container">
-  <button id="copiarCuenta" class="btn-cuenta" onclick="revelarYCopiar()">
-    <span id="numeroCuenta">●●●● ●●●● ●●●● ●●●●</span>
-    <span id="iconoCuenta">👁️</span>
+  <button id="copiarCuenta" class="btn-cuenta" onclick="revelarYCopiar()" aria-label="Revelar y copiar número de cuenta">
+    <span id="numeroCuenta" aria-live="polite">●●●● ●●●● ●●●● ●●●●</span>
+    <span id="iconoCuenta" aria-hidden="true">👁️</span>
   </button>
-  <p id="mensajeCuenta" style="margin-top:.5rem;color:var(--verde);font-weight:600"></p>
+  <p id="mensajeCuenta" style="margin-top:.5rem;color:var(--verde);font-weight:600" role="status" aria-live="polite"></p>
 </div>
 <button class="secundario" onclick="irA('p1')">Volver al inicio</button>
 </section>
@@ -958,11 +1017,10 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 </main>
 
 <audio id="musica" src="musica/bso.mp3" loop preload="none" playsinline></audio>
-<button id="btnMusica" aria-label="Controlar música de fondo">
-<span class="music-icon">🎵</span>
+<button id="btnMusica" aria-label="Controlar música de fondo" aria-pressed="false">
+<span class="music-icon" aria-hidden="true">🎵</span>
 <span class="music-text">Música</span>
 </button>
-
 
 <script>
 const GOOGLE_SHEETS_ENDPOINT="https://script.google.com/macros/s/AKfycbw6EHGG1htZkSJodEyXEGb0IXKXvpyGmsYqRNPSwqolnhBPG4cT3QfDXWAuqEpAXJzR/exec";
@@ -994,7 +1052,7 @@ setTimeout(() => {
   pantallaActual = siguiente;
   transicionEnProgreso = false;
   
-  window.scrollTo(0, 0);
+  window.scrollTo({top: 0, behavior: 'smooth'});
   actualizarProgreso();
   
   const heading = siguiente.querySelector('h1, h2');
@@ -1005,7 +1063,8 @@ setTimeout(() => {
   
   if(id === 'p6') {
     message.textContent = "";
-    form.querySelector('[type="submit"]').disabled = false;
+    const submitBtn = form.querySelector('[type="submit"]');
+    if(submitBtn) submitBtn.disabled = false;
     setTimeout(() => cargarDatosGuardados(), 100);
   }
   if(id === 'p8') personalizarGracias();
@@ -1023,6 +1082,7 @@ menuOpciones.querySelectorAll('button').forEach(b=>{
 b.addEventListener('click',()=>{
 irA(b.dataset.target);
 menuOpciones.style.display='none';
+menuBtn.setAttribute('aria-expanded','false');
 });
 });
 
@@ -1039,6 +1099,7 @@ const prevIndex=(currentIndex-1+buttons.length)%buttons.length;
 buttons[prevIndex].focus();
 }else if(e.key==='Escape'){
 menuOpciones.style.display='none';
+menuBtn.setAttribute('aria-expanded','false');
 menuBtn.focus();
 }
 });
@@ -1058,7 +1119,7 @@ function actualizarContador() {
   
   if (diff <= 0) {
     document.getElementById('countdownContainer').innerHTML = 
-      '<div style="font-size:2rem;color:var(--dorado)">¡Hoy es el gran día! 🎊</div>';
+      '<div style="font-size:2rem;color:var(--dorado);animation:pulse 2s ease-in-out infinite">¡Hoy es el gran día! 🎊</div>';
     clearInterval(intervaloContador);
     lanzarConfetti();
     return;
@@ -1089,14 +1150,15 @@ function animateNumber(id, newValue) {
   }
 }
 const intervaloContador=setInterval(actualizarContador,1000);
-lanzarConfetti();
 actualizarContador();
+lanzarConfetti();
 
 function lanzarConfetti(){
 const colors=['#5c7d62','#cfa670','#f6f2ec'];
 for(let i=0;i<50;i++){
 const confetti=document.createElement('div');
 confetti.style.cssText='position:fixed;width:10px;height:10px;background:'+colors[Math.floor(Math.random()*colors.length)]+';left:'+Math.random()*100+'vw;top:-10px;opacity:'+Math.random()+';transform:rotate('+Math.random()*360+'deg);animation:fall '+(2+Math.random()*3)+'s linear;pointer-events:none;z-index:9999';
+confetti.setAttribute('aria-hidden', 'true');
 document.body.appendChild(confetti);
 setTimeout(()=>confetti.remove(),5000);
 }
@@ -1112,10 +1174,12 @@ if(this.value.trim().length<3){
 this.classList.add('invalid');
 this.classList.remove('valid');
 errorMsg.textContent='El nombre debe tener al menos 3 caracteres';
+this.setAttribute('aria-invalid', 'true');
 }else{
 this.classList.remove('invalid');
 this.classList.add('valid');
 errorMsg.textContent='';
+this.setAttribute('aria-invalid', 'false');
 }
 });
 
@@ -1126,10 +1190,12 @@ if(!pattern.test(this.value.replace(/\s/g,''))){
 this.classList.add('invalid');
 this.classList.remove('valid');
 errorMsg.textContent='Formato: 9-15 dígitos (ejemplo: 612345678)';
+this.setAttribute('aria-invalid', 'true');
 }else{
 this.classList.remove('invalid');
 this.classList.add('valid');
 errorMsg.textContent='';
+this.setAttribute('aria-invalid', 'false');
 }
 });
 
@@ -1141,15 +1207,19 @@ errorMsg.textContent='';
 });
 
 function cargarDatosGuardados(){
-formFields.forEach(fieldId=>{
-const field=document.getElementById(fieldId);
-const savedValue=localStorage.getItem('form_'+fieldId);
-if(savedValue&&field)field.value=savedValue;
-});
-const savedAsistencia=localStorage.getItem('form_asistencia');
-if(savedAsistencia){
-const radio=document.querySelector('input[name="asistencia"][value="'+savedAsistencia+'"]');
-if(radio)radio.checked=true;
+try {
+  formFields.forEach(fieldId=>{
+    const field=document.getElementById(fieldId);
+    const savedValue=localStorage.getItem('form_'+fieldId);
+    if(savedValue&&field)field.value=savedValue;
+  });
+  const savedAsistencia=localStorage.getItem('form_asistencia');
+  if(savedAsistencia){
+    const radio=document.querySelector('input[name="asistencia"][value="'+savedAsistencia+'"]');
+    if(radio)radio.checked=true;
+  }
+} catch(e) {
+  console.log('Error al cargar datos guardados:', e);
 }
 }
 
@@ -1157,22 +1227,34 @@ formFields.forEach(fieldId=>{
 const field=document.getElementById(fieldId);
 if(field){
 field.addEventListener('input',function(){
-localStorage.setItem('form_'+fieldId,this.value);
+  try {
+    localStorage.setItem('form_'+fieldId,this.value);
+  } catch(e) {
+    console.log('Error al guardar:', e);
+  }
 });
 }
 });
 
 radioAsistencia.forEach(radio=>{
 radio.addEventListener('change',function(){
-localStorage.setItem('form_asistencia',this.value);
+  try {
+    localStorage.setItem('form_asistencia',this.value);
+  } catch(e) {
+    console.log('Error al guardar:', e);
+  }
 });
 });
 
 function limpiarDatosGuardados(){
-formFields.forEach(fieldId=>{
-localStorage.removeItem('form_'+fieldId);
-});
-localStorage.removeItem('form_asistencia');
+try {
+  formFields.forEach(fieldId=>{
+    localStorage.removeItem('form_'+fieldId);
+  });
+  localStorage.removeItem('form_asistencia');
+} catch(e) {
+  console.log('Error al limpiar datos:', e);
+}
 }
 
 async function enviarFormulario(e){
@@ -1181,6 +1263,17 @@ const submitBtn=form.querySelector('[type="submit"]');
 submitBtn.disabled=true;
 message.textContent="Enviando respuesta...";
 message.style.color="var(--verde)";
+
+const nombre = inputNombre.value.trim();
+const telefono = inputTelefono.value.trim();
+
+if(nombre.length < 3) {
+  message.textContent="Por favor, ingresa tu nombre completo";
+  message.style.color="#c62828";
+  submitBtn.disabled=false;
+  return;
+}
+
 const data=Object.fromEntries(new FormData(form).entries());
 try{
 await fetch(GOOGLE_SHEETS_ENDPOINT,{
@@ -1189,21 +1282,30 @@ mode:'no-cors',
 headers:{"Content-Type":"application/json"},
 body:JSON.stringify(data)
 });
+
 if(data.asistencia === "No"){
   message.innerHTML = "<p>💔 Sentimos que no puedas venir, ¡te mandamos un abrazo enorme!</p>";
-}
-else {
+} else {
   message.innerHTML='<div class="checkmark">✓</div><p>💖 ¡Gracias! Hemos recibido tu confirmación.</p>';
 }
 message.style.color="var(--verde)";
 if(navigator.vibrate)navigator.vibrate([100,50,100]);
+
 const nombreCompleto=data.nombre||'';
-const nombre=nombreCompleto.trim().split(' ')[0];
-if(nombre)localStorage.setItem('nombreInvitado',nombre);
+const primerNombre=nombreCompleto.trim().split(' ')[0];
+if(primerNombre) {
+  try {
+    localStorage.setItem('nombreInvitado',primerNombre);
+  } catch(e) {
+    console.log('Error al guardar nombre:', e);
+  }
+}
+
 limpiarDatosGuardados();
 form.reset();
 setTimeout(()=>irA('p8'),2000);
 }catch(error){
+console.error('Error al enviar:', error);
 message.textContent="❌ Error al enviar. Inténtalo más tarde.";
 message.style.color="#c62828";
 submitBtn.disabled=false;
@@ -1213,19 +1315,25 @@ submitBtn.disabled=false;
 const musica=document.getElementById('musica');
 const btnMusica=document.getElementById('btnMusica');
 let musicaActivada=false;
+
 btnMusica.addEventListener('click',()=>{
 if(!musicaActivada){
 musica.muted=false;
-musica.play().catch(()=>{});
+musica.play().catch(err => {
+  console.log('Error al reproducir música:', err);
+  btnMusica.querySelector('.music-text').textContent='No disponible';
+});
 btnMusica.classList.add('playing');
 btnMusica.classList.remove('stopped');
 btnMusica.querySelector('.music-text').textContent='Pausar';
+btnMusica.setAttribute('aria-pressed', 'true');
 musicaActivada=true;
 }else{
 musica.pause();
 btnMusica.classList.remove('playing');
 btnMusica.classList.add('stopped');
 btnMusica.querySelector('.music-text').textContent='Música';
+btnMusica.setAttribute('aria-pressed', 'false');
 musicaActivada=false;
 }
 });
@@ -1238,10 +1346,14 @@ btnMusica.classList.remove('playing');
 });
 
 function personalizarGracias(){
-const nombreInvitado=localStorage.getItem('nombreInvitado');
-if(nombreInvitado){
-const titulo=document.getElementById('tituloGracias');
-if(titulo)titulo.textContent='¡Gracias, '+nombreInvitado+'!';
+try {
+  const nombreInvitado=localStorage.getItem('nombreInvitado');
+  if(nombreInvitado){
+    const titulo=document.getElementById('tituloGracias');
+    if(titulo)titulo.textContent='¡Gracias, '+nombreInvitado+'!';
+  }
+} catch(e) {
+  console.log('Error al personalizar:', e);
 }
 }
 
@@ -1263,8 +1375,9 @@ link.setAttribute('download','boda-laura-raul.ics');
 document.body.appendChild(link);
 link.click();
 document.body.removeChild(link);
+window.URL.revokeObjectURL(url);
 }else{
-window.open(googleCalUrl,'_blank');
+window.open(googleCalUrl,'_blank', 'noopener,noreferrer');
 }
 }
 
@@ -1272,14 +1385,12 @@ function actualizarProgreso(){
 const pantallas=['p1','p2','p3','p4','pInfo','p5','p6','p8'];
 const actual=pantallaActual.id;
 const indice=pantallas.indexOf(actual);
-if(indice==0){
-const progreso=0;
-document.getElementById('progressBar').style.width=progreso+'%';
-} 
-else{
+if(indice < 1 ){
+  document.getElementById('progressBar').style.width='0%';
+  return;
+}
 const progreso=((indice+1)/pantallas.length)*100;
 document.getElementById('progressBar').style.width=progreso+'%';
-}
 }
 
 if('serviceWorker' in navigator){
@@ -1287,7 +1398,7 @@ window.addEventListener('load',()=>{
 navigator.serviceWorker.register('/service-worker.js').then(registration=>{
 console.log('SW registrado:',registration.scope);
 }).catch(error=>{
-console.log('SW error:',error);
+console.log('SW no disponible:',error);
 });
 });
 }
@@ -1301,25 +1412,50 @@ function revelarYCopiar() {
   const spanNumero = document.getElementById('numeroCuenta');
   const icono = document.getElementById('iconoCuenta');
   const mensaje = document.getElementById('mensajeCuenta');
+  const boton = document.getElementById('copiarCuenta');
   
   if (!cuentaRevelada) {
     spanNumero.textContent = NUMERO_CUENTA_REAL;
     icono.textContent = '📋';
+    boton.setAttribute('aria-label', 'Copiar número de cuenta al portapapeles');
     cuentaRevelada = true;
-    mensaje.textContent = 'Haz click de nuevo para copiar';
+    mensaje.textContent = 'Haz clic de nuevo para copiar';
     return;
   }
   
-  navigator.clipboard.writeText(NUMERO_CUENTA_REAL.replace(/\s/g, '')).then(() => {
-    mensaje.textContent = '¡Número copiado al portapapeles! 💛';
-    icono.textContent = '✓';
-    setTimeout(() => {
-      mensaje.textContent = '';
-      icono.textContent = '📋';
-    }, 3000);
-  }).catch(() => {
-    mensaje.textContent = 'Copia manualmente: ' + NUMERO_CUENTA_REAL;
-  });
+  if(navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(NUMERO_CUENTA_REAL.replace(/\s/g, '')).then(() => {
+      mensaje.textContent = '¡Número copiado al portapapeles! 💛';
+      icono.textContent = '✓';
+      if(navigator.vibrate)navigator.vibrate(100);
+      setTimeout(() => {
+        mensaje.textContent = '';
+        icono.textContent = '📋';
+      }, 3000);
+    }).catch(err => {
+      console.error('Error al copiar:', err);
+      mensaje.textContent = 'Copia manualmente: ' + NUMERO_CUENTA_REAL;
+    });
+  } else {
+    const textArea = document.createElement('textarea');
+    textArea.value = NUMERO_CUENTA_REAL.replace(/\s/g, '');
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      mensaje.textContent = '¡Número copiado! 💛';
+      icono.textContent = '✓';
+      setTimeout(() => {
+        mensaje.textContent = '';
+        icono.textContent = '📋';
+      }, 3000);
+    } catch(err) {
+      mensaje.textContent = 'Copia manualmente: ' + NUMERO_CUENTA_REAL;
+    }
+    document.body.removeChild(textArea);
+  }
 }
 
 const themeToggle = document.getElementById('themeToggle');
@@ -1334,7 +1470,16 @@ themeToggle.addEventListener('click', () => {
   document.body.classList.toggle('dark-mode');
   const isDark = document.body.classList.contains('dark-mode');
   themeToggle.textContent = isDark ? '☀️' : '🌙';
-  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  themeToggle.setAttribute('title', isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+  try {
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  } catch(e) {
+    console.log('Error al guardar tema:', e);
+  }
+});
+
+document.addEventListener('gesturestart', function(e) {
+  e.preventDefault();
 });
 
 </script>
