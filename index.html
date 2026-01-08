@@ -60,6 +60,37 @@ img.fullscreen{max-height:40vh;max-width:90vw;object-fit:contain}
 .icono{font-size:3rem;color:var(--dorado)}
 form{width:100%;max-width:440px;text-align:left;margin-top:1rem}
 label{display:block;margin-top:.9rem;font-weight:600}
+/* Estilos para labels de radio buttons */
+fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+fieldset label {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.8rem;
+  font-weight: 400;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+fieldset label:hover {
+  background-color: rgba(92, 125, 98, 0.05);
+}
+
+fieldset label input[type="radio"] {
+  cursor: pointer;
+  justify-self: end;
+  width: 20px;
+  height: 20px;
+  transform: scale(1.8);
+}
+
 input,textarea,select{width:100%;padding:.6rem;margin-top:.3rem;border-radius:.5rem;border:1px solid #ccc;font-size:1rem;min-height:44px;transition:border-color 0.3s ease, background-color 0.3s ease}
 .error-msg{display:block;color:#c62828;font-size:.85rem;margin-top:.3rem;min-height:1.2rem}
 input.invalid,textarea.invalid,select.invalid{border-color:#c62828;background-color:#ffebee}
@@ -803,7 +834,7 @@ body.dark-mode .info-icon{
 
 <section class="pantalla" id="p4">
 <h2>🗺️ Cómo llegar</h2>
-<p>Calle Alcalá, 65 · C. Miguel de Cervantes, 11 · 28511 Valdilecha, Madrid</p>
+<p>Calle Alcalá, 65, C. Miguel de Cervantes, 11 · 28511 Valdilecha, Madrid</p>
 <iframe class="mapa" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
 src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&output=embed" aria-label="Mapa de ubicación del Palacete de la Ochava" title="Mapa de Google Maps"></iframe>
 <div class="nav">
@@ -980,9 +1011,9 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 </label>
 <fieldset style="margin-top:1rem;border:none;padding:0">
 <legend style="font-weight:600">¿Podrás acompañarnos en este día tan especial?</legend>
-<label><input type="radio" name="asistencia" value="No" required> No</label>
-<label><input type="radio" name="asistencia" value="Sí, me quedaré a dormir"> Sí, me quedaré a dormir</label>
-<label><input type="radio" name="asistencia" value="Sí, pero me volveré a casa"> Sí, pero me volveré a casa</label>
+<label>Sí, me quedaré a dormir <input type="radio" name="asistencia" value="Sí, me quedaré a dormir"></label>
+<label>Sí, pero me volveré a casa <input type="radio" name="asistencia" value="Sí, pero me volveré a casa"></label>
+<label>No <input type="radio" name="asistencia" value="No" required></label>
 <span class="error-msg" id="errorAsistencia" role="alert"></span>
 </fieldset>
 <label for="inputAlergias">El banquete incluye un plato principal de carne. Si tienes alguna alergia, intolerancia o restricción alimentaria (incluso si prefieres pescado), por favor háznoslo saber</label>
