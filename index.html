@@ -205,10 +205,21 @@ h2{font-size:1.5rem}
   animation: pulse 2s ease-in-out infinite;
 }
 
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-30px);
+    transform: translateX(-40px);
   }
   to {
     opacity: 1;
@@ -219,7 +230,7 @@ h2{font-size:1.5rem}
 @keyframes slideInRight {
   from {
     opacity: 0;
-    transform: translateX(30px);
+    transform: translateX(40px);
   }
   to {
     opacity: 1;
@@ -296,12 +307,40 @@ h2{font-size:1.5rem}
 }
 
 .countdown-box {
-  background: white;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
   padding: 1.5rem 1rem;
   border-radius: 1rem;
   box-shadow: 0 4px 12px var(--sombra);
   min-width: 80px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Efecto de brillo animado */
+.countdown-box::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(207, 166, 112, 0.2) 50%,
+    transparent 70%
+  );
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
 }
 
 .countdown-box:hover {
@@ -316,8 +355,8 @@ h2{font-size:1.5rem}
   color: var(--verde);
   line-height: 1;
   position: relative;
-  display: inline-block;
-  transition: none;
+  z-index: 1;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .countdown-number.flip {
@@ -357,6 +396,21 @@ h2{font-size:1.5rem}
   
   .countdown-separator {
     display: none;
+  }
+}
+
+/* Efecto de pulsación en segundos */
+#countSeconds {
+  animation: pulseSecond 1s ease-in-out infinite;
+}
+
+@keyframes pulseSecond {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+    color: var(--dorado);
   }
 }
 
@@ -737,6 +791,22 @@ body.dark-mode .info-icon{
     flex-direction:column;
     align-items:center;
   }
+}
+
+.pantalla.activa h2 {
+  animation: slideInUp 0.6s ease-out;
+}
+
+.pantalla.activa .info-card:nth-child(odd) {
+  animation: slideInLeft 0.7s ease-out;
+}
+
+.pantalla.activa .info-card:nth-child(even) {
+  animation: slideInRight 0.7s ease-out;
+}
+
+.pantalla.activa button {
+  animation: scaleIn 0.5s ease-out 0.3s backwards;
 }
 
 </style>
