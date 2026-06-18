@@ -809,6 +809,737 @@ body.dark-mode .info-icon{
   animation: scaleIn 0.5s ease-out 0.3s backwards;
 }
 
+/* ===== SITTING PLAN ===== */
+:root {
+  --color-radio: #8B3D6B;
+  --color-radio-light: #c47fa0;
+  --color-radio-glow: rgba(139,61,107,0.25);
+  --color-crema-warm: #f0ece4;
+  --color-crema-dark: #e8e0d0;
+}
+
+/* Header */
+#pSitting { overflow-y: auto; justify-content: flex-start; padding: 0 0 4rem; }
+.sitting-header {
+  width: 100%;
+  background: linear-gradient(160deg, #f0ece4 0%, #f8e8f0 60%, #efe0eb 100%);
+  padding: 3rem 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 2px solid rgba(139,61,107,0.15);
+}
+.sitting-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  color: var(--color-radio);
+  margin-bottom: 0.3rem;
+  letter-spacing: 2px;
+  position: relative; z-index: 1;
+}
+.sitting-header h2::after { background: var(--color-radio); }
+.sitting-subtitle {
+  font-size: 1rem;
+  color: #7a5a6d;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin: 0.3rem 0 0.2rem;
+  position: relative; z-index: 1;
+}
+.sitting-date {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  color: var(--dorado);
+  letter-spacing: 2px;
+  position: relative; z-index: 1;
+}
+.radio-waves-svg {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; height: 600px;
+  opacity: 0.06;
+  pointer-events: none;
+}
+.radio-waves-svg circle {
+  fill: none;
+  stroke: var(--color-radio);
+  stroke-width: 2;
+  animation: radioWavePulse 3s ease-in-out infinite;
+  transform-origin: center;
+}
+.radio-waves-svg circle:nth-child(1) { r: 60; animation-delay: 0s; }
+.radio-waves-svg circle:nth-child(2) { r: 120; animation-delay: 0.4s; }
+.radio-waves-svg circle:nth-child(3) { r: 180; animation-delay: 0.8s; }
+.radio-waves-svg circle:nth-child(4) { r: 240; animation-delay: 1.2s; }
+.radio-waves-svg circle:nth-child(5) { r: 300; animation-delay: 1.6s; }
+@keyframes radioWavePulse {
+  0%, 100% { opacity: 0.3; stroke-width: 2; }
+  50% { opacity: 1; stroke-width: 3; }
+}
+
+/* Buscador */
+.sitting-search {
+  width: 100%; max-width: 480px;
+  margin: 1.5rem auto 0;
+  padding: 0 1rem;
+  position: relative;
+}
+.sitting-search input {
+  width: 100%;
+  padding: 0.9rem 3rem 0.9rem 1.2rem;
+  border: 2px solid var(--color-radio-light);
+  border-radius: 999px;
+  font-size: 1rem;
+  background: white;
+  color: var(--texto);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px var(--color-radio-glow);
+}
+.sitting-search input:focus {
+  outline: none;
+  border-color: var(--color-radio);
+  box-shadow: 0 4px 16px var(--color-radio-glow);
+}
+.sitting-search .search-icon {
+  position: absolute;
+  right: 1.8rem; top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  pointer-events: none;
+}
+.search-hint {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #9a7a8a;
+  margin-top: 0.5rem;
+  min-height: 1.2rem;
+}
+
+/* Mapa contenedor */
+.sitting-mapa-container {
+  width: 100%;
+  padding: 1.5rem 1rem 0;
+}
+
+/* Zona cabecera (sala aparte) */
+.zona-cabecera {
+  background: linear-gradient(135deg, rgba(139,61,107,0.04) 0%, rgba(207,166,112,0.06) 100%);
+  border: 1.5px dashed rgba(139,61,107,0.25);
+  border-radius: 1.2rem;
+  padding: 1.2rem 1rem 1rem;
+  margin-bottom: 1.2rem;
+  position: relative;
+}
+.zona-cabecera::before {
+  content: '🏛️ SALA PRINCIPAL — NOVIOS Y FAMILIARES';
+  position: absolute;
+  top: -0.7rem; left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 0 0.8rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--color-radio);
+  white-space: nowrap;
+}
+.zona-cabecera-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* Zona principal (salón grande) */
+.zona-principal {
+  background: linear-gradient(135deg, rgba(92,125,98,0.03) 0%, rgba(207,166,112,0.04) 100%);
+  border: 1.5px dashed rgba(92,125,98,0.2);
+  border-radius: 1.2rem;
+  padding: 1.2rem 0.8rem 1rem;
+  position: relative;
+}
+.zona-principal::before {
+  content: '🎶 SALÓN PRINCIPAL — INVITADOS';
+  position: absolute;
+  top: -0.7rem; left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 0 0.8rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--verde);
+  white-space: nowrap;
+}
+.zona-principal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.8rem 0.5rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Mesa botón base */
+.mesa-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fff 0%, #f8f4ff 100%);
+  border: 3px solid var(--color-radio);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  box-shadow: 0 3px 12px rgba(139,61,107,0.2);
+  position: relative;
+  font-family: 'Playfair Display', serif;
+  margin: 0 auto;
+  min-width: 44px; min-height: 44px;
+  padding: 0;
+  outline: none;
+}
+.mesa-btn:hover {
+  transform: scale(1.15);
+  box-shadow: 0 6px 20px rgba(139,61,107,0.35);
+  border-color: var(--color-radio);
+  background: linear-gradient(135deg, #fff 0%, #f0d8e8 100%);
+  z-index: 10;
+}
+.mesa-btn:focus-visible {
+  outline: 3px solid var(--dorado);
+  outline-offset: 3px;
+}
+@keyframes mesaPulse {
+  0%, 100% { box-shadow: 0 3px 12px rgba(139,61,107,0.2); }
+  50% { box-shadow: 0 0 0 8px rgba(139,61,107,0.12), 0 3px 12px rgba(139,61,107,0.2); }
+}
+.mesa-btn:hover { animation: mesaPulse 1.5s ease-in-out infinite; }
+.mesa-btn.highlighted {
+  background: linear-gradient(135deg, #ffe8f4, #ffc8e8) !important;
+  border-color: var(--color-radio) !important;
+  animation: mesaHighlight 1s ease-in-out infinite !important;
+  z-index: 10;
+}
+@keyframes mesaHighlight {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(139,61,107,0.3), 0 4px 16px rgba(139,61,107,0.4); }
+  50% { box-shadow: 0 0 0 10px rgba(139,61,107,0.15), 0 8px 24px rgba(139,61,107,0.5); }
+}
+.mesa-num {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-radio);
+  line-height: 1;
+}
+.mesa-freq {
+  font-size: 0.55rem;
+  color: #9a7a8a;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  line-height: 1;
+  margin-top: 1px;
+}
+
+/* Mesa Presidencia — oval/especial */
+.mesa-btn.presidencia {
+  width: 110px; height: 75px;
+  border-radius: 50%;
+  border-color: var(--dorado);
+  background: linear-gradient(135deg, #fffbf0, #fef3d8);
+  box-shadow: 0 4px 16px rgba(207,166,112,0.35);
+}
+.mesa-btn.presidencia:hover {
+  border-color: var(--dorado);
+  background: linear-gradient(135deg, #fff8e8, #fde8b0);
+  box-shadow: 0 8px 24px rgba(207,166,112,0.45);
+}
+.mesa-btn.presidencia .mesa-num {
+  font-size: 0.9rem;
+  color: #8a6820;
+}
+.mesa-btn.presidencia .mesa-freq {
+  color: #b8902a;
+}
+
+/* Hueco (celda vacía en el grid) */
+.mesa-gap { width: 72px; height: 72px; }
+
+/* Tooltip */
+.mesa-btn::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  background: rgba(30,15,25,0.92);
+  color: white;
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.5rem;
+  font-size: 0.72rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.2s ease;
+  z-index: 100;
+  max-width: 200px;
+  text-align: center;
+  line-height: 1.4;
+}
+.mesa-btn:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+/* Etiqueta de zona */
+.zona-label {
+  text-align: center;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  font-weight: 600;
+  color: #bda0ac;
+  margin-top: 0.4rem;
+  text-transform: uppercase;
+}
+
+/* === MODAL === */
+.mesa-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20,8,16,0.7);
+  z-index: 5000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+.mesa-modal-overlay.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+.mesa-modal-content {
+  background: var(--crema);
+  border-radius: 2rem 2rem 0 0;
+  width: 100%;
+  max-width: 600px;
+  max-height: 92vh;
+  overflow-y: auto;
+  padding: 0 0 2rem;
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.34,1.2,0.64,1);
+  position: relative;
+}
+.mesa-modal-overlay.visible .mesa-modal-content {
+  transform: translateY(0);
+}
+@media (min-width: 640px) {
+  .mesa-modal-overlay { align-items: center; }
+  .mesa-modal-content { border-radius: 2rem; max-height: 85vh; }
+}
+.modal-drag-handle {
+  width: 48px; height: 4px;
+  background: rgba(139,61,107,0.3);
+  border-radius: 2px;
+  margin: 1rem auto 0;
+}
+.modal-header {
+  background: linear-gradient(135deg, var(--color-radio) 0%, #6b2252 100%);
+  padding: 1.5rem 1.5rem 3rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 2rem 2rem 0 0;
+}
+@media (min-width: 640px) {
+  .modal-header { border-radius: 2rem 2rem 0 0; }
+}
+.modal-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent, transparent 20px,
+    rgba(255,255,255,0.03) 20px, rgba(255,255,255,0.03) 21px
+  );
+}
+.modal-close {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 2;
+  margin: 0; padding: 0; min-height: unset;
+  box-shadow: none;
+}
+.modal-close:hover { background: rgba(255,255,255,0.35); transform: scale(1.1); }
+.modal-mesa-num {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  position: relative; z-index: 1;
+}
+.modal-mesa-nombre {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+  margin: 0.3rem 0 0.5rem;
+  position: relative; z-index: 1;
+}
+.modal-freq-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255,255,255,0.18);
+  color: white;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  border: 1px solid rgba(255,255,255,0.3);
+  position: relative; z-index: 1;
+}
+.modal-wave-line {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3rem;
+  overflow: hidden;
+}
+.modal-body {
+  padding: 0 1.5rem;
+  margin-top: -1.5rem;
+  position: relative;
+}
+.modal-section-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-radio);
+  margin: 1.8rem 0 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.modal-section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-radio-light), transparent);
+}
+.invitados-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.invitado-chip {
+  background: linear-gradient(135deg, rgba(139,61,107,0.08), rgba(139,61,107,0.12));
+  border: 1px solid rgba(139,61,107,0.2);
+  color: var(--color-radio);
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s ease;
+}
+.invitado-chip:hover {
+  background: linear-gradient(135deg, rgba(139,61,107,0.15), rgba(139,61,107,0.2));
+  transform: translateY(-1px);
+}
+
+/* Botón compartir */
+.btn-compartir {
+  width: 100%;
+  background: linear-gradient(135deg, rgba(139,61,107,0.08), rgba(139,61,107,0.12));
+  border: 1.5px solid rgba(139,61,107,0.3);
+  color: var(--color-radio);
+  padding: 0.8rem;
+  border-radius: 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  margin-top: 1rem;
+  box-shadow: none; min-height: unset;
+}
+.btn-compartir:hover {
+  background: rgba(139,61,107,0.2);
+  border-color: var(--color-radio);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--color-radio-glow);
+}
+
+/* === AUDIO PLAYER === */
+.audio-player-card {
+  background: linear-gradient(135deg, #1a0b14 0%, #2d1022 100%);
+  border-radius: 1.2rem;
+  padding: 1.2rem 1.2rem 1rem;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(20,0,15,0.3);
+}
+.audio-player-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at top left, rgba(139,61,107,0.25) 0%, transparent 60%);
+}
+.audio-unavailable {
+  text-align: center;
+  padding: 1rem;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.9rem;
+}
+.audio-unavailable .soon-icon { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
+.player-label {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  position: relative; z-index: 1;
+}
+.equalizer-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 32px;
+  margin-bottom: 1rem;
+  position: relative; z-index: 1;
+}
+.eq-bar {
+  width: 4px;
+  background: linear-gradient(180deg, var(--color-radio-light), var(--color-radio));
+  border-radius: 2px;
+  transition: height 0.1s ease;
+}
+.eq-bar:nth-child(1) { height: 40%; animation: eqBar1 0.8s ease-in-out infinite; }
+.eq-bar:nth-child(2) { height: 70%; animation: eqBar2 0.6s ease-in-out infinite 0.1s; }
+.eq-bar:nth-child(3) { height: 55%; animation: eqBar3 0.9s ease-in-out infinite 0.05s; }
+.eq-bar:nth-child(4) { height: 85%; animation: eqBar4 0.7s ease-in-out infinite 0.15s; }
+.eq-bar:nth-child(5) { height: 45%; animation: eqBar5 1s ease-in-out infinite 0.2s; }
+.eq-bar:nth-child(6) { height: 65%; animation: eqBar1 0.75s ease-in-out infinite 0.08s; }
+.eq-bar:nth-child(7) { height: 30%; animation: eqBar2 0.85s ease-in-out infinite 0.12s; }
+.eq-bar:nth-child(8) { height: 75%; animation: eqBar3 0.65s ease-in-out infinite 0.18s; }
+.eq-bar:nth-child(9) { height: 50%; animation: eqBar4 0.95s ease-in-out infinite 0.03s; }
+.eq-bar:nth-child(10) { height: 60%; animation: eqBar5 0.8s ease-in-out infinite 0.22s; }
+.equalizer-bars.paused .eq-bar { animation-play-state: paused !important; }
+@keyframes eqBar1 {
+  0%, 100% { height: 30%; } 50% { height: 90%; }
+}
+@keyframes eqBar2 {
+  0%, 100% { height: 70%; } 50% { height: 25%; }
+}
+@keyframes eqBar3 {
+  0%, 100% { height: 50%; } 50% { height: 95%; }
+}
+@keyframes eqBar4 {
+  0%, 100% { height: 85%; } 50% { height: 40%; }
+}
+@keyframes eqBar5 {
+  0%, 100% { height: 40%; } 50% { height: 80%; }
+}
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative; z-index: 1;
+}
+.btn-play {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-radio), #6b2252);
+  border: none;
+  color: white;
+  font-size: 1.4rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  box-shadow: 0 4px 16px rgba(139,61,107,0.5);
+  flex-shrink: 0; margin: 0; padding: 0; min-height: unset;
+}
+.btn-play:hover { transform: scale(1.12); box-shadow: 0 6px 24px rgba(139,61,107,0.7); }
+.player-progress-area { flex: 1; }
+.player-time {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.6);
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 0.4rem;
+  font-variant-numeric: tabular-nums;
+}
+.player-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.player-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-radio-light), var(--color-radio));
+  border-radius: 2px;
+  transition: width 0.25s linear;
+  width: 0%;
+}
+.player-sintonizando {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  position: relative; z-index: 1;
+}
+.sintonizando-anim {
+  font-size: 2.5rem;
+  animation: rotarDial 1s ease-in-out;
+  display: inline-block;
+}
+@keyframes rotarDial {
+  0% { transform: rotate(-20deg); }
+  25% { transform: rotate(15deg); }
+  50% { transform: rotate(-10deg); }
+  75% { transform: rotate(8deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* === ADMIN QR OVERLAY === */
+.admin-qr-overlay {
+  position: fixed; inset: 0;
+  background: var(--crema);
+  z-index: 8000;
+  overflow-y: auto;
+  display: none;
+  padding: 2rem 1rem 4rem;
+}
+.admin-qr-overlay.visible { display: block; }
+.admin-qr-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.admin-qr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.qr-item {
+  text-align: center;
+  background: white;
+  border-radius: 1rem;
+  padding: 1.2rem;
+  box-shadow: 0 4px 12px var(--sombra);
+}
+.qr-item canvas, .qr-item img { border-radius: 0.5rem; }
+.qr-item-nombre { font-weight: 700; font-size: 0.85rem; color: var(--color-radio); margin-top: 0.7rem; }
+.qr-item-num { font-size: 0.75rem; color: var(--dorado); margin-top: 0.2rem; }
+.qr-item-url { font-size: 0.6rem; color: #999; margin-top: 0.3rem; word-break: break-all; }
+.btn-print { display: block; margin: 2rem auto 0; }
+.btn-close-admin {
+  position: fixed; top: 1rem; right: 1rem;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--color-radio);
+  border: none; color: white; font-size: 1.3rem;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  z-index: 8001; box-shadow: 0 4px 12px var(--color-radio-glow);
+  margin: 0; padding: 0; min-height: unset;
+}
+
+/* Responsive mapa */
+@media (max-width: 640px) {
+  .zona-principal-grid {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.4rem 0.2rem;
+  }
+  .mesa-btn { width: 44px; height: 44px; }
+  .mesa-btn.presidencia { width: 76px; height: 50px; }
+  .mesa-num { font-size: 0.9rem; }
+  .mesa-freq { font-size: 0.45rem; }
+  .mesa-gap { width: 44px; height: 44px; }
+  .zona-cabecera-inner { gap: 0.8rem; }
+  .zona-cabecera::before, .zona-principal::before { font-size: 0.55rem; }
+  .sitting-header h2 { font-size: 1.6rem; }
+  .sitting-mapa-container { overflow-x: auto; }
+  .zona-principal { min-width: 320px; }
+}
+
+/* Dark mode Sitting Plan */
+body.dark-mode .sitting-header {
+  background: linear-gradient(160deg, #1e1020 0%, #2a1030 60%, #1e1028 100%);
+  border-bottom-color: rgba(196,127,160,0.2);
+}
+body.dark-mode .sitting-header h2 { color: var(--color-radio-light); }
+body.dark-mode .sitting-subtitle { color: #c4a0b4; }
+body.dark-mode .sitting-search input {
+  background: #2a2a2a;
+  border-color: rgba(196,127,160,0.4);
+  color: #e0e0e0;
+}
+body.dark-mode .zona-cabecera {
+  background: rgba(139,61,107,0.08);
+  border-color: rgba(196,127,160,0.3);
+}
+body.dark-mode .zona-cabecera::before { background: #1a1a1a; }
+body.dark-mode .zona-principal {
+  background: rgba(92,125,98,0.08);
+  border-color: rgba(127,168,138,0.25);
+}
+body.dark-mode .zona-principal::before { background: #1a1a1a; }
+body.dark-mode .mesa-btn {
+  background: linear-gradient(135deg, #2a1020 0%, #351828 100%);
+  box-shadow: 0 3px 12px rgba(196,127,160,0.2);
+}
+body.dark-mode .mesa-btn:hover {
+  background: linear-gradient(135deg, #3a1830 0%, #452040 100%);
+}
+body.dark-mode .mesa-btn.presidencia {
+  background: linear-gradient(135deg, #2a2010, #352808);
+  border-color: var(--dorado);
+}
+body.dark-mode .mesa-modal-content { background: #1a1a1a; }
+body.dark-mode .invitado-chip {
+  background: rgba(196,127,160,0.12);
+  border-color: rgba(196,127,160,0.25);
+}
+body.dark-mode .btn-compartir {
+  background: rgba(196,127,160,0.12);
+  border-color: rgba(196,127,160,0.3);
+  color: var(--color-radio-light);
+}
+body.dark-mode .admin-qr-overlay { background: #1a1a1a; }
+body.dark-mode .qr-item { background: #2a2a2a; }
+@media print {
+  .admin-qr-overlay { position: static; background: white; }
+  .btn-close-admin, .btn-print { display: none; }
+  .qr-item { break-inside: avoid; }
+}
 </style>
 </head>
 <body>
@@ -826,7 +1557,9 @@ body.dark-mode .info-icon{
 <button data-target="p4">Mapa</button>
 <button data-target="pInfo">Información Útil</button>
 <button data-target="p5">Timeline</button>
-<button data-target="p6">Confirmación</button>
+<button data-target="pSitting" style="display: none;">📻 Sitting Plan</button>
+<button data-target="pRevista" style="display: none;">📖 Revista</button>
+<button data-target="p6" style="display: none;">Confirmación</button>
 <button data-target="p8">Gracias</button>
 </div>
 </nav>
@@ -1067,7 +1800,8 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
     </div>
   </div>
   <div class="nav">
-    <button onclick="irA('p6')">Confirmación de asistencia</button>
+    <button onclick="irA('pSitting')" id="btnSittingP5" style="display: none;">📻 Sitting Plan</button>
+    <button onclick="irA('p8')" id="btnGraciasP5">❤️ Gracias</button>
     <button class="secundario" onclick="irA('pInfo')">⬅ Volver</button>
   </div>
 </section>
@@ -1096,7 +1830,7 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 <textarea name="cancion" id="inputCancion" rows="1"></textarea>
 <div class="nav">
 <button type="submit">Enviar Confirmación</button>
-<button class="secundario" type="button" onclick="irA('p5')">⬅ Volver</button>
+<button class="secundario" type="button" onclick="irA('pSitting')">⬅ Volver</button>
 </div>
 </form>
 <div id="mensaje" class="message" style="margin-top:.5rem;color:var(--verde);font-weight:600" role="status" aria-live="polite"></div>
@@ -1119,7 +1853,107 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 <button class="secundario" onclick="irA('p1')">Volver al inicio</button>
 </section>
 
+<!-- ===== SITTING PLAN SECTION ===== -->
+<section class="pantalla" id="pSitting" aria-label="Sitting Plan — Distribución de mesas">
+
+  <!-- Header -->
+  <div class="sitting-header">
+    <svg class="radio-waves-svg" viewBox="0 0 600 600" aria-hidden="true">
+      <circle cx="300" cy="300" r="60"/>
+      <circle cx="300" cy="300" r="120"/>
+      <circle cx="300" cy="300" r="180"/>
+      <circle cx="300" cy="300" r="240"/>
+      <circle cx="300" cy="300" r="300"/>
+    </svg>
+    <h2>📻 Sitting Plan</h2>
+    <p class="sitting-subtitle" style="text-align: center; width: 100%;">Sintoniza · Encuentra tu mesa · Disfruta</p>
+    
+    <p class="sitting-date" style="text-align: center; width: 100%;">Raúl &amp; Laura · 27·06·2026</p>
+    <div class="qr-album-container" style="margin: 1.5rem auto 1rem; text-align: center; position: relative; z-index: 2;">
+      <img src="qr-album.jpeg" alt="QR Álbum de fotos" style="width: 120px; border-radius: 8px; border: 2px solid var(--dorado);" />
+      <p style="font-size: 0.85rem; color: #888; margin-top: 0.5rem; font-weight: 500; text-align: center; width: 100%;">Escanéame y sube todas las fotos del día</p>
+    </div>
+  </div>
+
+  <!-- Buscador -->
+  <div class="sitting-search">
+    <input type="text" id="buscarInvitado" placeholder="🔍 Busca tu nombre..." autocomplete="off" aria-label="Buscar invitado por nombre"/>
+    <span class="search-icon" aria-hidden="true">🔎</span>
+  </div>
+  <p class="search-hint" id="searchHint">Escribe tu nombre para encontrar tu mesa • Enter para abrirla</p>
+
+  <!-- Mapa de mesas -->
+  <div class="sitting-mapa-container">
+
+    <!-- Zona cabecera: Mesa 1 · Presidencia · Mesa 2 -->
+    <div class="zona-cabecera">
+      <div class="zona-cabecera-inner" id="zona-cabecera-inner">
+        <!-- Renderizado dinámico por JS -->
+      </div>
+    </div>
+
+    <!-- Zona principal: 3 filas × 7 columnas -->
+    <div class="zona-principal">
+      <div class="zona-principal-grid" id="zona-principal-grid">
+        <!-- Renderizado dinámico por JS -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Navegación -->
+  <div class="nav" style="padding: 0 1rem; margin-top: 1.5rem;">
+    <button onclick="irA('pRevista')">📖 Revista</button>
+    <button class="secundario" onclick="irA('p5')">⬅ Volver</button>
+  </div>
+
+</section>
+
+<!-- ===== REVISTA SECTION ===== -->
+<section class="pantalla" id="pRevista" aria-label="Revista">
+  <div class="revista-header" style="text-align: center; margin-bottom: 1.5rem;">
+    <h2>📖 Revista</h2>
+    <p>¡Disfruta de nuestra revista especial!</p>
+  </div>
+  
+  <div class="pdf-container" style="width: 100%; height: 60vh; border: 2px solid var(--dorado); border-radius: 8px; overflow: hidden; margin-bottom: 1rem; background: #fff;">
+    <iframe src="MESAS/RevistaSolteros.pdf" width="100%" height="100%" style="border: none;" title="Revista">
+      <p>Tu navegador no puede mostrar el PDF.</p>
+    </iframe>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 1.5rem;">
+    <a href="MESAS/RevistaSolteros.pdf" target="_blank" class="btn-primario" style="display: inline-block; padding: 0.8rem 1.5rem; background-color: var(--verde); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; font-family: 'Montserrat', sans-serif;">📥 Descargar / Ver en pantalla completa</a>
+  </div>
+
+  <div class="nav" style="padding: 0 1rem; margin-top: 1.5rem;">
+    <button onclick="irA('p8')">❤️ Gracias</button>
+    <button class="secundario" onclick="irA('pSitting')">⬅ Volver</button>
+  </div>
+</section>
+
 </main>
+
+<!-- Modal de detalle de mesa (fuera del main, fixed) -->
+<div id="mesaModalOverlay" class="mesa-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalMesaNombre">
+  <div class="mesa-modal-content" id="mesaModalContent">
+    <div class="modal-drag-handle"></div>
+    <!-- Contenido dinámico inyectado por JS -->
+  </div>
+</div>
+
+<!-- Panel Admin QR (oculto, accesible solo via #admin/qr) -->
+<div id="adminQROverlay" class="admin-qr-overlay" role="region" aria-label="Panel de administración de QR codes">
+  <button class="btn-close-admin" onclick="cerrarAdminQR()" aria-label="Cerrar panel QR">✕</button>
+  <div class="admin-qr-header">
+    <h2 style="color:var(--color-radio)">📱 QR Codes — Carteles de Mesa</h2>
+    <p style="color:#888;font-size:0.9rem">Imprimir y colocar en cada mesa. Escanear dirige al audio personalizado.</p>
+    <button class="btn-print" onclick="window.print()">🖨️ Imprimir todos</button>
+  </div>
+  <div class="admin-qr-grid" id="adminQRGrid">
+    <!-- Generado dinámicamente -->
+  </div>
+</div>
 
 <audio id="musica" src="musica/bso.mp3" loop preload="none" playsinline></audio>
 <button id="btnMusica" aria-label="Controlar música de fondo" aria-pressed="false">
@@ -1137,6 +1971,11 @@ let transicionEnProgreso = false;
 
 function irA(id){
 if(transicionEnProgreso) return;
+
+if ((id === 'pSitting' || id === 'pRevista') && sessionStorage.getItem('qrAcceso') !== 'true') {
+  return;
+}
+
 const siguiente=document.getElementById(id);
 if(!siguiente || pantallaActual===siguiente) return;
 
@@ -1587,6 +2426,1038 @@ document.addEventListener('gesturestart', function(e) {
   e.preventDefault();
 });
 
+// ============================================================
+// SITTING PLAN — JavaScript completo
+// ============================================================
+
+const MESAS_DATA = {
+  "1": {
+    "numero": 1,
+    "etiqueta": "1",
+    "nombre": "LA FRECUENCIA DE CASA",
+    "frecuencia": "88.3",
+    "audioFile": "audios/mesa-1.mp3",
+    "invitados": [
+      "MESA 4",
+      "PEPE",
+      "MICAELA",
+      "EVA",
+      "RAFA",
+      "TOÑI",
+      "ESTEFANÍA",
+      "CYNTIA",
+      "PILI",
+      "JOSE",
+      "ARANTXA",
+      "PILAR",
+      "CARLOS",
+      "AME",
+      "ANA"
+    ]
+  },
+  "2": {
+    "numero": 2,
+    "etiqueta": "2",
+    "nombre": "RADIO SANTIAGO",
+    "frecuencia": "100.1",
+    "audioFile": "audios/mesa-2.mp3",
+    "invitados": [
+      "ALICIA",
+      "ANTONIO",
+      "GLORIA",
+      "SEGUNDO",
+      "ROSA",
+      "LUIS",
+      "ISABEL",
+      "TÍA MARI",
+      "MARI CONCE",
+      "CONCHI",
+      "CARMELO",
+      "MARIA",
+      "INÉS",
+      "PILAR"
+    ]
+  },
+  "3": {
+    "numero": 3,
+    "etiqueta": "3",
+    "nombre": "CVE SISTERS HITS",
+    "frecuencia": "89.7",
+    "audioFile": "audios/mesa-3.mp3",
+    "invitados": [
+      "MONI",
+      "AMAT",
+      "CRIS",
+      "DIDI",
+      "ÁLVARO",
+      "TAPI",
+      "PILU",
+      "CELIA",
+      "ISMA",
+      "ROCÍO"
+    ]
+  },
+  "4": {
+    "numero": 4,
+    "etiqueta": "4",
+    "nombre": "LA TRIBU HITS",
+    "frecuencia": "101.3",
+    "audioFile": "audios/mesa-4.mp3",
+    "invitados": [
+      "FUENTES",
+      "SARA",
+      "JAVI",
+      "ANA",
+      "PEDRO",
+      "ÁNGEL",
+      "ÁNGELA",
+      "SOFÍA",
+      "MARTA F.",
+      "MARI CARMEN",
+      "CHRISTIAN",
+      "MOTA",
+      "MORALES"
+    ]
+  },
+  "5": {
+    "numero": 5,
+    "etiqueta": "5",
+    "nombre": "EMISIÓN ROJIBLANCA",
+    "frecuencia": "94.1",
+    "audioFile": "audios/mesa-5.mp3",
+    "invitados": [
+      "PEDRO",
+      "TOMASA",
+      "PEDRO PABLO",
+      "YOLI",
+      "GEMA",
+      "ENRIQUE",
+      "EVA",
+      "DAVID",
+      "ALFREDO",
+      "MARI CARMEN",
+      "JORDI CANO OCHANDO",
+      "CARMEN",
+      "LAURA",
+      "CARLOS",
+      "MARÍA",
+      "ESPERANZA",
+      "PACO"
+    ]
+  },
+  "6": {
+    "numero": 6,
+    "etiqueta": "6",
+    "nombre": "LA TRIBU ROCK",
+    "frecuencia": "102.5",
+    "audioFile": "audios/mesa-6.mp3",
+    "invitados": [
+      "MIGUEL",
+      "AINHOA",
+      "BLANCA",
+      "ALEJANDRO",
+      "ROCÍO",
+      "MARÍA V.",
+      "LAURA",
+      "MARÍA H.",
+      "ÓSCAR",
+      "JORGE",
+      "ANA",
+      "VALENTÍN",
+      "MARTA"
+    ]
+  },
+  "7": {
+    "numero": 7,
+    "etiqueta": "7",
+    "nombre": "RADIO CÓMPLICES",
+    "frecuencia": "99.9",
+    "audioFile": "audios/mesa-7.mp3",
+    "invitados": [
+      "ISIDRO",
+      "AITOR",
+      "CHUS",
+      "MARÍA",
+      "MJ",
+      "MIGUEL ÁNGEL",
+      "ROA",
+      "GAMBOA",
+      "CARRIÓN",
+      "RAÚL",
+      "ANA",
+      "ELENA"
+    ]
+  },
+  "8": {
+    "numero": 8,
+    "etiqueta": "8",
+    "nombre": "PICA CLASSICS",
+    "frecuencia": "112.1",
+    "audioFile": "audios/mesa-8.mp3",
+    "invitados": [
+      "ROSARITO",
+      "JUAN JESÚS",
+      "LUCI",
+      "SUSI",
+      "ROSA MARI",
+      "JUANPE",
+      "PACI",
+      "ALICIA",
+      "JESÚS ÁNGEL",
+      "MARI CARMEN",
+      "ANA",
+      "PILAR",
+      "JESÚS MARI"
+    ]
+  },
+  "9": {
+    "numero": 9,
+    "etiqueta": "9",
+    "nombre": "RADIO LOS NUESTROS",
+    "frecuencia": "95.3",
+    "audioFile": "audios/mesa-9.mp3",
+    "invitados": [
+      "MIGUEL ÁNGEL",
+      "MARÍA JESÚS",
+      "JUAN",
+      "MARI CARMEN",
+      "ROMÁN",
+      "EDURNE",
+      "ANTERO",
+      "ANA"
+    ]
+  },
+  "10": {
+    "numero": 10,
+    "etiqueta": "10",
+    "nombre": "PICA NEXT GEN",
+    "frecuencia": "109.7",
+    "audioFile": "audios/mesa-10.mp3",
+    "invitados": [
+      "VÍCTOR",
+      "ALICIA",
+      "EMILIO",
+      "LUCÍA",
+      "SARA",
+      "DARÍO",
+      "FERNANDO",
+      "JOSUÉ",
+      "JESÚS",
+      "MARTA",
+      "MARÍA",
+      "MIGUEL"
+    ]
+  },
+  "11": {
+    "numero": 11,
+    "etiqueta": "11",
+    "nombre": "PARTIDO A PARDITO HIT",
+    "frecuencia": "90.3",
+    "audioFile": "audios/mesa-11.mp3",
+    "invitados": [
+      "JOSÉ LUIS",
+      "SORAYA",
+      "CRIS",
+      "RAFA",
+      "JOSE",
+      "DAYANA",
+      "QUIQUE",
+      "ROCÍO",
+      "ANTONIO",
+      "MARÍA",
+      "NACHO",
+      "EVA"
+    ]
+  },
+  "12": {
+    "numero": 12,
+    "etiqueta": "12",
+    "nombre": "LA TRIBU RAVERS",
+    "frecuencia": "104.9",
+    "audioFile": "audios/mesa-12.mp3",
+    "invitados": [
+      "DANIEL",
+      "PAULA",
+      "JESÚS",
+      "LIZCANO",
+      "PATRICIA",
+      "VÍCTOR",
+      "MARÍA",
+      "JOSÉ TOMÁS",
+      "ANA",
+      "JOSÉ ÁNGEL",
+      "PALOMA",
+      "DIEGO",
+      "SERGIO"
+    ]
+  },
+  "13": {
+    "numero": 13,
+    "etiqueta": "13",
+    "nombre": "CHISPAZO CROATA FM",
+    "frecuencia": "98.3",
+    "audioFile": "audios/mesa-13.mp3",
+    "invitados": [
+      "IRENE",
+      "HÉCTOR",
+      "ALEJANDRA",
+      "TOÑO",
+      "MARÍA",
+      "TITO",
+      "LU",
+      "ERIC",
+      "ESCU",
+      "ÁNGELA",
+      "ANDREA"
+    ]
+  },
+  "14": {
+    "numero": 14,
+    "etiqueta": "14",
+    "nombre": "LA TRIBU SESSIONS",
+    "frecuencia": "103.7",
+    "audioFile": "audios/mesa-14.mp3",
+    "invitados": [
+      "CHIME",
+      "MARINA",
+      "TEU",
+      "MARTA",
+      "MARTA M.",
+      "NAZARET",
+      "IRENE",
+      "ALBA",
+      "PICAN",
+      "ÁLVARO",
+      "CHINCHE",
+      "JUDITH"
+    ]
+  },
+  "16": {
+    "numero": 16,
+    "etiqueta": "16",
+    "nombre": "NOKIA NETWORK RADIO",
+    "frecuencia": "108.5",
+    "audioFile": "audios/mesa-16.mp3",
+    "invitados": [
+      "VÍCTOR",
+      "GEMMA",
+      "DAVID",
+      "MARTÍN",
+      "JESÚS ANGEL",
+      "FLOREN"
+    ]
+  },
+  "17": {
+    "numero": 17,
+    "etiqueta": "17",
+    "nombre": "SINTONÍA PERFECTA",
+    "frecuencia": "96.8",
+    "audioFile": "audios/mesa-17.mp3",
+    "invitados": [
+      "MIGUEL ÁNGEL",
+      "MARÍA PILAR",
+      "MONTSE",
+      "JOSE MARI",
+      "GOYO",
+      "MARI JOSE",
+      "SATUR",
+      "ISABEL",
+      "JOSE LUIS"
+    ]
+  },
+  "18": {
+    "numero": 18,
+    "etiqueta": "18",
+    "nombre": "LOS DE SIEMPRE FM",
+    "frecuencia": "96.8",
+    "audioFile": "audios/mesa-18.mp3",
+    "invitados": [
+      "MARIBEL",
+      "JAVI",
+      "PAZ",
+      "ADOLFO",
+      "GOYI",
+      "PAVÓN",
+      "ANTONIA",
+      "VALENTÍN",
+      "ELENA",
+      "J. JESÚS",
+      "MERCEDES",
+      "RAFAEL",
+      "JAVIER",
+      "PEDRO",
+      "FRANCISCO",
+      "RUFINO"
+    ]
+  },
+  "19": {
+    "numero": 19,
+    "etiqueta": "19",
+    "nombre": "FRECUENCIA INFINITA",
+    "frecuencia": "89.5",
+    "audioFile": "audios/mesa-19.mp3",
+    "invitados": [
+      "CARLOS",
+      "RAQUEL",
+      "TERESA",
+      "JOSE",
+      "RAFA",
+      "MARTA",
+      "MARÍA",
+      "ALEJANDRO",
+      "ANA",
+      "VALERIANO"
+    ]
+  },
+  "20": {
+    "numero": 20,
+    "etiqueta": "20",
+    "nombre": "CARRUSEL UJAF",
+    "frecuencia": "106.1",
+    "audioFile": "audios/mesa-20.mp3",
+    "invitados": [
+      "ABRIL",
+      "CARLOS",
+      "MIGUEL",
+      "DANIEL",
+      "URBI",
+      "MANU",
+      "LÁZARO",
+      "RICARDO",
+      "JAVIER",
+      "MICHEL",
+      "PADOR",
+      "CHULE",
+      "PIRIN"
+    ]
+  },
+  "22": {
+    "numero": 22,
+    "etiqueta": "22",
+    "nombre": "RADIO FAMILIA",
+    "frecuencia": "112.1",
+    "audioFile": "audios/mesa-22.mp3",
+    "invitados": [
+      "MIGUE",
+      "UGE",
+      "MARGA",
+      "ASCENSIÓN",
+      "MARI ÁNGEL",
+      "LUISMI",
+      "GADEA",
+      "JIMENA",
+      "MENCÍA",
+      "GEMA",
+      "PAZ",
+      "CARLOS",
+      "ÁNGELA",
+      "FERNANDO",
+      "GLORIA",
+      "PEDRO"
+    ]
+  },
+  "presidencia": {
+    "numero": "presidencia",
+    "etiqueta": "PRESIDENCIA",
+    "nombre": "RADIO SI QUIERO",
+    "frecuencia": "88.3",
+    "audioFile": "audios/mesa-presidencia.mp3",
+    "esPresidencia": true,
+    "invitados": [
+      "ELENA",
+      "PEPE",
+      "LAURA",
+      "RAÚL",
+      "MARIVI",
+      "TORRES"
+    ]
+  }
+};
+
+// Distribución del plano (fiel al JPEG)
+// Zona cabecera: Mesa 1, Presidencia, Mesa 2
+// Zona principal grid 3 filas × 7 columnas (null = hueco)
+const PLANO_GRID = [
+  // Fila 1
+  ["5", "7", "3", "4", "6", "22"],
+  // Fila 2
+  ["9", "11", "13", "14", "12", "10"],
+  // Fila 3
+  ["17", "19", "8", "18", "20", "16"]
+];
+
+const BASE_URL = "https://torresgarciaraul.github.io/bodaLauRaul/";
+let radioPlayerActivo = null;
+let mesaHighlightedKey = null;
+
+// --- Renderizado del mapa ---
+function renderizarMapa() {
+  // Zona cabecera
+  const cabecera = document.getElementById('zona-cabecera-inner');
+  if (cabecera) {
+    cabecera.innerHTML = '';
+    // Hacemos que estén más cerca entre sí
+    cabecera.style.display = 'flex';
+    cabecera.style.justifyContent = 'center';
+    cabecera.style.gap = '0.5rem';
+    ['1','presidencia','2'].forEach(key => {
+      cabecera.appendChild(crearMesaBtn(key));
+    });
+  }
+
+  // Zona principal
+  const grid = document.getElementById('zona-principal-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  
+  // 3 filas x 6 columnas adaptativo para movil
+  grid.style.display = 'grid';
+  grid.style.gridTemplateColumns = 'repeat(6, 1fr)';
+  grid.style.gap = '0.5rem';
+  grid.style.justifyItems = 'center';
+  grid.style.width = '100%';
+  grid.style.maxWidth = '800px';
+  grid.style.margin = '0 auto';
+
+  PLANO_GRID.forEach((fila) => {
+    fila.forEach(key => {
+      grid.appendChild(crearMesaBtn(key));
+    });
+  });
+}
+
+function crearMesaBtn(key) {
+  const mesa = MESAS_DATA[key];
+  if (!mesa) return document.createElement('div');
+
+  const btn = document.createElement('button');
+  btn.className = 'mesa-btn' + (mesa.esPresidencia ? ' presidencia' : '');
+  btn.id = 'mesa-btn-' + key;
+  btn.setAttribute('aria-label', `Mesa ${mesa.etiqueta} — ${mesa.nombre} · ${mesa.frecuencia} FM`);
+  btn.setAttribute('data-tooltip', `${mesa.nombre}\n${mesa.frecuencia} FM`);
+  btn.setAttribute('data-mesa', key);
+
+  const numEl = document.createElement('span');
+  numEl.className = 'mesa-num';
+  numEl.textContent = mesa.esPresidencia ? '👑' : mesa.etiqueta;
+
+  const freqEl = document.createElement('span');
+  freqEl.className = 'mesa-freq';
+  freqEl.textContent = mesa.frecuencia + ' FM';
+
+  btn.appendChild(numEl);
+  btn.appendChild(freqEl);
+
+  btn.addEventListener('click', () => abrirMesa(key));
+  return btn;
+}
+
+// --- Modal ---
+let modalAbierto = false;
+
+function abrirMesa(key) {
+  const mesa = MESAS_DATA[key];
+  if (!mesa) return;
+
+  // Efecto "sintonizando" antes de abrir
+  const overlay = document.getElementById('mesaModalOverlay');
+  const content = document.getElementById('mesaModalContent');
+
+  // Construir contenido
+  const esPresidencia = mesa.esPresidencia;
+  const labelMesa = esPresidencia ? 'MESA PRESIDENCIAL' : `MESA ${mesa.etiqueta}`;
+
+  content.innerHTML = `
+    <div class="modal-drag-handle"></div>
+    <div class="modal-header">
+      <button class="modal-close" onclick="cerrarMesa()" aria-label="Cerrar">✕</button>
+      <div class="modal-mesa-num">${labelMesa}</div>
+      <div class="modal-mesa-nombre" id="modalMesaNombre">${mesa.nombre}</div>
+      <div class="modal-freq-badge">📻 ${mesa.frecuencia} FM</div>
+      <div class="modal-wave-line">
+        <svg viewBox="0 0 600 48" preserveAspectRatio="none" style="width:100%;height:100%" aria-hidden="true">
+          <path d="M0,24 C50,8 100,40 150,24 C200,8 250,40 300,24 C350,8 400,40 450,24 C500,8 550,40 600,24" 
+                stroke="rgba(255,255,255,0.2)" stroke-width="2" fill="none"/>
+        </svg>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section-title">👥 Compañeros de mesa</div>
+      <div class="invitados-grid" id="invitadosGrid"></div>
+
+      <div class="modal-section-title">🎵 Tenemos algo que decirte ...</div>
+      <div class="audio-player-card" id="audioPlayerCard">
+        <div class="player-sintonizando">
+          <span class="sintonizando-anim">📻</span>
+          <p style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:0.5rem">Sintonizando vuestra frecuencia...</p>
+        </div>
+      </div>
+
+      </div>
+  `;
+
+  // Rellenar invitados
+  const invGrid = content.querySelector('#invitadosGrid');
+  if (mesa.invitados && mesa.invitados.length > 0) {
+    mesa.invitados.forEach(nombre => {
+      const chip = document.createElement('span');
+      chip.className = 'invitado-chip';
+      chip.textContent = nombre;
+      invGrid.appendChild(chip);
+    });
+  } else {
+    invGrid.innerHTML = '<span style="color:#888;font-size:0.9rem">Los invitados de esta mesa se sintonizarán pronto 📡</span>';
+  }
+
+  // Mostrar modal
+  overlay.classList.add('visible');
+  modalAbierto = true;
+
+  // Actualizar hash
+  const newHash = key === 'presidencia' ? '#mesa/presidencia' : `#mesa/${key}`;
+  if (window.location.hash !== newHash) {
+    history.pushState(null, '', newHash);
+  }
+
+  // Trap focus
+  setTimeout(() => {
+    const closeBtn = content.querySelector('.modal-close');
+    if (closeBtn) closeBtn.focus();
+  }, 400);
+
+  // Inicializar reproductor tras animación "sintonizando"
+  setTimeout(() => {
+    inicializarReproductor(key, mesa);
+  }, 900);
+}
+
+function inicializarReproductor(key, mesa) {
+  const card = document.getElementById('audioPlayerCard');
+  if (!card) return;
+
+  // Comprobar si tiene permiso para reproducir esta mesa
+  const authorizedKey = sessionStorage.getItem('qrMesaKey');
+  if (authorizedKey !== key) {
+    card.innerHTML = `
+      <div class="player-sintonizando" style="padding: 1.5rem; text-align: center;">
+        <span class="sintonizando-anim" style="animation: none; font-size: 2rem;">🔒</span>
+        <p style="color:var(--color-radio-light);font-size:0.9rem;margin-top:0.5rem;line-height:1.4;">
+          Estás viendo la mesa de otros invitados.<br>
+          <span style="font-size: 0.8rem; opacity: 0.8;">Para escuchar su dedicatoria, escanea el QR en su mesa.</span>
+        </p>
+      </div>
+    `;
+    return;
+  }
+
+  // Destruir player anterior
+  if (radioPlayerActivo) {
+    radioPlayerActivo.destroy();
+    radioPlayerActivo = null;
+  }
+
+  radioPlayerActivo = new RadioPlayer(mesa.audioFile, card, mesa.nombre);
+}
+
+function cerrarMesa() {
+  const overlay = document.getElementById('mesaModalOverlay');
+  overlay.classList.remove('visible');
+  modalAbierto = false;
+
+  if (radioPlayerActivo) {
+    radioPlayerActivo.destroy();
+    radioPlayerActivo = null;
+  }
+
+  // Limpiar hash
+  if (window.location.hash.startsWith('#mesa/')) {
+    history.pushState(null, '', window.location.pathname + '#sitting-plan');
+  }
+}
+
+// Cerrar modal al hacer click en overlay
+document.getElementById('mesaModalOverlay').addEventListener('click', function(e) {
+  if (e.target === this) cerrarMesa();
+});
+
+// Cerrar con Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && modalAbierto) cerrarMesa();
+});
+
+// --- RadioPlayer class ---
+class RadioPlayer {
+  constructor(audioFile, contenedor, nombreMesa) {
+    this.audioFile = audioFile;
+    this.contenedor = contenedor;
+    this.nombreMesa = nombreMesa;
+    this.audio = null;
+    this.playing = false;
+    this.disponible = false;
+    this.render();
+  }
+
+  render() {
+    // Intentar cargar el audio
+    this.audio = new Audio();
+    this.audio.preload = 'none';
+
+    this.audio.addEventListener('loadedmetadata', () => {
+      this.disponible = true;
+      this.renderPlayer();
+    });
+
+    this.audio.addEventListener('error', () => {
+      this.renderProximamente();
+    });
+
+    this.audio.addEventListener('timeupdate', () => this.actualizarProgreso());
+    this.audio.addEventListener('ended', () => this.onEnded());
+
+    this.audio.src = this.audioFile;
+    this.audio.load();
+
+    // Timeout para mostrar "próximamente" si no carga en 2s
+    this.loadTimeout = setTimeout(() => {
+      if (!this.disponible) this.renderProximamente();
+    }, 2000);
+  }
+
+  renderPlayer() {
+    clearTimeout(this.loadTimeout);
+    this.contenedor.innerHTML = `
+      <div class="player-label">🎙️ Tenemos algo que decirte ...</div>
+      <div class="equalizer-bars paused" id="playerEqBars">
+        ${Array(10).fill('<div class="eq-bar"></div>').join('')}
+      </div>
+      <div class="player-controls">
+        <button class="btn-play" id="playerBtnPlay" aria-label="Reproducir audio">▶</button>
+        <div class="player-progress-area">
+          <div class="player-time">
+            <span id="playerCurrentTime">0:00</span>
+            <span id="playerDuration">--:--</span>
+          </div>
+          <div class="player-progress-bar" id="playerProgressBar" role="slider" aria-label="Progreso del audio">
+            <div class="player-progress-fill" id="playerProgressFill"></div>
+          </div>
+        </div>
+      </div>
+      <p style="text-align:center;color:rgba(255,255,255,0.4);font-size:0.72rem;margin-top:0.8rem;position:relative;z-index:1">
+        Solo para los oyentes de ${this.nombreMesa} 📻
+      </p>
+    `;
+
+    // Duración
+    if (this.audio.duration && isFinite(this.audio.duration)) {
+      document.getElementById('playerDuration').textContent = this.formatTime(this.audio.duration);
+    }
+
+    // Bind events
+    const btnPlay = document.getElementById('playerBtnPlay');
+    if (btnPlay) btnPlay.addEventListener('click', () => this.togglePlay());
+
+    const progressBar = document.getElementById('playerProgressBar');
+    if (progressBar) {
+      progressBar.addEventListener('click', (e) => {
+        const rect = progressBar.getBoundingClientRect();
+        const pct = (e.clientX - rect.left) / rect.width;
+        if (this.audio && isFinite(this.audio.duration)) {
+          this.audio.currentTime = pct * this.audio.duration;
+        }
+      });
+    }
+  }
+
+  renderProximamente() {
+    clearTimeout(this.loadTimeout);
+    this.contenedor.innerHTML = `
+      <div class="audio-unavailable">
+        <span class="soon-icon">🎙️</span>
+        <p style="font-weight:600;color:rgba(255,255,255,0.8)">Mensaje de audio personalizado</p>
+        <p style="font-size:0.8rem;margin-top:0.3rem;color:rgba(255,255,255,0.5)">Disponible próximamente para los oyentes de esta frecuencia 📻</p>
+      </div>
+    `;
+  }
+
+  togglePlay() {
+    if (!this.audio) return;
+    if (this.playing) {
+      this.audio.pause();
+      this.playing = false;
+      this.updateUI(false);
+    } else {
+      this.audio.play().then(() => {
+        this.playing = true;
+        this.updateUI(true);
+      }).catch(() => {
+        this.renderProximamente();
+      });
+    }
+  }
+
+  updateUI(isPlaying) {
+    const btnPlay = document.getElementById('playerBtnPlay');
+    const eqBars = document.getElementById('playerEqBars');
+    if (btnPlay) btnPlay.textContent = isPlaying ? '⏸' : '▶';
+    if (btnPlay) btnPlay.setAttribute('aria-label', isPlaying ? 'Pausar audio' : 'Reproducir audio');
+    if (eqBars) eqBars.classList.toggle('paused', !isPlaying);
+  }
+
+  actualizarProgreso() {
+    if (!this.audio) return;
+    const fill = document.getElementById('playerProgressFill');
+    const currentEl = document.getElementById('playerCurrentTime');
+    const durationEl = document.getElementById('playerDuration');
+    const pct = this.audio.duration ? (this.audio.currentTime / this.audio.duration) * 100 : 0;
+    if (fill) fill.style.width = pct + '%';
+    if (currentEl) currentEl.textContent = this.formatTime(this.audio.currentTime);
+    if (durationEl && isFinite(this.audio.duration)) {
+      durationEl.textContent = this.formatTime(this.audio.duration);
+    }
+  }
+
+  onEnded() {
+    this.playing = false;
+    this.updateUI(false);
+    const fill = document.getElementById('playerProgressFill');
+    if (fill) fill.style.width = '0%';
+  }
+
+  formatTime(secs) {
+    if (!isFinite(secs)) return '--:--';
+    const m = Math.floor(secs / 60);
+    const s = Math.floor(secs % 60);
+    return `${m}:${s.toString().padStart(2,'0')}`;
+  }
+
+  destroy() {
+    if (this.audio) {
+      this.audio.pause();
+      this.audio.src = '';
+      this.audio = null;
+    }
+    clearTimeout(this.loadTimeout);
+    this.playing = false;
+  }
+}
+
+// --- Compartir ---
+function compartirMesa(key) {
+  const url = BASE_URL + (key === 'presidencia' ? '#mesa/presidencia' : `#mesa/${key}`);
+  const mesa = MESAS_DATA[key];
+  const titulo = `${mesa.nombre} · ${mesa.frecuencia} FM`;
+  const texto = `📻 Vuestra mesa en la boda de Raúl & Laura: ${titulo}`;
+
+  if (navigator.share) {
+    navigator.share({ title: titulo, text: texto, url }).catch(() => copiarURL(url));
+  } else {
+    copiarURL(url);
+  }
+}
+
+function copiarURL(url) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(() => {
+      mostrarToast('📋 Enlace copiado al portapapeles');
+    }).catch(() => mostrarToast('🔗 ' + url));
+  } else {
+    mostrarToast('🔗 ' + url);
+  }
+}
+
+function mostrarToast(msg) {
+  let toast = document.querySelector('.sitting-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.className = 'toast sitting-toast';
+    toast.style.cssText = 'position:fixed;bottom:5rem;left:50%;transform:translateX(-50%);background:rgba(30,15,25,0.92);color:white;padding:0.7rem 1.2rem;border-radius:999px;font-size:0.85rem;z-index:9999;pointer-events:none;white-space:nowrap;';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => { toast.style.opacity = '0'; }, 2500);
+}
+
+// --- Buscador de invitados ---
+function inicializarBuscador() {
+  const input = document.getElementById('buscarInvitado');
+  const hint = document.getElementById('searchHint');
+  if (!input) return;
+
+  input.addEventListener('input', function() {
+    const query = this.value.trim().toUpperCase();
+
+    // Limpiar highlights anteriores
+    document.querySelectorAll('.mesa-btn.highlighted').forEach(b => b.classList.remove('highlighted'));
+    mesaHighlightedKey = null;
+
+    if (query.length < 2) {
+      hint.textContent = 'Escribe tu nombre para encontrar tu mesa • Enter para abrirla';
+      hint.style.color = '#9a7a8a';
+      return;
+    }
+
+    // Buscar en todas las mesas
+    let encontrado = null;
+    for (const [key, mesa] of Object.entries(MESAS_DATA)) {
+      const match = mesa.invitados.some(inv => inv.toUpperCase().includes(query));
+      if (match) { encontrado = key; break; }
+    }
+
+    if (encontrado) {
+      const btn = document.getElementById('mesa-btn-' + encontrado);
+      if (btn) {
+        btn.classList.add('highlighted');
+        btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        mesaHighlightedKey = encontrado;
+        const mesa = MESAS_DATA[encontrado];
+        hint.textContent = `✅ Estás en: ${mesa.nombre} · Mesa ${mesa.etiqueta} · ${mesa.frecuencia} FM`;
+        hint.style.color = 'var(--color-radio)';
+      }
+    } else {
+      hint.textContent = '🔍 No encontrado — prueba con otro nombre';
+      hint.style.color = '#c62828';
+    }
+  });
+
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && mesaHighlightedKey) {
+      abrirMesa(mesaHighlightedKey);
+    }
+  });
+}
+
+function actualizarVisibilidadQR() {
+  const tieneAcceso = sessionStorage.getItem('qrAcceso') === 'true';
+  const menuSitting = document.querySelector('button[data-target="pSitting"]');
+  const menuRevista = document.querySelector('button[data-target="pRevista"]');
+  const btnSittingP5 = document.getElementById('btnSittingP5');
+  const btnGraciasP5 = document.getElementById('btnGraciasP5');
+
+  if(menuSitting) menuSitting.style.display = tieneAcceso ? 'block' : 'none';
+  if(menuRevista) menuRevista.style.display = tieneAcceso ? 'block' : 'none';
+  if(btnSittingP5) btnSittingP5.style.display = tieneAcceso ? 'inline-block' : 'none';
+  if(btnGraciasP5) btnGraciasP5.style.display = tieneAcceso ? 'none' : 'inline-block';
+}
+
+// --- Deep-linking hash ---
+function manejarHashURL() {
+  actualizarVisibilidadQR();
+  const hash = window.location.hash;
+  if (hash.startsWith('#mesa/')) {
+    const key = hash.replace('#mesa/', '').toLowerCase();
+    sessionStorage.setItem('qrAcceso', 'true');
+    sessionStorage.setItem('qrMesaKey', key);
+    actualizarVisibilidadQR();
+    irA('pSitting');
+    setTimeout(() => abrirMesa(key), 600);
+  } else if (hash === '#admin/qr') {
+    mostrarAdminQR();
+  } else if (hash === '#sitting-plan') {
+    if(sessionStorage.getItem('qrAcceso') === 'true') irA('pSitting');
+  }
+}
+
+// --- Panel Admin QR ---
+function mostrarAdminQR() {
+  const overlay = document.getElementById('adminQROverlay');
+  overlay.classList.add('visible');
+
+  const grid = document.getElementById('adminQRGrid');
+  if (grid.children.length > 0) return; // ya generados
+
+  // Cargar qrcode.js dinámicamente
+  const script = document.createElement('script');
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+  script.onload = () => generarQRCodes();
+  script.onerror = () => {
+    grid.innerHTML = '<p style="color:#c62828;text-align:center">Error al cargar librería QR. Verifica tu conexión.</p>';
+  };
+  document.head.appendChild(script);
+}
+
+function generarQRCodes() {
+  const grid = document.getElementById('adminQRGrid');
+  grid.innerHTML = '';
+
+  const orden = ['presidencia','1','2','3','4','5','6','7','8','9','10','11','12','13','14','16','17','18','19','20','22'];
+
+  orden.forEach(key => {
+    const mesa = MESAS_DATA[key];
+    if (!mesa) return;
+
+    const url = BASE_URL + (key === 'presidencia' ? '#mesa/presidencia' : `#mesa/${key}`);
+    const labelMesa = mesa.esPresidencia ? 'PRESIDENCIA' : `MESA ${mesa.etiqueta}`;
+
+    const item = document.createElement('div');
+    item.className = 'qr-item';
+    item.innerHTML = `
+      <div id="qr-${key}"></div>
+      <div class="qr-item-nombre">${mesa.nombre}</div>
+      <div class="qr-item-num">${labelMesa} · ${mesa.frecuencia} FM</div>
+      <div class="qr-item-url">${url}</div>
+    `;
+    grid.appendChild(item);
+
+    try {
+      new QRCode(document.getElementById('qr-' + key), {
+        text: url,
+        width: 200,
+        height: 200,
+        colorDark: '#8B3D6B',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    } catch(e) {
+      document.getElementById('qr-' + key).innerHTML = '<p style="font-size:0.7rem;color:#999">QR no disponible</p>';
+    }
+  });
+}
+
+function cerrarAdminQR() {
+  document.getElementById('adminQROverlay').classList.remove('visible');
+  if (window.location.hash === '#admin/qr') {
+    history.pushState(null, '', window.location.pathname);
+  }
+}
+
+// --- Actualizar array de pantallas con pSitting ---
+// (Override de la función actualizarProgreso original)
+function actualizarProgreso() {
+  const pantallasConSitting = ['p1','p2','p3','p4','pInfo','p5','pSitting','p6','p8'];
+  const actual = pantallaActual.id;
+  const indice = pantallasConSitting.indexOf(actual);
+  if (indice < 1) {
+    document.getElementById('progressBar').style.width = '0%';
+    return;
+  }
+  const progreso = ((indice + 1) / pantallasConSitting.length) * 100;
+  document.getElementById('progressBar').style.width = progreso + '%';
+}
+
+// --- Inicialización ---
+function inicializarSittingPlan() {
+  renderizarMapa();
+  inicializarBuscador();
+}
+
+// Ejecutar al cargar
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    inicializarSittingPlan();
+    manejarHashURL();
+  });
+} else {
+  inicializarSittingPlan();
+  manejarHashURL();
+}
+
+window.addEventListener('hashchange', manejarHashURL);
+
+// ============================================================
+// FIN SITTING PLAN
+// ============================================================
 </script>
 </body>
 </html>
