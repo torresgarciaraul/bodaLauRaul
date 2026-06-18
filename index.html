@@ -2979,12 +2979,35 @@ function abrirMesa(key) {
 
   content.innerHTML = `
     <div class="modal-drag-handle"></div>
-    <div class="modal-header">
-      <button class="modal-close" onclick="cerrarMesa()" aria-label="Cerrar">✕</button>
-      <div class="modal-mesa-num">${labelMesa}</div>
-      <div class="modal-mesa-nombre" id="modalMesaNombre">${mesa.nombre}</div>
-      <div class="modal-freq-badge">📻 ${mesa.frecuencia} FM</div>
-      <div class="modal-wave-line">
+    <div class="modal-header" style="position:relative; overflow:hidden;">
+      ${key === '2' ? `
+      <div style="
+        position: absolute;
+        right: 0; top: 0; bottom: 0;
+        width: 55%;
+        z-index: 0;
+        pointer-events: none;
+      ">
+        <img src="imagenes/mesa2-bg.jpg" alt="" style="
+          width: 100%; height: 100%;
+          object-fit: cover;
+          object-position: center top;
+          display: block;
+          filter: grayscale(100%) contrast(1.3) brightness(0.55);
+          -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 35%, black 100%);
+          mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 35%, black 100%);
+          mix-blend-mode: luminosity;
+        "/>
+        <div style="
+          position: absolute; inset: 0;
+          background: linear-gradient(to right, rgba(107,34,82,0) 0%, rgba(107,34,82,0.45) 60%);
+        "></div>
+      </div>` : ''}
+      <button class="modal-close" onclick="cerrarMesa()" aria-label="Cerrar" style="position:relative;z-index:2;">✕</button>
+      <div class="modal-mesa-num" style="position:relative;z-index:1;">${labelMesa}</div>
+      <div class="modal-mesa-nombre" id="modalMesaNombre" style="position:relative;z-index:1;">${mesa.nombre}</div>
+      <div class="modal-freq-badge" style="position:relative;z-index:1;">📻 ${mesa.frecuencia} FM</div>
+      <div class="modal-wave-line" style="position:relative;z-index:1;">
         <svg viewBox="0 0 600 48" preserveAspectRatio="none" style="width:100%;height:100%" aria-hidden="true">
           <path d="M0,24 C50,8 100,40 150,24 C200,8 250,40 300,24 C350,8 400,40 450,24 C500,8 550,40 600,24" 
                 stroke="rgba(255,255,255,0.2)" stroke-width="2" fill="none"/>
