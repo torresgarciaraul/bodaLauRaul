@@ -1912,70 +1912,35 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 <!-- PDF.js CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
+<!-- ===== REVISTA SECTION ===== -->
+<!-- ===== REVISTA SECTION ===== -->
 <section class="pantalla" id="pRevista" aria-label="Revista">
-  <div class="revista-header" style="text-align: center; margin-bottom: 1rem;">
-    <h2 style="margin-bottom: 0.3rem;">📖 Revista</h2>
-    <p style="font-size: 0.9rem; opacity: 0.8;">¡Disfruta de nuestra revista especial!</p>
+  <div class="revista-header" style="text-align:center;margin-bottom:1rem;">
+    <h2 style="margin-bottom:0.3rem;">?? Revista</h2>
+    <p style="font-size:0.9rem;opacity:0.8;">�Disfruta de nuestra revista especial!</p>
   </div>
 
-  <!-- Visor PDF.js -->
-  <div style="
-    width: 100%;
-    background: #1a1a1a;
-    border: 2px solid var(--dorado);
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 0.75rem;
-    position: relative;
-  ">
-    <!-- Canvas donde se pinta el PDF -->
-    <canvas id="revistaPdfCanvas" style="
-      display: block;
-      width: 100%;
-      background: #fff;
-      touch-action: pinch-zoom;
-    "></canvas>
-
-    <!-- Loading indicator -->
-    <div id="revistaPdfLoading" style="
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(20,10,30,0.92);
-      flex-direction: column; gap: 0.75rem;
-      z-index: 5;
-    ">
-      <span style="font-size: 2rem;">📖</span>
-      <p style="color: var(--dorado); font-family: 'Montserrat', sans-serif; font-size: 0.9rem; margin:0;">Cargando revista...</p>
+  <div style="width:100%;background:#1a1a1a;border:2px solid var(--dorado);border-radius:12px;overflow:hidden;margin-bottom:0.75rem;position:relative;min-height:300px;">
+    <canvas id="revistaPdfCanvas" style="display:block;width:100%;background:#fff;"></canvas>
+    <div id="revistaPdfLoading" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(20,10,30,0.92);flex-direction:column;gap:0.75rem;z-index:5;">
+      <span style="font-size:2rem;">??</span>
+      <p id="revistaPdfLoadingText" style="color:var(--dorado);font-family:'Montserrat',sans-serif;font-size:0.9rem;margin:0;">Cargando revista...</p>
     </div>
   </div>
 
-  <!-- Controles de navegación -->
-  <div style="
-    display: flex; align-items: center; justify-content: center;
-    gap: 0.75rem; margin-bottom: 0.75rem; flex-wrap: wrap;
-  ">
-    <button id="revistaPrevBtn" onclick="revistaChangePage(-1)" style="
-      background: var(--dorado); color: #1a0a2e; border: none;
-      border-radius: 8px; padding: 0.5rem 1.2rem;
-      font-weight: 700; font-family: 'Montserrat', sans-serif;
-      font-size: 1rem; cursor: pointer; touch-action: manipulation;
-    ">‹ Anterior</button>
-
-    <span id="revistaPageInfo" style="
-      color: var(--dorado); font-family: 'Montserrat', sans-serif;
-      font-size: 0.9rem; min-width: 80px; text-align: center;
-    ">Página 1</span>
-
-    <button id="revistaNextBtn" onclick="revistaChangePage(1)" style="
-      background: var(--dorado); color: #1a0a2e; border: none;
-      border-radius: 8px; padding: 0.5rem 1.2rem;
-      font-weight: 700; font-family: 'Montserrat', sans-serif;
-      font-size: 1rem; cursor: pointer; touch-action: manipulation;
-    ">Siguiente ›</button>
+  <div style="display:flex;align-items:center;justify-content:center;gap:0.75rem;margin-bottom:0.75rem;">
+    <button id="revistaPrevBtn" onclick="revistaChangePage(-1)" style="background:var(--dorado);color:#1a0a2e;border:none;border-radius:8px;padding:0.5rem 1.2rem;font-weight:700;font-family:'Montserrat',sans-serif;font-size:1rem;cursor:pointer;">&#8249; Anterior</button>
+    <span id="revistaPageInfo" style="color:var(--dorado);font-family:'Montserrat',sans-serif;font-size:0.9rem;min-width:90px;text-align:center;">P�g. �</span>
+    <button id="revistaNextBtn" onclick="revistaChangePage(1)" style="background:var(--dorado);color:#1a0a2e;border:none;border-radius:8px;padding:0.5rem 1.2rem;font-weight:700;font-family:'Montserrat',sans-serif;font-size:1rem;cursor:pointer;">Siguiente &#8250;</button>
   </div>
 
-  <!-- Botón descarga -->
-  <div style="text-align: center; margin-bottom: 1.5rem;">
+  <div style="text-align:center;margin-bottom:1.5rem;">
+    <a href="MESAS/RevistaSolteros.pdf" target="_blank" style="display:inline-block;padding:0.7rem 1.4rem;background:linear-gradient(135deg,var(--color-radio),#6b2252);color:white;text-decoration:none;border-radius:8px;font-weight:600;font-family:'Montserrat',sans-serif;font-size:0.9rem;">&#128229; Ver / Descargar PDF completo</a>
+  </div>
+
+  <div class="nav" style="padding:0 1rem;margin-top:0.5rem;">
+    <button onclick="irA('p8')">&#128140; Gracias</button>
+    <button class="secundario" onclick="irA('pSitting')">&#8592; Volver</button>
   </div>
 </section>
 
@@ -3538,6 +3503,84 @@ window.addEventListener('hashchange', manejarHashURL);
 // ============================================================
 // FIN SITTING PLAN
 // ============================================================
+</script>
+
+<!-- ===== PDF.js Revista Viewer ===== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+(function() {
+  var revistaPdf = null;
+  var revistaCurrentPage = 1;
+  var revistaRendering = false;
+  var revistaReady = false;
+
+  window.revistaChangePage = function(delta) {
+    if (!revistaPdf) return;
+    var newPage = revistaCurrentPage + delta;
+    if (newPage < 1 || newPage > revistaPdf.numPages) return;
+    revistaCurrentPage = newPage;
+    renderRevistaPagina(revistaCurrentPage);
+  };
+
+  function renderRevistaPagina(pageNum) {
+    if (revistaRendering || !revistaPdf) return;
+    revistaRendering = true;
+    revistaPdf.getPage(pageNum).then(function(page) {
+      var canvas = document.getElementById('revistaPdfCanvas');
+      if (!canvas) { revistaRendering = false; return; }
+      var container = canvas.parentElement;
+      var containerW = container.clientWidth || 360;
+      var viewport = page.getViewport({ scale: 1 });
+      var scale = containerW / viewport.width;
+      var scaled = page.getViewport({ scale: scale });
+      canvas.width = scaled.width;
+      canvas.height = scaled.height;
+      var ctx = canvas.getContext('2d');
+      page.render({ canvasContext: ctx, viewport: scaled }).promise.then(function() {
+        revistaRendering = false;
+        var loading = document.getElementById('revistaPdfLoading');
+        if (loading) loading.style.display = 'none';
+        var info = document.getElementById('revistaPageInfo');
+        if (info) info.textContent = 'Pág. ' + pageNum + ' / ' + revistaPdf.numPages;
+        var prev = document.getElementById('revistaPrevBtn');
+        var next = document.getElementById('revistaNextBtn');
+        if (prev) prev.style.opacity = pageNum <= 1 ? '0.4' : '1';
+        if (next) next.style.opacity = pageNum >= revistaPdf.numPages ? '0.4' : '1';
+      });
+    }).catch(function(e) {
+      revistaRendering = false;
+      var txt = document.getElementById('revistaPdfLoadingText');
+      if (txt) txt.textContent = 'Error al cargar. Usa el botón de descarga.';
+    });
+  }
+
+  function cargarRevista() {
+    if (revistaReady) {
+      renderRevistaPagina(revistaCurrentPage);
+      return;
+    }
+    if (typeof pdfjsLib === 'undefined') return;
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    revistaReady = true;
+    pdfjsLib.getDocument('MESAS/RevistaSolteros.pdf').promise.then(function(pdf) {
+      revistaPdf = pdf;
+      revistaCurrentPage = 1;
+      renderRevistaPagina(1);
+    }).catch(function() {
+      var txt = document.getElementById('revistaPdfLoadingText');
+      if (txt) txt.textContent = 'Error al cargar. Usa el botón de descarga.';
+    });
+  }
+
+  // Hook en irA para detectar navegación a pRevista
+  var _irAOriginal = window.irA;
+  window.irA = function(id) {
+    _irAOriginal(id);
+    if (id === 'pRevista') {
+      setTimeout(cargarRevista, 400);
+    }
+  };
+})();
 </script>
 </body>
 </html>
