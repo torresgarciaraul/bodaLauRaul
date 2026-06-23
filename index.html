@@ -924,190 +924,248 @@ body.dark-mode .info-icon{
 /* Mapa contenedor */
 .sitting-mapa-container {
   width: 100%;
-  padding: 1.5rem 1rem 0;
-}
-
-/* Zona cabecera (sala aparte) */
-.zona-cabecera {
-  background: linear-gradient(135deg, rgba(139,61,107,0.04) 0%, rgba(207,166,112,0.06) 100%);
-  border: 1.5px dashed rgba(139,61,107,0.25);
-  border-radius: 1.2rem;
-  padding: 1.2rem 1rem 1rem;
-  margin-bottom: 1.2rem;
-  position: relative;
-}
-.zona-cabecera::before {
-  content: '🏛️ SALA PRINCIPAL — NOVIOS Y FAMILIARES';
-  position: absolute;
-  top: -0.7rem; left: 50%;
-  transform: translateX(-50%);
-  background: white;
-  padding: 0 0.8rem;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  color: var(--color-radio);
-  white-space: nowrap;
-}
-.zona-cabecera-inner {
+  padding: 1rem 0.5rem 0;
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
+  perspective: 1200px; /* Para efecto 3D Parallax */
 }
 
-/* Zona principal (salón grande) */
-.zona-principal {
-  background: linear-gradient(135deg, rgba(92,125,98,0.03) 0%, rgba(207,166,112,0.04) 100%);
-  border: 1.5px dashed rgba(92,125,98,0.2);
-  border-radius: 1.2rem;
-  padding: 1.2rem 0.8rem 1rem;
-  position: relative;
-}
-.zona-principal::before {
-  content: '🎶 SALÓN PRINCIPAL — INVITADOS';
-  position: absolute;
-  top: -0.7rem; left: 50%;
-  transform: translateX(-50%);
-  background: white;
-  padding: 0 0.8rem;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  color: var(--verde);
-  white-space: nowrap;
-}
-.zona-principal-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 0.8rem 0.5rem;
-  max-width: 700px;
-  margin: 0 auto;
+/* ===== PLANO SVG DEL SALÓN (PREMIUM) ===== */
+.plano-salon-svg {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 12px 32px rgba(20, 5, 15, 0.45));
+  touch-action: manipulation;
+  border-radius: 16px;
+  background: radial-gradient(ellipse at center, #2c1022 0%, #15050e 100%);
+  border: 1px solid rgba(207,166,112,0.2);
+  transform-style: preserve-3d;
+  transition: transform 0.1s linear; /* Movimiento fluido pero directo */
 }
 
-/* Mesa botón base */
-.mesa-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 72px; height: 72px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #fff 0%, #f8f4ff 100%);
-  border: 3px solid var(--color-radio);
+/* Grupos de mesa en SVG */
+.mesa-svg-group {
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
-  box-shadow: 0 3px 12px rgba(139,61,107,0.2);
-  position: relative;
-  font-family: 'Playfair Display', serif;
-  margin: 0 auto;
-  min-width: 44px; min-height: 44px;
-  padding: 0;
   outline: none;
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center;
 }
-.mesa-btn:hover {
-  transform: scale(1.15);
-  box-shadow: 0 6px 20px rgba(139,61,107,0.35);
-  border-color: var(--color-radio);
-  background: linear-gradient(135deg, #fff 0%, #f0d8e8 100%);
-  z-index: 10;
-}
-.mesa-btn:focus-visible {
-  outline: 3px solid var(--dorado);
-  outline-offset: 3px;
-}
-@keyframes mesaPulse {
-  0%, 100% { box-shadow: 0 3px 12px rgba(139,61,107,0.2); }
-  50% { box-shadow: 0 0 0 8px rgba(139,61,107,0.12), 0 3px 12px rgba(139,61,107,0.2); }
-}
-.mesa-btn:hover { animation: mesaPulse 1.5s ease-in-out infinite; }
-.mesa-btn.highlighted {
-  background: linear-gradient(135deg, #ffe8f4, #ffc8e8) !important;
-  border-color: var(--color-radio) !important;
-  animation: mesaHighlight 1s ease-in-out infinite !important;
-  z-index: 10;
-}
-@keyframes mesaHighlight {
-  0%, 100% { box-shadow: 0 0 0 4px rgba(139,61,107,0.3), 0 4px 16px rgba(139,61,107,0.4); }
-  50% { box-shadow: 0 0 0 10px rgba(139,61,107,0.15), 0 8px 24px rgba(139,61,107,0.5); }
-}
-.mesa-num {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--color-radio);
-  line-height: 1;
-}
-.mesa-freq {
-  font-size: 0.55rem;
-  color: #9a7a8a;
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  line-height: 1;
-  margin-top: 1px;
-}
-
-/* Mesa Presidencia — oval/especial */
-.mesa-btn.presidencia {
-  width: 110px; height: 75px;
-  border-radius: 50%;
-  border-color: var(--dorado);
-  background: linear-gradient(135deg, #fffbf0, #fef3d8);
-  box-shadow: 0 4px 16px rgba(207,166,112,0.35);
-}
-.mesa-btn.presidencia:hover {
-  border-color: var(--dorado);
-  background: linear-gradient(135deg, #fff8e8, #fde8b0);
-  box-shadow: 0 8px 24px rgba(207,166,112,0.45);
-}
-.mesa-btn.presidencia .mesa-num {
-  font-size: 0.9rem;
-  color: #8a6820;
-}
-.mesa-btn.presidencia .mesa-freq {
-  color: #b8902a;
-}
-
-/* Hueco (celda vacía en el grid) */
-.mesa-gap { width: 72px; height: 72px; }
-
-/* Tooltip */
-.mesa-btn::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%) scale(0.9);
-  background: rgba(30,15,25,0.92);
-  color: white;
-  padding: 0.4rem 0.7rem;
-  border-radius: 0.5rem;
-  font-size: 0.72rem;
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
-  transition: all 0.2s ease;
-  z-index: 100;
-  max-width: 200px;
-  text-align: center;
-  line-height: 1.4;
-}
-.mesa-btn:hover::after {
+.mesa-svg-group:hover, .mesa-svg-group:focus-visible {
   opacity: 1;
-  transform: translateX(-50%) scale(1);
 }
 
-/* Etiqueta de zona */
-.zona-label {
-  text-align: center;
-  font-size: 0.7rem;
-  letter-spacing: 1px;
+/* Base de la mesa */
+.mesa-base {
+  fill: url(#tableGradient);
+  stroke: url(#goldGradient);
+  stroke-width: 1.5;
+  transition: all 0.3s ease;
+}
+.mesa-svg-group:hover .mesa-base {
+  stroke-width: 2.5;
+  filter: url(#glowFilter);
+}
+
+/* Sillas */
+.silla-svg {
+  fill: rgba(255, 255, 255, 0.1);
+  stroke: rgba(207,166,112,0.5);
+  stroke-width: 0.8;
+  transition: all 0.3s ease;
+}
+.mesa-svg-group:hover .silla-svg {
+  fill: rgba(207,166,112,0.3);
+  stroke: rgba(207,166,112,1);
+}
+
+/* Textos dentro de la mesa */
+.mesa-svg-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-weight: 700;
+  fill: #fffdf5;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+  user-select: none;
+}
+.mesa-svg-freq {
+  font-family: 'Inter', sans-serif;
+  font-size: 6px;
   font-weight: 600;
-  color: #bda0ac;
-  margin-top: 0.4rem;
+  fill: rgba(207,166,112,0.8);
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Presidencia */
+.presidencia-svg .mesa-base {
+  fill: url(#presidenciaGradient);
+  stroke: #e6c594;
+  stroke-width: 2;
+}
+.presidencia-svg:hover .mesa-base {
+  stroke-width: 3;
+  filter: url(#glowFilterGold);
+}
+.presidencia-svg .mesa-svg-num { fill: #3a1c22; font-size: 15px; }
+.presidencia-svg .mesa-svg-freq { fill: #5c3515; }
+.presidencia-svg .silla-svg { stroke: #e6c594; fill: rgba(230, 197, 148, 0.2); }
+.presidencia-svg:hover .silla-svg { fill: rgba(230, 197, 148, 0.5); }
+
+/* Mesa encontrada por búsqueda */
+.mesa-svg-group.highlighted .mesa-base {
+  stroke: #ff9ed2 !important;
+  stroke-width: 3 !important;
+  animation: svgPulseHighlight 1.5s ease-in-out infinite;
+}
+.mesa-svg-group.highlighted .silla-svg {
+  stroke: #ff9ed2 !important;
+  fill: rgba(255, 158, 210, 0.3) !important;
+}
+@keyframes svgPulseHighlight {
+  0%, 100% { filter: drop-shadow(0 0 5px rgba(255,158,210,0.5)); }
+  50%       { filter: drop-shadow(0 0 15px rgba(255,158,210,1)) drop-shadow(0 0 30px rgba(255,158,210,0.5)); }
+}
+
+/* Mesa propia (llegada vía QR) */
+.mesa-svg-group.mi-mesa .mesa-base {
+  stroke: #f5d49f !important;
+  stroke-width: 3 !important;
+  animation: svgPulseMiMesa 1.5s ease-in-out infinite;
+}
+.mesa-svg-group.mi-mesa .silla-svg {
+  stroke: #f5d49f !important;
+  fill: rgba(245, 212, 159, 0.3) !important;
+}
+@keyframes svgPulseMiMesa {
+  0%, 100% { filter: drop-shadow(0 0 5px rgba(245,212,159,0.5)); }
+  50%       { filter: drop-shadow(0 0 15px rgba(245,212,159,1)) drop-shadow(0 0 30px rgba(245,212,159,0.6)); }
+}
+
+/* ===== WELCOME OVERLAY ===== */
+#welcomeOverlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, #2a0835 0%, #120118 55%, #000 100%);
+  z-index: 9500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  overflow: hidden;
+}
+#welcomeOverlay.visible  { opacity: 1; pointer-events: all; }
+#welcomeOverlay.saliendo { opacity: 0; pointer-events: none; }
+.welcome-waves-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  opacity: 0.18;
+  pointer-events: none;
+}
+.welcome-content {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  position: relative;
+  z-index: 2;
+  max-width: 360px;
+  width: 100%;
+}
+.welcome-radio-icon {
+  font-size: 3.8rem;
+  display: block;
+  margin-bottom: 1.2rem;
+  animation: welcomePulse 2s ease-in-out infinite;
+}
+@keyframes welcomePulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.14); }
+}
+.welcome-mesa-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 4px;
   text-transform: uppercase;
+  color: var(--dorado);
+  margin-bottom: 0.5rem;
+  animation: fadeInUp 0.6s ease-out both;
+}
+.welcome-mesa-nombre {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+  margin-bottom: 0.6rem;
+  animation: fadeInUp 0.6s ease-out 0.15s both;
+}
+.welcome-freq {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.22);
+  color: var(--dorado);
+  padding: 0.35rem 1.1rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 1.4rem;
+  animation: fadeInUp 0.6s ease-out 0.3s both;
+}
+.welcome-text {
+  color: rgba(255,255,255,0.7);
+  font-size: 1rem;
+  margin: 0 auto 1.4rem;
+  line-height: 1.55;
+  max-width: 280px;
+  animation: fadeInUp 0.6s ease-out 0.45s both;
+}
+.welcome-progress-track {
+  width: 100%;
+  max-width: 200px;
+  height: 3px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 2px;
+  margin: 0 auto 1.4rem;
+  overflow: hidden;
+  animation: fadeInUp 0.6s ease-out 0.6s both;
+}
+.welcome-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--color-radio-light), var(--dorado));
+  border-radius: 2px;
+}
+.welcome-skip-btn {
+  background: rgba(255,255,255,0.1);
+  border: 1.5px solid rgba(255,255,255,0.28);
+  color: white;
+  padding: 0.7rem 1.8rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: 'Inter', sans-serif;
+  margin-top: 0;
+  min-height: unset;
+  box-shadow: none;
+  animation: fadeInUp 0.6s ease-out 0.75s both;
+}
+.welcome-skip-btn:hover {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.5);
+  transform: translateY(-2px);
 }
 
 /* === MODAL === */
@@ -1159,6 +1217,50 @@ body.dark-mode .info-icon{
   position: relative;
   overflow: hidden;
   border-radius: 2rem 2rem 0 0;
+}
+/* Neon ON AIR */
+.neon-on-air {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  color: #ff3366;
+  text-shadow: 0 0 5px #ff3366, 0 0 15px #ff3366, 0 0 30px #ff3366;
+  animation: neonBlink 2.5s infinite;
+  z-index: 10;
+}
+@keyframes neonBlink {
+  0%, 100% { opacity: 1; text-shadow: 0 0 5px #ff3366, 0 0 15px #ff3366, 0 0 30px #ff3366; }
+  50% { opacity: 0.7; text-shadow: 0 0 2px #ff3366, 0 0 8px #ff3366; }
+}
+
+/* Analog Dial */
+.analog-dial-container {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 8px);
+  border-top-left-radius: 999px;
+  border-top-right-radius: 999px;
+  overflow: hidden;
+}
+.analog-dial-needle {
+  position: absolute;
+  top: 0; left: 50%;
+  width: 3px; height: 100%;
+  background: #ff3366;
+  transition: left 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 8px #ff3366;
+}
+
+
+/* Desktop adjustments */
+@media (min-width: 768px) {
+  .p-revista { padding: 4rem 2rem 5rem; }
+  .p-sitting { padding: 4rem 2rem 5rem; }
 }
 @media (min-width: 640px) {
   .modal-header { border-radius: 2rem 2rem 0 0; }
@@ -1472,22 +1574,11 @@ body.dark-mode .info-icon{
   margin: 0; padding: 0; min-height: unset;
 }
 
-/* Responsive mapa */
+/* Responsive mapa SVG */
 @media (max-width: 640px) {
-  .zona-principal-grid {
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.4rem 0.2rem;
-  }
-  .mesa-btn { width: 44px; height: 44px; }
-  .mesa-btn.presidencia { width: 76px; height: 50px; }
-  .mesa-num { font-size: 0.9rem; }
-  .mesa-freq { font-size: 0.45rem; }
-  .mesa-gap { width: 44px; height: 44px; }
-  .zona-cabecera-inner { gap: 0.8rem; }
-  .zona-cabecera::before, .zona-principal::before { font-size: 0.55rem; }
   .sitting-header h2 { font-size: 1.6rem; }
-  .sitting-mapa-container { overflow-x: auto; }
-  .zona-principal { min-width: 320px; }
+  .plano-salon-svg { max-width: 100%; }
+  .sitting-mapa-container { padding: 0.75rem 0.25rem 0; }
 }
 
 /* Dark mode Sitting Plan */
@@ -1502,27 +1593,9 @@ body.dark-mode .sitting-search input {
   border-color: rgba(196,127,160,0.4);
   color: #e0e0e0;
 }
-body.dark-mode .zona-cabecera {
-  background: rgba(139,61,107,0.08);
-  border-color: rgba(196,127,160,0.3);
-}
-body.dark-mode .zona-cabecera::before { background: #1a1a1a; }
-body.dark-mode .zona-principal {
-  background: rgba(92,125,98,0.08);
-  border-color: rgba(127,168,138,0.25);
-}
-body.dark-mode .zona-principal::before { background: #1a1a1a; }
-body.dark-mode .mesa-btn {
-  background: linear-gradient(135deg, #2a1020 0%, #351828 100%);
-  box-shadow: 0 3px 12px rgba(196,127,160,0.2);
-}
-body.dark-mode .mesa-btn:hover {
-  background: linear-gradient(135deg, #3a1830 0%, #452040 100%);
-}
-body.dark-mode .mesa-btn.presidencia {
-  background: linear-gradient(135deg, #2a2010, #352808);
-  border-color: var(--dorado);
-}
+body.dark-mode .mesa-svg-num { fill: #fffdf5; }
+body.dark-mode .mesa-svg-freq { fill: rgba(207,166,112,0.8); }
+body.dark-mode .presidencia-svg .mesa-svg-num { fill: #3a1c22; }
 body.dark-mode .mesa-modal-content { background: #1a1a1a; }
 body.dark-mode .invitado-chip {
   background: rgba(196,127,160,0.12);
@@ -1540,6 +1613,76 @@ body.dark-mode .qr-item { background: #2a2a2a; }
   .btn-close-admin, .btn-print { display: none; }
   .qr-item { break-inside: avoid; }
 }
+
+/* --- RADIO PREMIUM UI --- */
+.modal-content {
+  background: rgba(20, 10, 30, 0.75) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(207, 166, 112, 0.4) !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.8), inset 0 0 20px rgba(207, 166, 112, 0.05) !important;
+}
+.static-overlay {
+  position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px);
+  opacity: 0; z-index: 100;
+  border-radius: inherit;
+}
+@keyframes tv-static {
+  0%, 100% { opacity: 0; }
+  10%, 30%, 50%, 70%, 90% { opacity: 0.15; transform: translateY(-5px); }
+  20%, 40%, 60%, 80% { opacity: 0.1; transform: translateY(5px); }
+}
+.static-overlay.active { animation: tv-static 0.4s steps(5) forwards; }
+.on-air-sign {
+  display: inline-block; padding: 0.4rem 1rem; border: 2px solid #331111; border-radius: 6px;
+  color: #331111; font-family: 'Inter', sans-serif; font-weight: 900; letter-spacing: 2px;
+  background: #110505; transition: all 0.3s ease; margin-bottom: 1rem;
+}
+.on-air-sign.active {
+  border-color: #ff3333; color: #ff3333;
+  text-shadow: 0 0 10px #ff3333, 0 0 20px #ff3333;
+  box-shadow: 0 0 10px rgba(255,51,51,0.5), inset 0 0 10px rgba(255,51,51,0.5);
+}
+.cassette-player {
+  background: linear-gradient(to bottom, #2a2a2a, #1a1a1a); border: 2px solid #444; border-radius: 12px;
+  padding: 1.5rem 2rem; position: relative; box-shadow: inset 0 0 15px rgba(0,0,0,0.8), 0 5px 15px rgba(0,0,0,0.5);
+  margin-bottom: 1rem;
+}
+.cassette-label {
+  background: #fdf5e6; border-radius: 4px; padding: 0.5rem; margin-bottom: 1rem; text-align: center;
+  border: 1px solid #ccc; font-family: 'Playfair Display', serif; font-weight: bold; color: #333;
+}
+.cassette-reels {
+  display: flex; justify-content: space-around; align-items: center; background: #111;
+  border-radius: 8px; padding: 1rem; border: 1px solid #333; position: relative;
+}
+.cassette-window {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 100px; height: 40px; background: rgba(255,255,255,0.05); border: 1px solid #333; border-radius: 4px; z-index: 1;
+}
+.reel {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: radial-gradient(circle, #222 20%, #ddd 22%, #ddd 28%, #111 30%, #111 100%);
+  border: 2px solid #555; display: flex; justify-content: center; align-items: center; position: relative; z-index: 2;
+}
+.reel::after { content: ''; width: 100%; height: 4px; background: #555; position: absolute; }
+.reel::before { content: ''; width: 4px; height: 100%; background: #555; position: absolute; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+.reel.playing { animation: spin 2s linear infinite; }
+#spectrogramCanvas {
+  width: 100%; height: 60px; background: transparent; margin-top: 1rem; border-radius: 4px;
+  border-bottom: 2px solid rgba(207,166,112,0.2);
+}
+.btn-scan {
+  background: linear-gradient(135deg, var(--dorado), #a37d45); color: #1a0a2e; border: none; padding: 0.8rem 1.5rem;
+  border-radius: 999px; font-weight: 800; cursor: pointer; transition: all 0.3s;
+  box-shadow: 0 4px 10px rgba(207,166,112,0.4); margin-bottom: 1rem;
+}
+.btn-scan:active { transform: scale(0.95); }
+.btn-scan.scanning { animation: scan-pulse 0.5s alternate infinite; }
+@keyframes scan-pulse { from { box-shadow: 0 0 5px var(--dorado); } to { box-shadow: 0 0 20px var(--dorado); } }
+
 </style>
 </head>
 <body>
@@ -1587,7 +1730,7 @@ body.dark-mode .qr-item { background: #2a2a2a; }
     <div class="hero-date">27 · 06 · 2026</div>
     <p class="hero-subtitle">¡Nos casamos!</p>
     <p class="hero-message">Nos hace muchísima ilusión que nos acompañes en un día tan especial</p>
-    <button onclick="irA('p2')" class="cta-button" aria-label="Comenzar a explorar la invitación">
+    <button onclick="playClickSound(); irA('p2')" class="cta-button" aria-label="Comenzar a explorar la invitación">
       <span>Comenzar</span>
       <svg class="arrow-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
         <path fill="currentColor" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
@@ -1622,8 +1765,8 @@ body.dark-mode .qr-item { background: #2a2a2a; }
 </div>
 <button onclick="agregarAlCalendario()" class="secundario" style="margin-top:1.5rem" aria-label="Añadir evento al calendario">📆 Añadir al calendario</button>
 <div class="nav">
-<button onclick="irA('p3')">Lugar</button>
-<button class="secundario" onclick="irA('p1')">⬅ Volver</button>
+<button onclick="playClickSound(); irA('p3')">Lugar</button>
+<button class="secundario" onclick="playClickSound(); irA('p1')">⬅ Volver</button>
 </div>
 </section>
 
@@ -1634,8 +1777,8 @@ body.dark-mode .qr-item { background: #2a2a2a; }
 <img src="imagenes/fachada.jpg" alt="Fachada del Palacete de la Ochava" class="fullscreen" loading="lazy"/>
 </div>
 <div class="nav">
-<button onclick="irA('p4')">Mapa & cómo llegar</button>
-<button class="secundario" onclick="irA('p2')">⬅ Volver</button>
+<button onclick="playClickSound(); irA('p4')">Mapa & cómo llegar</button>
+<button class="secundario" onclick="playClickSound(); irA('p2')">⬅ Volver</button>
 </div>
 </section>
 
@@ -1645,9 +1788,9 @@ body.dark-mode .qr-item { background: #2a2a2a; }
 <iframe class="mapa" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
 src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&output=embed" aria-label="Mapa de ubicación del Palacete de la Ochava" title="Mapa de Google Maps"></iframe>
 <div class="nav">
-<button onclick="irA('pInfo')">Información Útil</button>
+<button onclick="playClickSound(); irA('pInfo')">Información Útil</button>
 <a href="https://www.google.com/maps/dir/?api=1&destination=Palacete+de+la+Ochava+Valdilecha" target="_blank" rel="noopener noreferrer"><button class="secundario">Cómo llegar</button></a>
-<button class="secundario" onclick="irA('p3')">⬅ Volver</button>
+<button class="secundario" onclick="playClickSound(); irA('p3')">⬅ Volver</button>
 </div>
 </section>
 
@@ -1728,8 +1871,8 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
   </div>
 
   <div class="nav">
-    <button onclick="irA('p5')">Timeline</button>
-    <button class="secundario" onclick="irA('p4')">⬅ Volver</button>
+    <button onclick="playClickSound(); irA('p5')">Timeline</button>
+    <button class="secundario" onclick="playClickSound(); irA('p4')">⬅ Volver</button>
   </div>
 </section>
 
@@ -1800,9 +1943,9 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
     </div>
   </div>
   <div class="nav">
-    <button onclick="irA('pSitting')" id="btnSittingP5" style="display: none;">📻 Sitting Plan</button>
-    <button onclick="irA('p8')" id="btnGraciasP5">❤️ Gracias</button>
-    <button class="secundario" onclick="irA('pInfo')">⬅ Volver</button>
+    <button onclick="playClickSound(); irA('pSitting')" id="btnSittingP5" style="display: none;">📻 Sitting Plan</button>
+    <button onclick="playClickSound(); irA('p8')" id="btnGraciasP5">❤️ Gracias</button>
+    <button class="secundario" onclick="playClickSound(); irA('pInfo')">⬅ Volver</button>
   </div>
 </section>
 
@@ -1850,14 +1993,15 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
   </button>
   <p id="mensajeCuenta" style="margin-top:.5rem;color:var(--verde);font-weight:600" role="status" aria-live="polite"></p>
 </div>
-<button class="secundario" onclick="irA('p1')">Volver al inicio</button>
+<button class="secundario" onclick="playClickSound(); irA('p1')">Volver al inicio</button>
 </section>
 
 <!-- ===== SITTING PLAN SECTION ===== -->
 <section class="pantalla" id="pSitting" aria-label="Sitting Plan — Distribución de mesas">
 
   <!-- Header -->
-  <div class="sitting-header">
+  <div class="sitting-header" style="position:relative;">
+    <div class="neon-on-air">🔴 ON AIR</div>
     <svg class="radio-waves-svg" viewBox="0 0 600 600" aria-hidden="true">
       <circle cx="300" cy="300" r="60"/>
       <circle cx="300" cy="300" r="120"/>
@@ -1876,35 +2020,24 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
   </div>
 
   <!-- Buscador -->
-  <div class="sitting-search">
-    <input type="text" id="buscarInvitado" placeholder="🔍 Busca tu nombre..." autocomplete="off" aria-label="Buscar invitado por nombre"/>
-    <span class="search-icon" aria-hidden="true">🔎</span>
+  <div class="sitting-search" style="position:relative; overflow:hidden;">
+    <div class="analog-dial-container">
+      <div id="analogDialNeedle" class="analog-dial-needle"></div>
+    </div>
+    <input type="text" id="buscarInvitado" placeholder="🔍 Busca tu nombre..." autocomplete="off" aria-label="Buscar invitado por nombre" style="margin-top: 4px;"/>
+    <span class="search-icon" aria-hidden="true" style="top: 55%;">🔎</span>
   </div>
   <p class="search-hint" id="searchHint">Escribe tu nombre para encontrar tu mesa • Enter para abrirla</p>
 
-  <!-- Mapa de mesas -->
-  <div class="sitting-mapa-container">
-
-    <!-- Zona cabecera: Mesa 1 · Presidencia · Mesa 2 -->
-    <div class="zona-cabecera">
-      <div class="zona-cabecera-inner" id="zona-cabecera-inner">
-        <!-- Renderizado dinámico por JS -->
-      </div>
-    </div>
-
-    <!-- Zona principal: 3 filas × 7 columnas -->
-    <div class="zona-principal">
-      <div class="zona-principal-grid" id="zona-principal-grid">
-        <!-- Renderizado dinámico por JS -->
-      </div>
-    </div>
-
+  <!-- Mapa del salón — SVG renderizado dinámicamente por JS -->
+  <div class="sitting-mapa-container" id="sittingMapaContainer">
+    <!-- El plano SVG se inyecta aquí por renderizarMapa() -->
   </div>
 
   <!-- Navegación -->
   <div class="nav" style="padding: 0 1rem; margin-top: 1.5rem;">
-    <button onclick="irA('pRevista')">📖 Revista</button>
-    <button class="secundario" onclick="irA('p5')">⬅ Volver</button>
+    <button onclick="playClickSound(); irA('pRevista')">📖 Revista</button>
+    <button class="secundario" onclick="playClickSound(); irA('p5')">⬅ Volver</button>
   </div>
 
 </section>
@@ -1916,21 +2049,21 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
 <!-- ===== REVISTA SECTION ===== -->
 <section class="pantalla" id="pRevista" aria-label="Revista">
   <div class="revista-header" style="text-align:center;margin-bottom:1rem;">
-    <h2 style="margin-bottom:0.3rem;">?? Revista</h2>
-    <p style="font-size:0.9rem;opacity:0.8;">�Disfruta de nuestra revista especial!</p>
+    <h2 style="margin-bottom:0.3rem;">📖 Revista</h2>
+    <p style="font-size:0.9rem;opacity:0.8;">¡Disfruta de nuestra revista especial!</p>
   </div>
 
   <div style="width:100%;background:#1a1a1a;border:2px solid var(--dorado);border-radius:12px;overflow:hidden;margin-bottom:0.75rem;position:relative;min-height:300px;">
     <canvas id="revistaPdfCanvas" style="display:block;width:100%;background:#fff;"></canvas>
     <div id="revistaPdfLoading" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(20,10,30,0.92);flex-direction:column;gap:0.75rem;z-index:5;">
-      <span style="font-size:2rem;">??</span>
+      <span style="font-size:2rem;">📖</span>
       <p id="revistaPdfLoadingText" style="color:var(--dorado);font-family:'Montserrat',sans-serif;font-size:0.9rem;margin:0;">Cargando revista...</p>
     </div>
   </div>
 
   <div style="display:flex;align-items:center;justify-content:center;gap:0.75rem;margin-bottom:0.75rem;">
     <button id="revistaPrevBtn" onclick="revistaChangePage(-1)" style="background:var(--dorado);color:#1a0a2e;border:none;border-radius:8px;padding:0.5rem 1.2rem;font-weight:700;font-family:'Montserrat',sans-serif;font-size:1rem;cursor:pointer;">&#8249; Anterior</button>
-    <span id="revistaPageInfo" style="color:var(--dorado);font-family:'Montserrat',sans-serif;font-size:0.9rem;min-width:90px;text-align:center;">P�g. �</span>
+    <span id="revistaPageInfo" style="color:var(--dorado);font-family:'Montserrat',sans-serif;font-size:0.9rem;min-width:90px;text-align:center;">Pág. -</span>
     <button id="revistaNextBtn" onclick="revistaChangePage(1)" style="background:var(--dorado);color:#1a0a2e;border:none;border-radius:8px;padding:0.5rem 1.2rem;font-weight:700;font-family:'Montserrat',sans-serif;font-size:1rem;cursor:pointer;">Siguiente &#8250;</button>
   </div>
 
@@ -1939,8 +2072,8 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
   </div>
 
   <div class="nav" style="padding:0 1rem;margin-top:0.5rem;">
-    <button onclick="irA('p8')">&#128140; Gracias</button>
-    <button class="secundario" onclick="irA('pSitting')">&#8592; Volver</button>
+    <button onclick="playClickSound(); irA('p8')">&#128140; Gracias</button>
+    <button class="secundario" onclick="playClickSound(); irA('pSitting')">&#8592; Volver</button>
   </div>
 </section>
 
@@ -1952,6 +2085,11 @@ src="https://www.google.com/maps?q=Palacete%20de%20la%20Ochava%20Valdilecha&outp
     <div class="modal-drag-handle"></div>
     <!-- Contenido dinámico inyectado por JS -->
   </div>
+</div>
+
+<!-- Welcome Overlay — se muestra al escanear el QR de la mesa -->
+<div id="welcomeOverlay" role="dialog" aria-modal="true" aria-live="assertive">
+  <!-- Contenido dinámico inyectado por mostrarBienvenida() -->
 </div>
 
 <!-- Panel Admin QR (oculto, accesible solo via #admin/qr) -->
@@ -2640,8 +2778,8 @@ const MESAS_DATA = {
       "EDURNE",
       "ANTERO",
       "ANA",
-      "MAR�A JES�S",
-      "MIGUEL �NGEL"
+      "MARÍA JESÚS",
+      "MIGUEL ÁNGEL"
     ]
   },
   "10": {
@@ -2727,7 +2865,7 @@ const MESAS_DATA = {
       "ESCU",
       "ÁNGELA",
       "ANDREA",
-      "MAR�A H"
+      "MARÍA H"
     ]
   },
   "14": {
@@ -2896,6 +3034,7 @@ const MESAS_DATA = {
   }
 };
 
+
 // Distribución del plano (fiel al JPEG)
 // Zona cabecera: Mesa 1, Presidencia, Mesa 2
 // Zona principal grid 3 filas × 7 columnas (null = hueco)
@@ -2912,66 +3051,326 @@ const BASE_URL = "https://torresgarciaraul.github.io/bodaLauRaul/";
 let radioPlayerActivo = null;
 let mesaHighlightedKey = null;
 
-// --- Renderizado del mapa ---
+// --- Renderizado del mapa SVG del salón ---
 function renderizarMapa() {
-  // Zona cabecera
-  const cabecera = document.getElementById('zona-cabecera-inner');
-  if (cabecera) {
-    cabecera.innerHTML = '';
-    // Hacemos que estén más cerca entre sí
-    cabecera.style.display = 'flex';
-    cabecera.style.justifyContent = 'center';
-    cabecera.style.gap = '0.5rem';
-    ['1','presidencia','2'].forEach(key => {
-      cabecera.appendChild(crearMesaBtn(key));
+  const container = document.getElementById('sittingMapaContainer');
+  if (!container) return;
+
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const VW = 380, VH = 490; // Un poco más alto
+
+  // Coordenadas x de las 6 columnas principales
+  const COLS = [42, 101, 160, 219, 278, 337];
+
+  // Distribución de mesas: [key, cx, cy, esPresidencia?]
+  const CABECERA = [
+    ['1', 82, 115],
+    ['presidencia', 190, 105, true],
+    ['2', 298, 115]
+  ];
+  const FILAS = [
+    [210, ['5', '7', '3', '4', '6', '22']],
+    [315, ['9', '11', '13', '14', '12', '10']],
+    [420, ['17', '19', '8', '18', '20', '16']]
+  ];
+
+  const TABLE_R = 19;     // Radio de la mesa
+  const CHAIR_R = 3;      // Radio de las sillas
+  const CHAIR_DIST = 25;  // Distancia del centro a la silla
+
+  const PRES_RX = 48, PRES_RY = 24;
+  const PRES_CHAIR_DIST_X = 54, PRES_CHAIR_DIST_Y = 30;
+
+  // Crear elemento SVG
+  const svg = document.createElementNS(svgNS, 'svg');
+  svg.setAttribute('viewBox', `0 0 ${VW} ${VH}`);
+  svg.setAttribute('class', 'plano-salon-svg');
+  svg.id = 'planoSalonSVG';
+  svg.setAttribute('role', 'img');
+  svg.setAttribute('aria-label', 'Plano estético del salón de bodas con sillas y mesas.');
+
+  // --- DEFS (gradientes, patrones y filtros premium) ---
+  const defs = document.createElementNS(svgNS, 'defs');
+  defs.innerHTML = `
+    <!-- Filtros de resplandor para hover -->
+    <filter id="glowFilter" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowFilterGold" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Gradiente dorado elegante para bordes -->
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e6c594"/>
+      <stop offset="50%" stop-color="#b88645"/>
+      <stop offset="100%" stop-color="#f5d49f"/>
+    </linearGradient>
+
+    <!-- Gradientes de mesas -->
+    <radialGradient id="tableGradient" cx="40%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#3e1a2f"/>
+      <stop offset="100%" stop-color="#1e0b17"/>
+    </radialGradient>
+    <radialGradient id="presidenciaGradient" cx="40%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#fff5e6"/>
+      <stop offset="100%" stop-color="#d4aa70"/>
+    </radialGradient>
+
+    <!-- Patrón de suelo (Mármol oscuro/Baldosas muy sutiles) -->
+    <pattern id="luxTile" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 40 M 0 0 L 40 40" fill="none" stroke="rgba(207,166,112,0.03)" stroke-width="0.5"/>
+      <rect x="0" y="0" width="40" height="40" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="0.5"/>
+    </pattern>
+  `;
+  svg.appendChild(defs);
+
+  // --- FONDO ARQUITECTÓNICO ---
+  // Suelo con patrón diamante
+  const floor = document.createElementNS(svgNS, 'rect');
+  floor.setAttribute('x', '0'); floor.setAttribute('y', '0');
+  floor.setAttribute('width', VW); floor.setAttribute('height', VH);
+  floor.setAttribute('fill', 'url(#luxTile)');
+  svg.appendChild(floor);
+
+  // Marcos / Paredes del salón (Doble línea dorada fina)
+  const wallGroup = document.createElementNS(svgNS, 'g');
+  wallGroup.setAttribute('stroke', 'url(#goldGradient)');
+  wallGroup.setAttribute('fill', 'none');
+  
+  // Línea exterior
+  const wallOuter = document.createElementNS(svgNS, 'rect');
+  wallOuter.setAttribute('x', '10'); wallOuter.setAttribute('y', '10');
+  wallOuter.setAttribute('width', VW-20); wallOuter.setAttribute('height', VH-20);
+  wallOuter.setAttribute('rx', '12');
+  wallOuter.setAttribute('stroke-width', '1');
+  wallOuter.setAttribute('stroke-opacity', '0.6');
+  wallGroup.appendChild(wallOuter);
+
+  // Línea interior
+  const wallInner = document.createElementNS(svgNS, 'rect');
+  wallInner.setAttribute('x', '14'); wallInner.setAttribute('y', '14');
+  wallInner.setAttribute('width', VW-28); wallInner.setAttribute('height', VH-28);
+  wallInner.setAttribute('rx', '10');
+  wallInner.setAttribute('stroke-width', '0.5');
+  wallInner.setAttribute('stroke-opacity', '0.4');
+  wallGroup.appendChild(wallInner);
+
+  svg.appendChild(wallGroup);
+
+  // Luz ambiental central (Glow suave en el centro de la sala)
+  const ambientLight = document.createElementNS(svgNS, 'ellipse');
+  ambientLight.setAttribute('cx', VW/2); ambientLight.setAttribute('cy', VH/2 + 20);
+  ambientLight.setAttribute('rx', 140); ambientLight.setAttribute('ry', 180);
+  ambientLight.setAttribute('fill', 'rgba(230,197,148,0.04)');
+  ambientLight.setAttribute('pointer-events', 'none');
+  svg.appendChild(ambientLight);
+
+  // --- DECORACIÓN (Plantas en las esquinas) ---
+  const createPlant = (cx, cy) => {
+    const g = document.createElementNS(svgNS, 'g');
+    g.setAttribute('stroke', 'rgba(92,125,98,0.6)');
+    g.setAttribute('stroke-width', '0.5');
+    g.setAttribute('fill', 'rgba(92,125,98,0.15)');
+    for(let i=0; i<5; i++) {
+      const angle = i * (Math.PI * 2 / 5);
+      const px = cx + Math.cos(angle) * 8;
+      const py = cy + Math.sin(angle) * 8;
+      const leaf = document.createElementNS(svgNS, 'circle');
+      leaf.setAttribute('cx', px); leaf.setAttribute('cy', py);
+      leaf.setAttribute('r', '4');
+      g.appendChild(leaf);
+    }
+    const pot = document.createElementNS(svgNS, 'circle');
+    pot.setAttribute('cx', cx); pot.setAttribute('cy', cy);
+    pot.setAttribute('r', '5');
+    pot.setAttribute('fill', '#3e1a2f');
+    pot.setAttribute('stroke', '#cfa670');
+    g.appendChild(pot);
+    return g;
+  };
+  svg.appendChild(createPlant(26, 26));
+  svg.appendChild(createPlant(VW-26, 26));
+
+  // --- ETIQUETAS DE ZONA ---
+  const addText = (text, x, y, size, color, spacing) => {
+    const t = document.createElementNS(svgNS, 'text');
+    t.setAttribute('x', x); t.setAttribute('y', y);
+    t.setAttribute('text-anchor', 'middle');
+    t.setAttribute('font-family', 'Inter, sans-serif');
+    t.setAttribute('font-size', size);
+    t.setAttribute('fill', color);
+    t.setAttribute('font-weight', '600');
+    t.setAttribute('letter-spacing', spacing);
+    t.setAttribute('pointer-events', 'none');
+    t.textContent = text;
+    svg.appendChild(t);
+  };
+
+  addText('SALÓN EL PALACETE', VW/2, 35, 9, 'url(#goldGradient)', '3');
+  
+  // Separador sutil cabecera/invitados
+  const sepLine = document.createElementNS(svgNS, 'line');
+  sepLine.setAttribute('x1', '40'); sepLine.setAttribute('y1', '160');
+  sepLine.setAttribute('x2', VW-40); sepLine.setAttribute('y2', '160');
+  sepLine.setAttribute('stroke', 'rgba(207,166,112,0.2)');
+  sepLine.setAttribute('stroke-width', '1');
+  sepLine.setAttribute('stroke-dasharray', '4 4');
+  svg.appendChild(sepLine);
+
+  addText('\u25BC ENTRADA PRINCIPAL', VW/2, VH - 25, 7, 'rgba(207,166,112,0.6)', '2');
+
+  // --- HELPER: Crear silla ---
+  const createChair = (cx, cy) => {
+    const chair = document.createElementNS(svgNS, 'circle');
+    chair.setAttribute('class', 'silla-svg');
+    chair.setAttribute('cx', cx);
+    chair.setAttribute('cy', cy);
+    chair.setAttribute('r', CHAIR_R);
+    return chair;
+  };
+
+  // --- HELPER: crear grupo SVG de mesa ---
+  function crearMesaSVG(key, cx, cy, esPresidencia) {
+    const mesa = MESAS_DATA[key];
+    if (!mesa) return null;
+
+    const g = document.createElementNS(svgNS, 'g');
+    g.setAttribute('class', 'mesa-svg-group' + (esPresidencia ? ' presidencia-svg' : ''));
+    g.setAttribute('id', 'mesa-svg-' + key);
+    g.setAttribute('data-mesa', key);
+    g.setAttribute('tabindex', '0');
+    g.setAttribute('role', 'button');
+
+    // Sombra de la mesa para dar volumen
+    const shadow = document.createElementNS(svgNS, esPresidencia ? 'ellipse' : 'circle');
+    if (esPresidencia) {
+      shadow.setAttribute('rx', PRES_RX+2); shadow.setAttribute('ry', PRES_RY+2);
+    } else {
+      shadow.setAttribute('r', TABLE_R+2);
+    }
+    shadow.setAttribute('cx', cx); shadow.setAttribute('cy', cy+3);
+    shadow.setAttribute('fill', 'rgba(0,0,0,0.4)');
+    shadow.setAttribute('filter', 'blur(2px)');
+    g.appendChild(shadow);
+
+    // Dibujar sillas alrededor
+    const numSillas = esPresidencia ? 6 : 8;
+    const chairsGroup = document.createElementNS(svgNS, 'g');
+    
+    if (esPresidencia) {
+      // Sillas presidencia (solo en la parte superior e inferior, tipo banquete)
+      for(let i=0; i<3; i++) {
+        const xOffset = (i - 1) * 20;
+        chairsGroup.appendChild(createChair(cx + xOffset, cy - PRES_CHAIR_DIST_Y));
+        chairsGroup.appendChild(createChair(cx + xOffset, cy + PRES_CHAIR_DIST_Y));
+      }
+    } else {
+      // Sillas circulares
+      for(let i=0; i<numSillas; i++) {
+        const angle = (i * 2 * Math.PI) / numSillas;
+        const px = cx + Math.cos(angle) * CHAIR_DIST;
+        const py = cy + Math.sin(angle) * CHAIR_DIST;
+        chairsGroup.appendChild(createChair(px, py));
+      }
+    }
+    g.appendChild(chairsGroup);
+
+    // Base de la mesa
+    const base = document.createElementNS(svgNS, esPresidencia ? 'ellipse' : 'circle');
+    base.setAttribute('class', 'mesa-base');
+    base.setAttribute('cx', cx); base.setAttribute('cy', cy);
+    if (esPresidencia) {
+      base.setAttribute('rx', PRES_RX); base.setAttribute('ry', PRES_RY);
+    } else {
+      base.setAttribute('r', TABLE_R);
+    }
+    g.appendChild(base);
+
+    // Borde interno decorativo
+    const innerBorder = document.createElementNS(svgNS, esPresidencia ? 'ellipse' : 'circle');
+    innerBorder.setAttribute('cx', cx); innerBorder.setAttribute('cy', cy);
+    if (esPresidencia) {
+      innerBorder.setAttribute('rx', PRES_RX-4); innerBorder.setAttribute('ry', PRES_RY-4);
+    } else {
+      innerBorder.setAttribute('r', TABLE_R-4);
+    }
+    innerBorder.setAttribute('fill', 'none');
+    innerBorder.setAttribute('stroke', esPresidencia ? 'rgba(58,28,34,0.1)' : 'rgba(255,255,255,0.05)');
+    innerBorder.setAttribute('stroke-width', '0.5');
+    innerBorder.setAttribute('stroke-dasharray', '2 2');
+    g.appendChild(innerBorder);
+
+    // Número / emoji
+    const numT = document.createElementNS(svgNS, 'text');
+    numT.setAttribute('class', 'mesa-svg-num');
+    numT.setAttribute('x', cx);
+    numT.setAttribute('y', esPresidencia ? cy - 3 : cy - 2);
+    numT.textContent = esPresidencia ? '\uD83D\uDC51' : mesa.etiqueta;
+    g.appendChild(numT);
+
+    // Frecuencia
+    const freqT = document.createElementNS(svgNS, 'text');
+    freqT.setAttribute('class', 'mesa-svg-freq');
+    freqT.setAttribute('x', cx);
+    freqT.setAttribute('y', esPresidencia ? cy + 12 : cy + 10);
+    freqT.textContent = mesa.frecuencia;
+    g.appendChild(freqT);
+
+    // Interacción
+    g.addEventListener('click', () => abrirMesa(key));
+    g.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrirMesa(key); }
+    });
+
+    // Guardar origen para animación scale (CSS transform-origin needs absolute px or percentages inside g)
+    // Usaremos un truco: animamos scale desde CSS, pero el origin debe setearse vía style
+    g.style.transformOrigin = `${cx}px ${cy}px`;
+
+    return g;
+  }
+
+  // --- RENDERIZAR MESAS ---
+  CABECERA.forEach(([key, cx, cy, isPres]) => {
+    const g = crearMesaSVG(key, cx, cy, isPres);
+    if (g) svg.appendChild(g);
+  });
+
+  FILAS.forEach(([rowY, keys]) => {
+    keys.forEach((key, i) => {
+      const g = crearMesaSVG(key, COLS[i], rowY, false);
+      if (g) svg.appendChild(g);
+    });
+  });
+
+  container.innerHTML = '';
+  container.appendChild(svg);
+
+  // --- PARALLAX 3D EFECTO ---
+  if (window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', (e) => {
+      const tiltX = Math.max(-30, Math.min(30, e.beta - 45)); // Supongamos que lo miran en ~45 grados
+      const tiltY = Math.max(-30, Math.min(30, e.gamma));
+      svg.style.transform = `perspective(1000px) rotateX(${-tiltX * 0.5}deg) rotateY(${tiltY * 0.5}deg)`;
     });
   }
 
-  // Zona principal
-  const grid = document.getElementById('zona-principal-grid');
-  if (!grid) return;
-  grid.innerHTML = '';
-  
-  // 3 filas x 6 columnas adaptativo para movil
-  grid.style.display = 'grid';
-  grid.style.gridTemplateColumns = 'repeat(6, 1fr)';
-  grid.style.gap = '0.5rem';
-  grid.style.justifyItems = 'center';
-  grid.style.width = '100%';
-  grid.style.maxWidth = '800px';
-  grid.style.margin = '0 auto';
-
-  PLANO_GRID.forEach((fila) => {
-    fila.forEach(key => {
-      grid.appendChild(crearMesaBtn(key));
-    });
+  // Para escritorio (Hover Effect)
+  container.addEventListener('mousemove', (e) => {
+    const rect = container.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width/2;
+    const y = e.clientY - rect.top - rect.height/2;
+    // Rango de -1 a 1
+    const xNorm = x / (rect.width/2);
+    const yNorm = y / (rect.height/2);
+    // Invertir rotaciones para que siga el ratón naturalmente
+    svg.style.transform = `perspective(1000px) rotateX(${-yNorm * 8}deg) rotateY(${xNorm * 8}deg)`;
   });
-}
-
-function crearMesaBtn(key) {
-  const mesa = MESAS_DATA[key];
-  if (!mesa) return document.createElement('div');
-
-  const btn = document.createElement('button');
-  btn.className = 'mesa-btn' + (mesa.esPresidencia ? ' presidencia' : '');
-  btn.id = 'mesa-btn-' + key;
-  btn.setAttribute('aria-label', `Mesa ${mesa.etiqueta} — ${mesa.nombre} · ${mesa.frecuencia} FM`);
-  btn.setAttribute('data-tooltip', `${mesa.nombre}\n${mesa.frecuencia} FM`);
-  btn.setAttribute('data-mesa', key);
-
-  const numEl = document.createElement('span');
-  numEl.className = 'mesa-num';
-  numEl.textContent = mesa.esPresidencia ? '👑' : mesa.etiqueta;
-
-  const freqEl = document.createElement('span');
-  freqEl.className = 'mesa-freq';
-  freqEl.textContent = mesa.frecuencia + ' FM';
-
-  btn.appendChild(numEl);
-  btn.appendChild(freqEl);
-
-  btn.addEventListener('click', () => abrirMesa(key));
-  return btn;
+  container.addEventListener('mouseleave', () => {
+    svg.style.transform = `perspective(1000px) rotateX(0) rotateY(0)`;
+  });
 }
 
 // --- Modal ---
@@ -3027,16 +3426,20 @@ function abrirMesa(key) {
       </div>
     </div>
     <div class="modal-body">
+      <div class="static-overlay" id="modalStaticOverlay"></div>
+      <div style="text-align: center;"><div class="on-air-sign" id="onAirSign">ON AIR</div></div>
       <div class="modal-section-title">👥 Compañeros de mesa</div>
       <div class="invitados-grid" id="invitadosGrid"></div>
 
-      <div class="modal-section-title">🎵 Tenemos algo que decirte ...</div>
+      <div class="modal-section-title">🎵 Mensaje de los novios</div>
       <div class="audio-player-card" id="audioPlayerCard">
         <div class="player-sintonizando">
           <span class="sintonizando-anim">📻</span>
           <p style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:0.5rem">Sintonizando vuestra frecuencia...</p>
         </div>
       </div>
+      <canvas id="spectrogramCanvas"></canvas>
+
 
       </div>
   `;
@@ -3324,6 +3727,165 @@ function mostrarToast(msg) {
   toast._t = setTimeout(() => { toast.style.opacity = '0'; }, 2500);
 }
 
+
+// --- RADIO PREMIUM LOGIC ---
+
+let bgStaticOsc = null;
+let bgStaticGain = null;
+
+function startBackgroundStatic() {
+  try {
+    initSynth();
+    if(!synthCtx) return;
+    if(bgStaticOsc) return; // already playing
+    
+    const bufferSize = synthCtx.sampleRate * 2;
+    const buffer = synthCtx.createBuffer(1, bufferSize, synthCtx.sampleRate);
+    const output = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      output[i] = Math.random() * 2 - 1;
+    }
+    bgStaticOsc = synthCtx.createBufferSource();
+    bgStaticOsc.buffer = buffer;
+    bgStaticOsc.loop = true;
+    
+    const filter = synthCtx.createBiquadFilter();
+    filter.type = 'lowpass'; filter.frequency.value = 400;
+    
+    bgStaticGain = synthCtx.createGain();
+    bgStaticGain.gain.setValueAtTime(0.02, synthCtx.currentTime); // Very subtle
+    
+    bgStaticOsc.connect(filter); filter.connect(bgStaticGain); bgStaticGain.connect(synthCtx.destination);
+    bgStaticOsc.start();
+  } catch(e){}
+}
+
+function stopBackgroundStatic() {
+  if(bgStaticOsc) {
+    try {
+      bgStaticGain.gain.exponentialRampToValueAtTime(0.001, synthCtx.currentTime + 0.5);
+      setTimeout(() => {
+        bgStaticOsc.stop();
+        bgStaticOsc = null;
+      }, 500);
+    } catch(e) {
+      bgStaticOsc.stop();
+      bgStaticOsc = null;
+    }
+  }
+}
+
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let synthCtx = null;
+
+function initSynth() {
+  if (!synthCtx) {
+    try { synthCtx = new AudioCtx(); } catch(e){}
+  }
+  if (synthCtx && synthCtx.state === 'suspended') synthCtx.resume();
+}
+
+function playClickSound() {
+  try {
+    initSynth();
+    if(!synthCtx) return;
+    const osc = synthCtx.createOscillator();
+    const gain = synthCtx.createGain();
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(150, synthCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(40, synthCtx.currentTime + 0.05);
+    gain.gain.setValueAtTime(0.3, synthCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, synthCtx.currentTime + 0.05);
+    osc.connect(gain); gain.connect(synthCtx.destination);
+    osc.start(); osc.stop(synthCtx.currentTime + 0.05);
+    if(navigator.vibrate) navigator.vibrate(30);
+  } catch(e){}
+}
+
+function playStaticSound(durationMs = 400) {
+  try {
+    initSynth();
+    if(!synthCtx) return;
+    const bufferSize = synthCtx.sampleRate * (durationMs / 1000);
+    const buffer = synthCtx.createBuffer(1, bufferSize, synthCtx.sampleRate);
+    const output = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      output[i] = Math.random() * 2 - 1;
+    }
+    const noise = synthCtx.createBufferSource();
+    noise.buffer = buffer;
+    const filter = synthCtx.createBiquadFilter();
+    filter.type = 'bandpass'; filter.frequency.value = 1000;
+    const gain = synthCtx.createGain();
+    gain.gain.setValueAtTime(0.15, synthCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, synthCtx.currentTime + (durationMs/1000));
+    noise.connect(filter); filter.connect(gain); gain.connect(synthCtx.destination);
+    noise.start();
+    if(navigator.vibrate) navigator.vibrate([20, 20, 20]);
+  } catch(e){}
+}
+
+let spectroAnimFrame = null;
+let spectroPlaying = false;
+function drawSpectrogram() {
+  const canvas = document.getElementById('spectrogramCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+  
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const numBars = 32;
+    const barWidth = canvas.width / numBars;
+    for(let i=0; i<numBars; i++) {
+      const h = spectroPlaying ? (Math.random() * canvas.height * 0.9) : 2;
+      ctx.fillStyle = `hsl(${30 + Math.random()*20}, 70%, 60%)`;
+      ctx.fillRect(i * barWidth + 1, canvas.height - h, barWidth - 2, h);
+    }
+    if (spectroPlaying) {
+      spectroAnimFrame = setTimeout(() => requestAnimationFrame(draw), 50);
+    } else {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#cfa670';
+      ctx.fillRect(0, canvas.height - 2, canvas.width, 2);
+    }
+  }
+  draw();
+}
+
+function autoScanFrequencies() {
+  playClickSound();
+  const btn = document.getElementById('btnAutoScan');
+  const input = document.getElementById('buscarInvitado');
+  if(btn) btn.classList.add('scanning');
+  
+  const keys = Object.keys(MESAS_DATA);
+  let scans = 0;
+  playStaticSound(2500); 
+  
+  const scanInterval = setInterval(() => {
+    const randomMesa = MESAS_DATA[keys[Math.floor(Math.random() * keys.length)]];
+    if(input) {
+      input.value = randomMesa.nombre.substring(0,10) + "...";
+      input.dispatchEvent(new Event('input'));
+    }
+    
+    scans++;
+    if(scans > 20) {
+      clearInterval(scanInterval);
+      if(btn) btn.classList.remove('scanning');
+      if(input) {
+        input.value = "";
+        input.placeholder = "¡Frecuencia encontrada! Escribe tu nombre";
+        input.dispatchEvent(new Event('input'));
+      }
+      playClickSound();
+    }
+  }, 100);
+}
+// ----------------------------
+
 // --- Buscador de invitados ---
 function inicializarBuscador() {
   const input = document.getElementById('buscarInvitado');
@@ -3333,12 +3895,26 @@ function inicializarBuscador() {
   input.addEventListener('input', function() {
     const query = this.value.trim().toUpperCase();
 
+    // Mover aguja analógica del dial
+    const needle = document.getElementById('analogDialNeedle');
+    if (needle) {
+      if (query.length === 0) {
+        needle.style.left = '50%';
+      } else {
+        let val = 0;
+        for(let i=0; i<query.length; i++) val += query.charCodeAt(i);
+        // Oscila entre 5% y 95%
+        const pos = 5 + (val % 90);
+        needle.style.left = pos + '%';
+      }
+    }
+
     // Limpiar highlights anteriores
-    document.querySelectorAll('.mesa-btn.highlighted').forEach(b => b.classList.remove('highlighted'));
+    document.querySelectorAll('.mesa-svg-group.highlighted').forEach(g => g.classList.remove('highlighted'));
     mesaHighlightedKey = null;
 
     if (query.length < 2) {
-      hint.textContent = 'Escribe tu nombre para encontrar tu mesa • Enter para abrirla';
+      hint.textContent = 'Escribe tu nombre para encontrar tu mesa \u2022 Enter para abrirla';
       hint.style.color = '#9a7a8a';
       return;
     }
@@ -3351,17 +3927,17 @@ function inicializarBuscador() {
     }
 
     if (encontrado) {
-      const btn = document.getElementById('mesa-btn-' + encontrado);
-      if (btn) {
-        btn.classList.add('highlighted');
-        btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const g = document.getElementById('mesa-svg-' + encontrado);
+      if (g) {
+        g.classList.add('highlighted');
+        g.scrollIntoView({ behavior: 'smooth', block: 'center' });
         mesaHighlightedKey = encontrado;
         const mesa = MESAS_DATA[encontrado];
-        hint.textContent = `✅ Estás en: ${mesa.nombre} · Mesa ${mesa.etiqueta} · ${mesa.frecuencia} FM`;
+        hint.textContent = `\u2705 Est\u00e1s en: ${mesa.nombre} \u00b7 Mesa ${mesa.etiqueta} \u00b7 ${mesa.frecuencia} FM`;
         hint.style.color = 'var(--color-radio)';
       }
     } else {
-      hint.textContent = '🔍 No encontrado — prueba con otro nombre';
+      hint.textContent = '\uD83D\uDD0D No encontrado \u2014 prueba con otro nombre';
       hint.style.color = '#c62828';
     }
   });
@@ -3386,6 +3962,86 @@ function actualizarVisibilidadQR() {
   if(btnGraciasP5) btnGraciasP5.style.display = tieneAcceso ? 'none' : 'inline-block';
 }
 
+// --- Welcome screen ---
+let _welcomeTimer = null;
+let _welcomeActive = false;
+
+function mostrarBienvenida(key, callback) {
+  // Solo una vez por mesa por sesión
+  if (sessionStorage.getItem('welcomeShown') === key) { callback(); return; }
+
+  const mesa = MESAS_DATA[key];
+  if (!mesa) { callback(); return; }
+
+  const overlay = document.getElementById('welcomeOverlay');
+  if (!overlay) { callback(); return; }
+
+  const labelMesa = mesa.esPresidencia ? 'MESA PRESIDENCIAL \uD83D\uDC51' : `MESA ${mesa.etiqueta}`;
+  const welcomeMsg = mesa.esPresidencia
+    ? '\u00a1Mesa de honor! Os esperamos con todo nuestro amor \uD83D\uDC9B'
+    : '\u00a1Bienvenido/a! Tu mesa te espera \uD83C\uDF89';
+
+  overlay.innerHTML = `
+    <svg class="welcome-waves-svg" viewBox="0 0 600 600" aria-hidden="true">
+      <circle cx="300" cy="300" r="80"  fill="none" stroke="rgba(139,61,107,0.5)" stroke-width="1.5" style="animation:radioWavePulse 3s ease-in-out infinite"/>
+      <circle cx="300" cy="300" r="160" fill="none" stroke="rgba(139,61,107,0.35)" stroke-width="1"   style="animation:radioWavePulse 3s ease-in-out infinite 0.6s"/>
+      <circle cx="300" cy="300" r="240" fill="none" stroke="rgba(139,61,107,0.2)" stroke-width="1"   style="animation:radioWavePulse 3s ease-in-out infinite 1.2s"/>
+      <circle cx="300" cy="300" r="320" fill="none" stroke="rgba(207,166,112,0.15)" stroke-width="1" style="animation:radioWavePulse 3s ease-in-out infinite 1.8s"/>
+    </svg>
+    <div class="welcome-content">
+      <span class="welcome-radio-icon" aria-hidden="true">\uD83D\uDCFB</span>
+      <div class="welcome-mesa-num">${labelMesa}</div>
+      <div class="welcome-mesa-nombre">${mesa.nombre}</div>
+      <div class="welcome-freq">\uD83D\uDCE1 ${mesa.frecuencia} FM</div>
+      <p class="welcome-text">${welcomeMsg}</p>
+      <div class="welcome-progress-track">
+        <div class="welcome-progress-fill" id="welcomeProgressFill"></div>
+      </div>
+      <button class="welcome-skip-btn" id="welcomeSkipBtn" aria-label="Entrar al sitting plan ahora">
+        Entrar ya \u2192
+      </button>
+    </div>
+  `;
+
+  overlay.classList.add('visible');
+  _welcomeActive = true;
+
+  // Barra de progreso en 3 segundos
+  requestAnimationFrame(() => {
+    const fill = document.getElementById('welcomeProgressFill');
+    if (fill) {
+      fill.style.transition = 'width 3s linear';
+      requestAnimationFrame(() => { fill.style.width = '100%'; });
+    }
+  });
+
+  // Botón skip
+  const skipBtn = document.getElementById('welcomeSkipBtn');
+  if (skipBtn) skipBtn.addEventListener('click', () => ocultarBienvenida(callback, key));
+
+  // Auto-ocultar tras 3s
+  _welcomeTimer = setTimeout(() => ocultarBienvenida(callback, key), 3000);
+}
+
+function ocultarBienvenida(callback, key) {
+  if (!_welcomeActive) return;
+  _welcomeActive = false;
+  clearTimeout(_welcomeTimer);
+
+  const overlay = document.getElementById('welcomeOverlay');
+  if (overlay) {
+    overlay.classList.add('saliendo');
+    setTimeout(() => {
+      overlay.classList.remove('visible', 'saliendo');
+      if (key) sessionStorage.setItem('welcomeShown', key);
+      if (callback) callback();
+    }, 500);
+  } else {
+    if (key) sessionStorage.setItem('welcomeShown', key);
+    if (callback) callback();
+  }
+}
+
 // --- Deep-linking hash ---
 function manejarHashURL() {
   actualizarVisibilidadQR();
@@ -3395,12 +4051,24 @@ function manejarHashURL() {
     sessionStorage.setItem('qrAcceso', 'true');
     sessionStorage.setItem('qrMesaKey', key);
     actualizarVisibilidadQR();
-    irA('pSitting');
-    setTimeout(() => abrirMesa(key), 600);
+
+    // Mostrar bienvenida; al cerrarla navegar al sitting plan
+    mostrarBienvenida(key, () => {
+      irA('pSitting');
+      setTimeout(() => {
+        // Marcar "mi mesa" en el plano
+        document.querySelectorAll('.mesa-svg-group.mi-mesa').forEach(g => g.classList.remove('mi-mesa'));
+        const myG = document.getElementById('mesa-svg-' + key);
+        if (myG) myG.classList.add('mi-mesa');
+        // Abrir modal tras un momento
+        setTimeout(() => abrirMesa(key), 700);
+      }, 550);
+    });
+
   } else if (hash === '#admin/qr') {
     mostrarAdminQR();
   } else if (hash === '#sitting-plan') {
-    if(sessionStorage.getItem('qrAcceso') === 'true') irA('pSitting');
+    if (sessionStorage.getItem('qrAcceso') === 'true') irA('pSitting');
   }
 }
 
@@ -3485,6 +4153,15 @@ function actualizarProgreso() {
 function inicializarSittingPlan() {
   renderizarMapa();
   inicializarBuscador();
+
+  // Re-aplicar "mi mesa" si el invitado vuelve al sitting plan
+  const mesaKey = sessionStorage.getItem('qrMesaKey');
+  if (mesaKey) {
+    setTimeout(() => {
+      const myG = document.getElementById('mesa-svg-' + mesaKey);
+      if (myG) myG.classList.add('mi-mesa');
+    }, 150);
+  }
 }
 
 // Ejecutar al cargar
@@ -3575,7 +4252,15 @@ window.addEventListener('hashchange', manejarHashURL);
   // Hook en irA para detectar navegación a pRevista
   var _irAOriginal = window.irA;
   window.irA = function(id) {
+    
     _irAOriginal(id);
+    
+    if (id === 'pSitting') {
+      startBackgroundStatic();
+    } else {
+      stopBackgroundStatic();
+    }
+    
     if (id === 'pRevista') {
       setTimeout(cargarRevista, 400);
     }
