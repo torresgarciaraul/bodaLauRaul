@@ -3614,6 +3614,9 @@ class RadioPlayer {
         }
       });
     }
+
+    // Auto-reproducir
+    setTimeout(() => this.togglePlay(true), 300);
   }
 
   renderProximamente() {
@@ -3627,7 +3630,7 @@ class RadioPlayer {
     `;
   }
 
-  togglePlay() {
+  togglePlay(isAutoPlay = false) {
     if (!this.audio) return;
     if (this.playing) {
       this.audio.pause();
@@ -3637,8 +3640,12 @@ class RadioPlayer {
       this.audio.play().then(() => {
         this.playing = true;
         this.updateUI(true);
-      }).catch(() => {
-        this.renderProximamente();
+      }).catch((err) => {
+        if (isAutoPlay) {
+          console.warn('Autoplay bloqueado por el navegador:', err);
+        } else {
+          this.renderProximamente();
+        }
       });
     }
   }
